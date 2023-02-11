@@ -25,7 +25,7 @@ import { RegisterpageComponent } from "./pages/examples/registerpage/registerpag
 import { LandingpageComponent } from "./pages/examples/landingpage/landingpage.component";
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
     // IndexComponent,
     // ProfilepageComponent,
     // RegisterpageComponent,
@@ -42,7 +42,7 @@ import { LandingpageComponent } from "./pages/examples/landingpage/landingpage.c
     // TooltipModule.forRoot(),
     // CollapseModule.forRoot(),
     // TabsModule.forRoot(),
-    PagesModule
+    PagesModule,
     // PaginationModule.forRoot(),
     // AlertModule.forRoot(),
     // BsDatepickerModule.forRoot(),
@@ -50,6 +50,6 @@ import { LandingpageComponent } from "./pages/examples/landingpage/landingpage.c
     // ModalModule.forRoot()
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
