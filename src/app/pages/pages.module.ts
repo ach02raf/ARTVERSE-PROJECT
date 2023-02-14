@@ -21,6 +21,11 @@ import { IndexComponent } from "./index/index.component";
 import { ProfilepageComponent } from "./examples/profilepage/profilepage.component";
 import { RegisterpageComponent } from "./examples/registerpage/registerpage.component";
 import { LandingpageComponent } from "./examples/landingpage/landingpage.component";
+import { HomeComponent } from './HomePage/home/home.component';
+import { ForYouListComponent } from './homepage/for-you-list/for-you-list.component';
+import { AddPostComponent } from './homepage/add-post/add-post.component';
+import { SearshComponent } from './homepage/searsh/searsh.component';
+import { CompetitionComponent } from './homepage/competition/competition.component';
 
 @NgModule({
   imports: [
@@ -45,7 +50,12 @@ import { LandingpageComponent } from "./examples/landingpage/landingpage.compone
     IndexComponent,
     ProfilepageComponent,
     RegisterpageComponent,
-    LandingpageComponent
+    LandingpageComponent,
+    HomeComponent,
+    ForYouListComponent,
+    AddPostComponent,
+    SearshComponent,
+    CompetitionComponent
   ],
   exports: [
     IndexComponent,
