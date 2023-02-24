@@ -7,6 +7,7 @@ import { IndexComponent } from "./pages/index/index.component";
 import { ProfilepageComponent } from "./pages/examples/profilepage/profilepage.component";
 import { RegisterpageComponent } from "./pages/examples/registerpage/registerpage.component";
 import { LandingpageComponent } from "./pages/examples/landingpage/landingpage.component";
+import { HomeComponent } from "./pages/HomePage/home/home.component";
 import { ProfileComponent } from "./pages/profile/profile.component";
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   // { path: "profile", component: ProfilepageComponent },
   { path: "register", component: RegisterpageComponent },
   { path: "landing", component: LandingpageComponent },
+  { path: "homepage", component: HomeComponent },
   { path: "profile", component: ProfileComponent },
 ];
 
