@@ -20,7 +20,7 @@ import { PopoverModule } from "ngx-bootstrap/popover";
 
 import { IndexComponent } from "./index/index.component";
 import { ProfilepageComponent } from "./examples/profilepage/profilepage.component";
-import { RegisterpageComponent } from "./examples/registerpage/registerpage.component";
+import { RegisterpageComponent } from "./registerpage/registerpage.component";
 import { LandingpageComponent } from "./examples/landingpage/landingpage.component";
 import { AddPostComponent } from "../component/add-post/add-post.component";
 import { HomeComponent } from "./HomePage/home/home.component";
@@ -28,7 +28,7 @@ import { ForYouListComponent } from "../component/for-you-list/for-you-list.comp
 import { SearshComponent } from "../component/searsh/searsh.component";
 import { CompetitionComponent } from "../component/competition/competition.component";
 import { ProfileComponent } from "./profile/profile.component";
-import { NavbarComponent } from "../component/navbar/navbar.component";
+// import { NavbarComponent } from "../component/navbar/navbar.component";
 
 @NgModule({
   imports: [
@@ -61,7 +61,6 @@ import { NavbarComponent } from "../component/navbar/navbar.component";
     SearshComponent,
     CompetitionComponent,
     ProfileComponent,
-    NavbarComponent,
   ],
   exports: [
     IndexComponent,

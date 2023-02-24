@@ -11,7 +11,7 @@ import { catchError, map, switchMap, take, tap } from "rxjs/operators";
   providedIn: "root",
 })
 export class AuthentificationService {
-  public user: Observable<any>;
+  // public user: Observable<any>;
   // private userData = new BehaviorSubject(null);
   TOKEN_KEY = "token-key";
   headers = new HttpHeaders().set("Content-Type", "application/json");
@@ -29,6 +29,26 @@ export class AuthentificationService {
         return throwError("the errror is : ", error);
       })
     );
+  }
+
+  login(credentials: { password: string; email: string }): Observable<any> {
+    return this.http
+      .get("http://localhost:5000/user/login", {
+        headers: {
+          password: credentials.password,
+          email: credentials.email,
+        },
+      })
+      .pipe(
+        tap((response: any) => {
+          localStorage.setItem("token", response.token);
+        }),
+
+        catchError((error) => {
+          console.log(error);
+          return throwError("the errror is : ", error);
+        })
+      );
   }
 
   getToken() {

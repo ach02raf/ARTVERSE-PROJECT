@@ -8,7 +8,6 @@ import { AuthentificationService } from "src/app/services/authentification.servi
   providers: [AuthentificationService],
 })
 export class RegisterpageComponent implements OnInit, OnDestroy {
-  isCollapsed = true;
   password: String;
   email: String;
   bio: String;

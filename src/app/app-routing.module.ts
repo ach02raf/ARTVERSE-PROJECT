@@ -5,19 +5,21 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { IndexComponent } from "./pages/index/index.component";
 import { ProfilepageComponent } from "./pages/examples/profilepage/profilepage.component";
-import { RegisterpageComponent } from "./pages/examples/registerpage/registerpage.component";
+import { RegisterpageComponent } from "./pages/registerpage/registerpage.component";
 import { LandingpageComponent } from "./pages/examples/landingpage/landingpage.component";
 import { HomeComponent } from "./pages/HomePage/home/home.component";
 import { ProfileComponent } from "./pages/profile/profile.component";
+import { LoginPageComponent } from "./pages/login-page/login-page.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
-  { path: "home", component: IndexComponent },
+  { path: "homePrincipal", component: IndexComponent },
   // { path: "profile", component: ProfilepageComponent },
   { path: "register", component: RegisterpageComponent },
   { path: "landing", component: LandingpageComponent },
-  { path: "homepage", component: HomeComponent },
+  { path: "home", component: HomeComponent },
   { path: "profile", component: ProfileComponent },
+  { path: "login", component: LoginPageComponent },
 ];
 
 @NgModule({
