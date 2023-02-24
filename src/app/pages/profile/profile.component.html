@@ -1,57 +1,4 @@
-<nav class="navbar navbar-expand-lg fixed-top navbar-transparent" color-on-scroll="100" id="navbar-top">
-    <div class="container">
-        <div class="navbar-translate">
-            <a class="navbar-brand" [routerLink]="['/home']" placement="bottom" tooltip="Designed and Coded by Creative Tim">
-                <span> BLK• </span> Design System Angular
-            </a>
-            <button aria-controls="navigation-index" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler" [attr.aria-expanded]="!isCollapsed" (click)="isCollapsed = !isCollapsed" id="navigation" type="button">
-        <span class="navbar-toggler-bar bar1"> </span>
-        <span class="navbar-toggler-bar bar2"> </span>
-        <span class="navbar-toggler-bar bar3"> </span>
-      </button>
-        </div>
-        <div class="navbar-collapse justify-content-end" [collapse]="isCollapsed" id="navigation">
-            <div class="navbar-collapse-header">
-                <div class="row">
-                    <div class="col-6 collapse-brand"><a> BLK• </a></div>
-                    <div class="col-6 collapse-close text-right">
-                        <button aria-controls="navigation-index" aria-label="Toggle navigation" class="navbar-toggler" [attr.aria-expanded]="!isCollapsed" (click)="isCollapsed = !isCollapsed" id="navigation" type="button">
-              <i class="tim-icons icon-simple-remove"> </i>
-            </button>
-                    </div>
-                </div>
-            </div>
-            <ul class="navbar-nav">
-                <li class="nav-item p-0">
-                    <a class="nav-link" href="https://twitter.com/CreativeTim" placement="bottom" target="_blank" tooltip="Follow us on Twitter">
-                        <i class="fab fa-twitter"> </i>
-                        <p class="d-lg-none d-xl-none">Twitter</p>
-                    </a>
-                </li>
-                <li class="nav-item p-0">
-                    <a class="nav-link" href="https://www.facebook.com/CreativeTim" placement="bottom" target="_blank" tooltip="Like us on Facebook">
-                        <i class="fab fa-facebook-square"> </i>
-                        <p class="d-lg-none d-xl-none">Facebook</p>
-                    </a>
-                </li>
-                <li class="nav-item p-0">
-                    <a class="nav-link" href="https://www.instagram.com/CreativeTimOfficial" placement="bottom" target="_blank" tooltip="Follow us on Instagram">
-                        <i class="fab fa-instagram"> </i>
-                        <p class="d-lg-none d-xl-none">Instagram</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/home']"> Back to Kit </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://github.com/creativetimofficial/blk-design-system-angular/issues">
-            Have an issue?
-          </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<app-navbar></app-navbar>
 
 <!-- ***********************************************
   ***********************************************
@@ -61,127 +8,180 @@
  -->
 
 <div class="wrapper">
-    <div class="page-header">
-        <img class="dots" src="assets/img/dots.png" />
+  <div class="page-header">
+    <img class="dots" src="assets/img/dots.png" />
 
-        <img class="path" src="assets/img/path4.png" />
+    <img class="path" src="assets/img/path4.png" />
 
-        <div class="container align-items-center">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 ml-auto mr-auto">
-                    <div class="card card-coin card-plain">
-                        <div class="card-header">
-                            <img class="img-center img-fluid rounded-circle" src="assets/img/mike.jpg" />
+    <div class="container align-items-center">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+          <div class="card card-coin card-plain">
+            <div class="card-header">
+              <img
+                class="img-center img-fluid rounded-circle"
+                src="assets/img/mike.jpg"
+              />
 
-                            <h4 class="title">Nom Prenom</h4>
-                            <p>Graphic Designer, Illustrateur, UI/UX Designer</p>
-                        </div>
-                        <div class="card-body">
-                            <button type="button" class="btn btn-primary btn-block">
+              <h4 class="title">Nom Prenom</h4>
+              <p>Graphic Designer, Illustrateur, UI/UX Designer</p>
+            </div>
+            <div class="card-body">
+              <button type="button" class="btn btn-primary btn-block">
                 <i class="tim-icons icon-simple-add mx-2"></i>Suivre
               </button>
-                            <button type="button" class="btn btn-block">
+              <button type="button" class="btn btn-block">
                 <i class="tim-icons icon-email-85 mx-2"></i>Message
               </button>
-                            <tabset class="nav-tabs-danger justify-content-center tab-subcategories">
-                                <tab heading="News">
-                                    <ul class="list-group">
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Nombre de vues des publications
-                                            <span class="badge badge-info badge-pill">14</span>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Appréciations
-                                            <span class="badge badge-info badge-pill">2</span>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Abonnés
-                                            <span class="badge badge-info badge-pill">1</span>
-                                        </li>
+              <tabset
+                class="nav-tabs-danger justify-content-center tab-subcategories"
+              >
+                <tab heading="News">
+                  <ul class="list-group">
+                    <li
+                      class="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      Nombre de vues des publications
+                      <span class="badge badge-info badge-pill">14</span>
+                    </li>
+                    <li
+                      class="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      Appréciations
+                      <span class="badge badge-info badge-pill">2</span>
+                    </li>
+                    <li
+                      class="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      Abonnés
+                      <span class="badge badge-info badge-pill">1</span>
+                    </li>
 
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Abonnements
-                                            <span class="badge badge-info badge-pill">1</span>
-                                        </li>
-                                    </ul>
+                    <li
+                      class="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      Abonnements
+                      <span class="badge badge-info badge-pill">1</span>
+                    </li>
+                  </ul>
 
-                                    <div class="btn-wrapper profile pt-3">
-                                        <h6 class="mt-4">sur le web</h6>
-                                        <a class="btn btn-icon btn-default btn-round mr-1" href="https://twitter.com/creativetim" target="_blank">
-                                            <i class="fab fa-twitter"> </i>
-                                        </a>
-                                        <a class="btn btn-icon btn-default btn-round mr-1" href="https://www.facebook.com/creativetim" target="_blank">
-                                            <i class="fab fa-facebook-square"> </i>
-                                        </a>
-                                        <a class="btn btn-icon btn-default btn-round" href="https://dribbble.com/creativetim" target="_blank">
-                                            <i class="fab fa-dribbble"> </i>
-                                        </a>
-                                    </div>
-                                </tab>
+                  <div class="btn-wrapper profile pt-3">
+                    <h6 class="mt-4">sur le web</h6>
+                    <a
+                      class="btn btn-icon btn-default btn-round mr-1"
+                      href="https://twitter.com/creativetim"
+                      target="_blank"
+                    >
+                      <i class="fab fa-twitter"> </i>
+                    </a>
+                    <a
+                      class="btn btn-icon btn-default btn-round mr-1"
+                      href="https://www.facebook.com/creativetim"
+                      target="_blank"
+                    >
+                      <i class="fab fa-facebook-square"> </i>
+                    </a>
+                    <a
+                      class="btn btn-icon btn-default btn-round"
+                      href="https://dribbble.com/creativetim"
+                      target="_blank"
+                    >
+                      <i class="fab fa-dribbble"> </i>
+                    </a>
+                  </div>
+                </tab>
 
-                                <tab heading="Edit Profile">
-                                    <div class="">
-                                        <div class="card card-plain">
-                                            <div class="card-body">
-                                                <form>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label> Your Name </label>
-                                                                <input class="form-control" type="text" value="Mike" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label> Email address </label>
-                                                                <input class="form-control" placeholder="mike@email.com" type="email" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label> Phone </label>
-                                                                <input class="form-control" type="text" value="001-12321345" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label> Company </label>
-                                                                <input class="form-control" type="text" value="CreativeTim" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label> Message </label>
-                                                                <input class="form-control" placeholder="Hello there!" type="text" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <button class="btn btn-danger btn-round float-right" placement="right" type="submit">
+                <tab heading="Edit Profile">
+                  <div class="">
+                    <div class="card card-plain">
+                      <div class="card-body">
+                        <form>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label> Your Name </label>
+                                <input
+                                  class="form-control"
+                                  type="text"
+                                  value="Mike"
+                                />
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label> Email address </label>
+                                <input
+                                  class="form-control"
+                                  placeholder="mike@email.com"
+                                  type="email"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label> Phone </label>
+                                <input
+                                  class="form-control"
+                                  type="text"
+                                  value="001-12321345"
+                                />
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label> Company </label>
+                                <input
+                                  class="form-control"
+                                  type="text"
+                                  value="CreativeTim"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label> Message </label>
+                                <input
+                                  class="form-control"
+                                  placeholder="Hello there!"
+                                  type="text"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <button
+                            class="btn btn-danger btn-round float-right"
+                            placement="right"
+                            type="submit"
+                          >
                             Send text
                           </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </tab>
-                            </tabset>
-                        </div>
+                        </form>
+                      </div>
                     </div>
-                </div>
-                <div class="col-lg-8 col-md-6 gallery">
-                    <div class="row">
-                        <div class="gallery-item col-lg-6 col-md-6">
-                            <img src="../../../assets/img/julie.jpeg" class="gallery-image" alt="" />
+                  </div>
+                </tab>
+              </tabset>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8 col-md-6 gallery">
+          <div class="row">
+            <div class="gallery-item col-lg-6 col-md-6">
+              <img
+                src="../../../assets/img/julie.jpeg"
+                class="gallery-image"
+                alt=""
+              />
 
-                            <div class="gallery-item-info col-lg-11">
-                                <ul class="">
-                                    <li class="d-flex justify-content-between align-items-center">
-                                        Nom du Projet
-                                        <span class="gallery-item-likes">
+              <div class="gallery-item-info col-lg-11">
+                <ul class="">
+                  <li class="d-flex justify-content-between align-items-center">
+                    Nom du Projet
+                    <span class="gallery-item-likes">
                       <i class="fas fa-heart" aria-hidden="true"></i> 56</span
                     >
                     <span class="gallery-item-comments">

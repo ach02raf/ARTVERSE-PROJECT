@@ -22,12 +22,13 @@ import { IndexComponent } from "./index/index.component";
 import { ProfilepageComponent } from "./examples/profilepage/profilepage.component";
 import { RegisterpageComponent } from "./examples/registerpage/registerpage.component";
 import { LandingpageComponent } from "./examples/landingpage/landingpage.component";
-import { AddPostComponent } from "./HomePage/add-post/add-post.component";
+import { AddPostComponent } from "../component/add-post/add-post.component";
 import { HomeComponent } from "./HomePage/home/home.component";
-import { ForYouListComponent } from "./homepage/for-you-list/for-you-list.component";
-import { SearshComponent } from "./homepage/searsh/searsh.component";
-import { CompetitionComponent } from "./homepage/competition/competition.component";
+import { ForYouListComponent } from "../component/for-you-list/for-you-list.component";
+import { SearshComponent } from "../component/searsh/searsh.component";
+import { CompetitionComponent } from "../component/competition/competition.component";
 import { ProfileComponent } from "./profile/profile.component";
+import { NavbarComponent } from "../component/navbar/navbar.component";
 
 @NgModule({
   imports: [
@@ -60,6 +61,7 @@ import { ProfileComponent } from "./profile/profile.component";
     SearshComponent,
     CompetitionComponent,
     ProfileComponent,
+    NavbarComponent,
   ],
   exports: [
     IndexComponent,
