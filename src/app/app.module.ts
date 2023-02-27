@@ -23,11 +23,9 @@ import { IndexComponent } from "./pages/index/index.component";
 import { ProfilepageComponent } from "./pages/examples/profilepage/profilepage.component";
 import { RegisterpageComponent } from "./pages/examples/registerpage/registerpage.component";
 import { LandingpageComponent } from "./pages/examples/landingpage/landingpage.component";
-import { ProfilePageComponent } from './profile-page/profile-page.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ProfilePageComponent
     // IndexComponent,
     // ProfilepageComponent,
     // RegisterpageComponent,
@@ -44,7 +42,7 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
     // TooltipModule.forRoot(),
     // CollapseModule.forRoot(),
     // TabsModule.forRoot(),
-    PagesModule
+    PagesModule,
     // PaginationModule.forRoot(),
     // AlertModule.forRoot(),
     // BsDatepickerModule.forRoot(),
@@ -52,6 +50,6 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
     // ModalModule.forRoot()
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
