@@ -1,0 +1,103 @@
+<div class="wrapper">
+  <div class="page-header header-filter">
+    <div class="squares square1"></div>
+    <div class="squares square2"></div>
+    <div class="squares square3"></div>
+    <div class="squares square4"></div>
+    <div class="squares square5"></div>
+    <div class="squares square6"></div>
+    <div class="squares square7"></div>
+    <div class="container">
+      <div class="content-center">
+        <div class="brand">
+          <h2 class="h1-seo">Quisque libero</h2>
+          <h3>
+            Cras ac blandit erat. Aliquam condimentum mi libero, in imperdiet
+            arcu.
+          </h3>
+        </div>
+
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-search"></i></span>
+          </div>
+          <input type="text" class="form-control" placeholder="Recherche..." />
+        </div>
+        <div class="row">
+          <div class="col align-self-center">
+            <p class="middle">Trending hashtags :</p>
+            <button
+              class="btn btn-primary btn-sm mr-1 btn-simple"
+              type="button"
+            >
+              #Simple
+            </button>
+            <button
+              class="btn btn-primary btn-sm mr-1 btn-simple"
+              type="button"
+            >
+              #valentine_day
+            </button>
+            <button
+              class="btn btn-primary btn-sm mr-1 btn-simple"
+              type="button"
+            >
+              #happy_new_year
+            </button>
+            <button
+              class="btn btn-primary btn-sm mr-1 btn-simple"
+              type="button"
+            >
+              #Simple
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="section section-basic" id="basic-elements">
+      <img class="path" src="assets/img/path1.png" />
+      <div class="col-md-12 ml-auto col-xl-12 mr-auto">
+        <div class="card">
+          <div class="card-header">
+            <tabset class="nav-tabs-danger">
+              <tab>
+                <ng-template tabHeading>
+                  <i class="tim-icons icon-spaceship"> </i> Pour Vous
+                </ng-template>
+                <app-add-post></app-add-post>
+                <app-searsh></app-searsh>
+                <app-for-you-list></app-for-you-list>
+              </tab>
+              <tab>
+                <ng-template tabHeading>
+                  <i class="tim-icons icon-compass-05"> </i> Suivi
+                </ng-template>
+                <app-add-post></app-add-post>
+                <app-searsh></app-searsh>
+                <app-for-you-list></app-for-you-list>
+              </tab>
+              <tab>
+                <ng-template tabHeading>
+                  <i class="tim-icons icon-single-02"></i> Vos abonnements
+                </ng-template>
+                <app-add-post></app-add-post>
+                <app-searsh></app-searsh>
+                <app-for-you-list></app-for-you-list>
+              </tab>
+
+              <tab>
+                <ng-template tabHeading>
+                  <i class="tim-icons icon-shape-star"></i>Compétition
+                </ng-template>
+                <app-competition></app-competition>
+              </tab>
+            </tabset>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

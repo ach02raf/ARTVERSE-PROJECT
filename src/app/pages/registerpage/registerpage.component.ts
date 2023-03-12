@@ -1,15 +1,58 @@
 import { Component, OnInit, OnDestroy, HostListener } from "@angular/core";
+import { FormControl, FormGroup } from "@angular/forms";
+import { AuthentificationService } from "src/app/services/authentification.service";
 
 @Component({
   selector: "app-registerpage",
-  templateUrl: "registerpage.component.html"
+  templateUrl: "registerpage.component.html",
+  providers: [AuthentificationService],
 })
 export class RegisterpageComponent implements OnInit, OnDestroy {
-  isCollapsed = true;
+  password: String;
+  email: String;
+  bio: String;
+  firstname: String;
+  lastname: String;
+  inscriptionForm: FormGroup;
   focus;
   focus1;
   focus2;
-  constructor() {}
+  focus3;
+  focus4;
+
+  constructor(private authServ: AuthentificationService) {
+    this.initializeForm();
+  }
+  initializeForm() {
+    this.inscriptionForm = new FormGroup({
+      password: new FormControl(),
+      email: new FormControl(),
+      bio: new FormControl(),
+      firstname: new FormControl(),
+      lastname: new FormControl(),
+    });
+  }
+
+  inscri() {
+    let user = {
+      password: this.password,
+      email: this.email,
+      bio: this.bio,
+      firstname: this.firstname,
+      lastname: this.lastname,
+    };
+
+    this.authServ.inscriptionPost(user).subscribe(
+      (res) => {
+        console.log("res result", res);
+
+        localStorage.setItem("token", res);
+      },
+      (err) => {
+        console.log("the err", err);
+      }
+    );
+  }
   @HostListener("document:mousemove", ["$event"])
   onMouseMove(e) {
     var squares1 = document.getElementById("square1");
