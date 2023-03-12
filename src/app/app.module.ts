@@ -27,6 +27,7 @@ import { AuthInterceptor } from "./services/AuthInterceptor";
 import { LoginPageComponent } from "./pages/login-page/login-page.component";
 import { NavbarComponent } from "./component/navbar/navbar.component";
 import { FooterComponent } from "./component/footer/footer.component";
+import { AutoresizeDirectiveDirective } from './autoresize-directive.directive';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { FooterComponent } from "./component/footer/footer.component";
     LoginPageComponent,
     NavbarComponent,
     FooterComponent,
+    AutoresizeDirectiveDirective,
     // IndexComponent,
     // ProfilepageComponent,
     // RegisterpageComponent,

@@ -3,9 +3,8 @@
   <button
     class="btn btn-danger"
     data-target="#myModal"
-    (click)="myModal.show()"
-  >
-  créer un nouveau poste
+    (click)="myModal.show()">
+    créer un nouveau poste
   </button>
   <br />
   <br />
@@ -14,12 +13,11 @@
     aria-hidden="true"
     aria-labelledby="myModalLabel"
     bsModal
-    class="modal fade"
+    class="modal fade modal-black"
     #myModal="bs-modal"
     id="myModal"
     role="dialog"
-    tabindex="-1"
-  >
+    tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header justify-content-center">
@@ -28,59 +26,33 @@
             class="close"
             data-dismiss="modal"
             type="button"
-            (click)="myModal.hide()"
-          >
+            (click)="myModal.hide()">
             <i class="tim-icons icon-simple-remove"> </i>
           </button>
-          <h4 class="title title-up">Modal title</h4>
+          <h4 autoresize class="title title-up">Créer une publication</h4>
         </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Email address</label>
-              <input
-                type="email"
-                class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-                placeholder="Enter email"
-              />
-              <small id="emailHelp" class="form-text text-muted"
-                >We'll never share your email with anyone else.</small
-              >
-            </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="exampleInputPassword1"
-                placeholder="Password"
-              />
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" value="" />
-                Option one is this
-                <span class="form-check-sign">
-                  <span class="check"></span>
-                </span>
-              </label>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+        <hr style="border-color: black; width: 100%; opacity: 0.2" />
+        <div style="display: flex; align-items: center">
+          <img
+            autoresize
+            alt="Circle image"
+            class="img-fluid rounded-circle"
+            src="assets/img/james.jpg"
+            style="width: 40px; height: 40px; margin: 5px" />
+          <span>ach02raf</span>
         </div>
-        <div class="modal-footer">
-          <button class="btn btn-default" type="button">Post</button>
-          <button
-            class="btn btn-danger"
-            data-dismiss="modal"
-            type="button"
-            (click)="myModal.hide()"
-          >
-            Close
-          </button>
+        <div class="form-group" style="height: 250px">
+          <textarea
+            autoresize
+            class="form-control"
+            style="
+              border: none;
+              box-shadow: none;
+              max-height: none;
+              resize: vertical;
+              height: auto;
+            "
+            placeholder="ecrire qlq chose"></textarea>
         </div>
       </div>
     </div>
