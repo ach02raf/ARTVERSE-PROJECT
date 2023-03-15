@@ -6,11 +6,11 @@
                 <div class="row">
                     <div class="card card-register">
                         <div class="row">
-                            <div class="col-md-5 d-none d-md-block">
-                                <img alt="First slide" class="img-fluid h-100 w-100" src="assets/img/sign.jpeg" />
+                            <div class="col-md-4 d-none d-md-block">
+                                <img alt="First slide" class="img-fluid h-100" src="assets/img/sign.jpeg" />
                             </div>
 
-                            <div class="col-md-7 col-sm-12">
+                            <div class="col-md-8 col-sm-12">
                                 <div class="card-body">
                                     <div class="ml-auto mr-auto">
                                         <h3 class="mb-3 display-4 mt-4">Sign Up to Artverse•</h3>
@@ -115,21 +115,19 @@
                                             </div>
                                             <input class="form-control" placeholder="bio" [(ngModel)]="bio" formControlName="bio" type="text" (focus)="focus4 = true" (blur)="focus4 = false" />
                                         </div>
-                                        <div class="form-check text-left">
-                                            <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" />
 
-                        <span class="form-check-sign"> </span> I agree to the
-                        <a href="javascript:void(0)"> terms and conditions </a>
-                        .
-                      </label>
-                                        </div>
                                         <div class="card-footer">
-                                            <button class="btn btn-danger" href="javascript:void(0)">
+                                            <button class="btn btn-primary" href="javascript:void(0)">
                         Register Now!
                       </button>
                                         </div>
                                     </form>
+                                    <div class="mt-3">
+                                        <p>
+                                            Don't you have an account ?
+                                            <a href="" [routerLink]="['/register']">create new one</a>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

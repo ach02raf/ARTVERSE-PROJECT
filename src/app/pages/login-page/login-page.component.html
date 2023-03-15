@@ -13,12 +13,14 @@
                             <div class="col-md-7 col-sm-12">
                                 <div class="card-body">
                                     <div class="ml-auto mr-auto">
-                                        <h3 class="mb-3 display-4 mt-4">Sign In to Artverse•</h3>
+                                        <h3 class="mb-5 text-center display-4 mt-4">
+                                            Sign In to Artverse•
+                                        </h3>
                                     </div>
 
-                                    <div class="mb-4 mt-3">
+                                    <!-- <div class="mb-4">
                                         <p>Welcome back Artist!</p>
-                                    </div>
+                                    </div> -->
 
                                     <form class="form" [formGroup]="cnxForm" (ngSubmit)="cnx()" novalidate>
                                         <div class="input-group" [ngClass]="{
@@ -54,19 +56,19 @@
                                         <small class="form-text text-info" data-target="#myModal" (click)="myModal.show()">Forgot password?</small
                     >
 
-                    <div class="form-check text-left">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" />
-
-                        <span class="form-check-sign"> </span> I agree to the
-                        <a href="javascript:void(0)"> terms and conditions </a>
-                        .
-                      </label>
-                    </div>
                     <div class="card-footer">
-                      <button class="btn btn-danger" href="javascript:void(0)">
+                      <button class="btn btn-primary" href="javascript:void(0)">
                         Connexion
                       </button>
+                    </div>
+
+                    <div class="mt-3">
+                      <p>
+                        Don't you have an account ?
+                        <a href="" [routerLink]="['/register']"
+                          >create new one</a
+                        >
+                      </p>
                     </div>
                   </form>
                 </div>
@@ -138,14 +140,6 @@
             </div>
           </div>
         </div>
-
-        <div class="register-bg"></div>
-        <div class="square square-1" id="square1"></div>
-        <div class="square square-2" id="square2"></div>
-        <div class="square square-3" id="square3"></div>
-        <div class="square square-4" id="square4"></div>
-        <div class="square square-5" id="square5"></div>
-        <div class="square square-6" id="square6"></div>
       </div>
     </div>
   </div>
