@@ -1,25 +1,21 @@
 <div class="wrapper">
-  <div class="page-header">
-    <div class="page-header-image"></div>
-    <div class="content">
-      <div class="container">
-        <div class="row">
-          <div class="card card-register">
-            <div class="row">
-              <div class="col-md-5 d-none d-md-block">
-                <img
-                  alt="First slide"
-                  class="img-fluid h-100 w-100"
-                  src="assets/img/sign.jpeg"
-                />
-              </div>
+    <div class="page-header">
+        <div class="page-header-image"></div>
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="card card-register">
+                        <div class="row">
+                            <div class="col-md-5 d-none d-md-block">
+                                <img alt="First slide" class="img-fluid h-100 w-100" src="assets/img/sign.jpeg" />
+                            </div>
 
-              <div class="col-md-7 col-sm-12">
-                <div class="card-body">
-                  <div class="text-muted text-center ml-auto mr-auto">
-                    <h3 class="mb-3">Sign Up</h3>
-                  </div>
-                  <div class="btn-wrapper text-center">
+                            <div class="col-md-7 col-sm-12">
+                                <div class="card-body">
+                                    <div class="ml-auto mr-auto">
+                                        <h3 class="mb-3 display-4 mt-4">Sign Up to Artverse•</h3>
+                                    </div>
+                                    <!-- <div class="btn-wrapper text-center">
                     <a
                       class="btn btn-neutral btn-icon mr-1"
                       href="javascript:void(0)"
@@ -32,19 +28,13 @@
                     >
                       <img src="assets/img/google.svg" />
                     </a>
-                  </div>
-                  <div class="text-center text-muted mb-4 mt-3">
-                    <small> Or sign in with credentials </small>
-                  </div>
+                  </div> -->
+                                    <div class="mb-4 mt-3">
+                                        <p>Join the world of digital art on Artverse!</p>
+                                    </div>
 
-                  <form
-                    class="form"
-                    [formGroup]="inscriptionForm"
-                    (ngSubmit)="inscri()"
-                  >
-                    <div
-                      class="input-group"
-                      [ngClass]="{
+                                    <form class="form" [formGroup]="inscriptionForm" (ngSubmit)="inscri()">
+                                        <div class="input-group" [ngClass]="{
                         'input-group-focus': focus === true,
                         'has-danger':
                           isSubmitted == true &&
@@ -52,26 +42,15 @@
                         'has-success':
                           isSubmitted == true &&
                           inscriptionForm.controls.firstname.valid
-                      }"
-                    >
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                          <i class="tim-icons icon-single-02"> </i>
-                        </div>
-                      </div>
-                      <input
-                        class="form-control"
-                        placeholder="Firstname"
-                        [(ngModel)]="firstname"
-                        formControlName="firstname"
-                        type="text"
-                        (focus)="focus = true"
-                        (blur)="focus = false"
-                      />
-                    </div>
-                    <div
-                      class="input-group"
-                      [ngClass]="{
+                      }">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="tim-icons icon-single-02"> </i>
+                                                </div>
+                                            </div>
+                                            <input class="form-control" placeholder="Firstname" [(ngModel)]="firstname" formControlName="firstname" type="text" (focus)="focus = true" (blur)="focus = false" />
+                                        </div>
+                                        <div class="input-group" [ngClass]="{
                         'input-group-focus': focus1 === true,
                         'has-danger':
                           isSubmitted == true &&
@@ -79,27 +58,16 @@
                         'has-success':
                           isSubmitted == true &&
                           inscriptionForm.controls.lastname.valid
-                      }"
-                    >
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                          <i class="tim-icons icon-single-02"> </i>
-                        </div>
-                      </div>
-                      <input
-                        class="form-control"
-                        placeholder="Lastname"
-                        [(ngModel)]="lastname"
-                        formControlName="lastname"
-                        type="text"
-                        (focus)="focus1 = true"
-                        (blur)="focus1 = false"
-                      />
-                    </div>
+                      }">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="tim-icons icon-single-02"> </i>
+                                                </div>
+                                            </div>
+                                            <input class="form-control" placeholder="Lastname" [(ngModel)]="lastname" formControlName="lastname" type="text" (focus)="focus1 = true" (blur)="focus1 = false" />
+                                        </div>
 
-                    <div
-                      class="input-group"
-                      [ngClass]="{
+                                        <div class="input-group" [ngClass]="{
                         'input-group-focus': focus2 === true,
                         'has-danger':
                           isSubmitted == true &&
@@ -107,26 +75,15 @@
                         'has-success':
                           isSubmitted == true &&
                           inscriptionForm.controls.email.valid
-                      }"
-                    >
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                          <i class="tim-icons icon-email-85"> </i>
-                        </div>
-                      </div>
-                      <input
-                        class="form-control"
-                        placeholder="Email"
-                        [(ngModel)]="email"
-                        formControlName="email"
-                        type="text"
-                        (focus)="focus2 = true"
-                        (blur)="focus2 = false"
-                      />
-                    </div>
-                    <div
-                      class="input-group"
-                      [ngClass]="{
+                      }">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="tim-icons icon-email-85"> </i>
+                                                </div>
+                                            </div>
+                                            <input class="form-control" placeholder="Email" [(ngModel)]="email" formControlName="email" type="text" (focus)="focus2 = true" (blur)="focus2 = false" />
+                                        </div>
+                                        <div class="input-group" [ngClass]="{
                         'input-group-focus': focus3 === true,
                         'has-danger':
                           isSubmitted == true &&
@@ -134,26 +91,15 @@
                         'has-success':
                           isSubmitted == true &&
                           inscriptionForm.controls.password.valid
-                      }"
-                    >
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                          <i class="tim-icons icon-lock-circle"> </i>
-                        </div>
-                      </div>
-                      <input
-                        class="form-control"
-                        placeholder="Password"
-                        [(ngModel)]="password"
-                        formControlName="password"
-                        type="password"
-                        (focus)="focus3 = true"
-                        (blur)="focus3 = false"
-                      />
-                    </div>
-                    <div
-                      class="input-group"
-                      [ngClass]="{
+                      }">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="tim-icons icon-lock-circle"> </i>
+                                                </div>
+                                            </div>
+                                            <input class="form-control" placeholder="Password" [(ngModel)]="password" formControlName="password" type="password" (focus)="focus3 = true" (blur)="focus3 = false" />
+                                        </div>
+                                        <div class="input-group" [ngClass]="{
                         'input-group-focus': focus4 === true,
                         'has-danger':
                           isSubmitted == true &&
@@ -161,54 +107,45 @@
                         'has-success':
                           isSubmitted == true &&
                           inscriptionForm.controls.bio.valid
-                      }"
-                    >
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                          <i class="tim-icons icon-email-85"> </i>
-                        </div>
-                      </div>
-                      <input
-                        class="form-control"
-                        placeholder="bio"
-                        [(ngModel)]="bio"
-                        formControlName="bio"
-                        type="text"
-                        (focus)="focus4 = true"
-                        (blur)="focus4 = false"
-                      />
-                    </div>
-                    <div class="form-check text-left">
-                      <label class="form-check-label">
+                      }">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="tim-icons icon-email-85"> </i>
+                                                </div>
+                                            </div>
+                                            <input class="form-control" placeholder="bio" [(ngModel)]="bio" formControlName="bio" type="text" (focus)="focus4 = true" (blur)="focus4 = false" />
+                                        </div>
+                                        <div class="form-check text-left">
+                                            <label class="form-check-label">
                         <input class="form-check-input" type="checkbox" />
 
                         <span class="form-check-sign"> </span> I agree to the
                         <a href="javascript:void(0)"> terms and conditions </a>
                         .
                       </label>
-                    </div>
-                    <div class="card-footer">
-                      <button class="btn btn-danger" href="javascript:void(0)">
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-danger" href="javascript:void(0)">
                         Register Now!
                       </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </form>
                 </div>
-              </div>
+
+                <!-- **************** -->
+                <!-- 
+                <div class="register-bg"></div>
+                <div class="square square-1" id="square1"></div>
+                <div class="square square-2" id="square2"></div>
+                <div class="square square-3" id="square3"></div>
+                <div class="square square-4" id="square4"></div>
+                <div class="square square-5" id="square5"></div>
+                <div class="square square-6" id="square6"></div> -->
             </div>
-          </div>
         </div>
-
-        <!-- **************** -->
-
-        <div class="register-bg"></div>
-        <div class="square square-1" id="square1"></div>
-        <div class="square square-2" id="square2"></div>
-        <div class="square square-3" id="square3"></div>
-        <div class="square square-4" id="square4"></div>
-        <div class="square square-5" id="square5"></div>
-        <div class="square square-6" id="square6"></div>
-      </div>
     </div>
-  </div>
 </div>
