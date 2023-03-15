@@ -24,14 +24,12 @@ import { ProfilepageComponent } from "./pages/examples/profilepage/profilepage.c
 import { RegisterpageComponent } from "./pages/registerpage/registerpage.component";
 import { LandingpageComponent } from "./pages/examples/landingpage/landingpage.component";
 import { AuthInterceptor } from "./services/AuthInterceptor";
-import { LoginPageComponent } from "./pages/login-page/login-page.component";
 import { NavbarComponent } from "./component/navbar/navbar.component";
 import { FooterComponent } from "./component/footer/footer.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginPageComponent,
     NavbarComponent,
     FooterComponent,
     // IndexComponent,

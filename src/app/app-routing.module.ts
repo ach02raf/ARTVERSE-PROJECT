@@ -10,6 +10,7 @@ import { LandingpageComponent } from "./pages/examples/landingpage/landingpage.c
 import { HomeComponent } from "./pages/HomePage/home/home.component";
 import { ProfileComponent } from "./pages/profile/profile.component";
 import { LoginPageComponent } from "./pages/login-page/login-page.component";
+import { ResetPasswordPageComponent } from "./pages/reset-password-page/reset-password-page.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: "home", component: HomeComponent },
   { path: "profile", component: ProfileComponent },
   { path: "login", component: LoginPageComponent },
+  { path: "reset/:token", component: ResetPasswordPageComponent },
 ];
 
 @NgModule({

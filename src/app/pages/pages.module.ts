@@ -21,6 +21,7 @@ import { PopoverModule } from "ngx-bootstrap/popover";
 import { IndexComponent } from "./index/index.component";
 import { ProfilepageComponent } from "./examples/profilepage/profilepage.component";
 import { RegisterpageComponent } from "./registerpage/registerpage.component";
+import { LoginPageComponent } from "./login-page/login-page.component";
 import { LandingpageComponent } from "./examples/landingpage/landingpage.component";
 import { AddPostComponent } from "../component/add-post/add-post.component";
 import { HomeComponent } from "./HomePage/home/home.component";
@@ -28,6 +29,7 @@ import { ForYouListComponent } from "../component/for-you-list/for-you-list.comp
 import { SearshComponent } from "../component/searsh/searsh.component";
 import { CompetitionComponent } from "../component/competition/competition.component";
 import { ProfileComponent } from "./profile/profile.component";
+import { ResetPasswordPageComponent } from './reset-password-page/reset-password-page.component';
 // import { NavbarComponent } from "../component/navbar/navbar.component";
 
 @NgModule({
@@ -54,6 +56,7 @@ import { ProfileComponent } from "./profile/profile.component";
     IndexComponent,
     ProfilepageComponent,
     RegisterpageComponent,
+    LoginPageComponent,
     LandingpageComponent,
     HomeComponent,
     ForYouListComponent,
@@ -61,6 +64,7 @@ import { ProfileComponent } from "./profile/profile.component";
     SearshComponent,
     CompetitionComponent,
     ProfileComponent,
+    ResetPasswordPageComponent,
   ],
   exports: [
     IndexComponent,

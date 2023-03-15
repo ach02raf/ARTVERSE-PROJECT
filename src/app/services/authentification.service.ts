@@ -4,8 +4,8 @@ import {
   HttpHeaders,
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, from, Observable, throwError } from "rxjs";
-import { catchError, map, switchMap, take, tap } from "rxjs/operators";
+import { asyncScheduler, Observable, throwError } from "rxjs";
+import { catchError, map, observeOn, tap } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
@@ -31,26 +31,6 @@ export class AuthentificationService {
     );
   }
 
-  login(credentials: { password: string; email: string }): Observable<any> {
-    return this.http
-      .get("http://localhost:5000/user/login", {
-        headers: {
-          password: credentials.password,
-          email: credentials.email,
-        },
-      })
-      .pipe(
-        tap((response: any) => {
-          localStorage.setItem("token", response.token);
-        }),
-
-        catchError((error) => {
-          console.log(error);
-          return throwError("the errror is : ", error);
-        })
-      );
-  }
-
   getToken() {
     return localStorage.getItem("token");
   }
@@ -62,6 +42,50 @@ export class AuthentificationService {
 
   logout() {
     localStorage.removeItem("token");
+  }
+
+  sendMailResetPassword(email) {
+    console.log("email service" + email);
+
+    return this.http
+      .post("http://localhost:5000/user/forgotPassword", { email: email })
+      .pipe(
+        tap((response: any) => {
+          console.log("sucess", response);
+        }),
+
+        catchError((error) => {
+          return throwError(() => new Error("test")).pipe();
+        })
+      );
+  }
+  login(credentials: { password: string; email: string }): Observable<any> {
+    return this.http.post("http://localhost:5000/user/login", credentials).pipe(
+      tap((response: any) => {
+        localStorage.setItem("token", response.token);
+      }),
+
+      catchError((error) => {
+        return throwError("the error is : ", error);
+      })
+    );
+  }
+
+  resetPassword(token, password): Observable<any> {
+    return this.http
+      .patch(`http://localhost:5000/user/resetPassword/${token}`, {
+        password: `${password}`,
+      })
+      .pipe(
+        map((response) => {
+          // Extract token from response and save to localStorage
+          const token = response["token"];
+          localStorage.setItem("access_token", token);
+          console.log("reeeesss", response["token"]);
+
+          return response;
+        })
+      );
   }
 
   // Error
