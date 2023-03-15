@@ -8,7 +8,7 @@ import { BehaviorSubject, from, Observable, throwError } from "rxjs";
 import { catchError, map, switchMap, take, tap } from "rxjs/operators";
 
 @Injectable({
-  providedIn: "root",
+  providedIn: "root", 
 })
 export class AuthentificationService {
   // public user: Observable<any>;

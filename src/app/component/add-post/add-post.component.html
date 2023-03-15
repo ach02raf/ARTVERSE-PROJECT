@@ -8,7 +8,6 @@
   </button>
   <br />
   <br />
-
   <div
     aria-hidden="true"
     aria-labelledby="myModalLabel"
@@ -29,30 +28,50 @@
             (click)="myModal.hide()">
             <i class="tim-icons icon-simple-remove"> </i>
           </button>
-          <h4 autoresize class="title title-up">Créer une publication</h4>
+          <h4 class="title title-up">Créer une publication</h4>
         </div>
         <hr style="border-color: black; width: 100%; opacity: 0.2" />
         <div style="display: flex; align-items: center">
           <img
-            autoresize
             alt="Circle image"
             class="img-fluid rounded-circle"
             src="assets/img/james.jpg"
             style="width: 40px; height: 40px; margin: 5px" />
-          <span>ach02raf</span>
+          <p>ach02raf</p>
         </div>
-        <div class="form-group" style="height: 250px">
+        <div class="form-group">
           <textarea
-            autoresize
-            class="form-control"
+            class="form-control overflow-auto"
             style="
+              resize: none;
               border: none;
               box-shadow: none;
               max-height: none;
-              resize: vertical;
               height: auto;
             "
+            rows="3"
+            cols="50"
             placeholder="ecrire qlq chose"></textarea>
+          <div class="custom-file">
+            <input
+              type="file"
+              class="custom-file-input"
+              id="customFile"
+              (change)="onFileSelected($event)" />
+          </div>
+          <img
+            *ngIf="selectedImage"
+            [src]="selectedImage"
+            alt="Selected Image" />
+          <button *ngIf="selectedImage" (click)="clearSelectedImage()">
+            Clear Selected Image
+          </button>
+          <button
+            class="btn btn-success"
+            style="width: 100%; margin-top: 30px"
+            disabled>
+            Publier
+          </button>
         </div>
       </div>
     </div>

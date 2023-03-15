@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 
 @Component({
   selector: "app-add-post",
@@ -15,7 +16,28 @@ export class AddPostComponent implements OnInit {
     commentaires: [{ iduser: 1, comment: "i like this image" }],
     hashtag: ["#art", "#new"],
   };
-  constructor() {}
+  constructor(private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {}
+  selectedFileName: string = "";
+  selectedImage: SafeUrl | undefined;
+
+  onFileSelected(event: any) {
+    const selectedFile = event.target.files[0];
+    if (selectedFile && selectedFile.type.startsWith("image/")) {
+      this.selectedFileName = selectedFile.name;
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.selectedImage = this.sanitizer.bypassSecurityTrustUrl(
+          reader.result as string
+        );
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  }
+
+  clearSelectedImage() {
+    this.selectedFileName = "";
+    this.selectedImage = undefined;
+  }
 }

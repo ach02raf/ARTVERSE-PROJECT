@@ -8,3 +8,22 @@
     resize: vertical;
     height: auto;
   }
+  textarea::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  textarea::-webkit-scrollbar-track {
+    background-color: #1F2251;
+ 
+
+  }
+  
+  textarea::-webkit-scrollbar-thumb {
+    cursor: default;
+    background-color: #fff;
+    border-radius: 6px;
+  }
+  
+  textarea::-webkit-scrollbar-thumb:hover {
+    background-color: #aba7a7;
+  }

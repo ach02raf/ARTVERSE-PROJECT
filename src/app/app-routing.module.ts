@@ -14,10 +14,9 @@ import { LoginPageComponent } from "./pages/login-page/login-page.component";
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
   { path: "home", component: HomeComponent },
-  // { path: "profile", component: ProfilepageComponent },
+  { path: "profile", component: ProfileComponent },
   { path: "register", component: RegisterpageComponent },
   { path: "landing", component: LandingpageComponent },
-  { path: "profile", component: ProfileComponent },
 ];
 
 @NgModule({
