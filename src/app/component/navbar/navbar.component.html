@@ -4,6 +4,7 @@
             <a class="navbar-brand" placement="bottom" [routerLink]="['/home']" tooltip="">
                 <img src="assets/img/logo/Logo-blanc.png" class="logo" alt="" srcset="" />
                 <!-- Artverse• -->
+                <!-- <li>Logged in user: {{ loggedInUser }}</li> -->
             </a>
             <button aria-controls="navigation-index" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler" [attr.aria-expanded]="!isCollapsed" (click)="isCollapsed = !isCollapsed" id="navigation" type="button">
         <span class="navbar-toggler-bar bar1"> </span>
@@ -46,9 +47,19 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="!loggedInUser">
                     <a class="nav-link btn btn-primary" [routerLink]="['/register']" target="_blank" href="javascript:void(0)">
             Join the world
+          </a>
+                </li>
+                <li class="nav-item" *ngIf="loggedInUser">
+                    <a class="nav-link btn btn-primary" [routerLink]="['/']" target="_blank" href="javascript:void(0)">
+            Share Your Art
+          </a>
+                </li>
+                <li class="nav-item" (click)="Deconnexion()" *ngIf="loggedInUser">
+                    <a class="nav-link btn btn-primary" href="javascript:void(0)">
+            Logout
           </a>
                 </li>
             </ul>

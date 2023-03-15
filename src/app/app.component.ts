@@ -35,7 +35,29 @@ export class AppComponent implements OnInit {
       }
     }
   }
+  loggedInUser: any;
   ngOnInit() {
     this.onWindowScroll(event);
+    this.getLoggedInUser();
+  }
+
+  getLoggedInUser() {
+    const token = localStorage.getItem("token");
+    // console.log(token["email"]);
+
+    if (token) {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      this.loggedInUser = {
+        id: payload.userId,
+        email: payload.email,
+
+        // add any additional user properties here
+      };
+      console.log(payload);
+
+      console.log(payload.userId);
+    } else {
+      this.loggedInUser = null;
+    }
   }
 }
