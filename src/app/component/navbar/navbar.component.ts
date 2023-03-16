@@ -9,11 +9,14 @@ import { AuthentificationService } from "src/app/services/authentification.servi
 })
 export class NavbarComponent implements OnInit {
   isCollapsed = true;
-  @Input() loggedInUser: any;
+  loggedInUser: any;
+  idUser: any;
   constructor(
     private authServ: AuthentificationService,
     private route: Router
-  ) {}
+  ) {
+    this.idUser = this.authServ.getUserID();
+  }
 
   scrollToDownload(element: any) {
     element.scrollIntoView({ behavior: "smooth" });
@@ -24,5 +27,10 @@ export class NavbarComponent implements OnInit {
     this.route.navigate(["/home"]);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authServ.findUserById(this.idUser).subscribe((res) => {
+      this.loggedInUser = res;
+      console.log(this.loggedInUser);
+    });
+  }
 }

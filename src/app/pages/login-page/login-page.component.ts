@@ -23,7 +23,8 @@ export class LoginPageComponent implements OnInit {
   resetByEmail: string;
   cnxForm: FormGroup;
   isSubmitted = false;
-
+  loggedInUser: any;
+  idUser: any;
   focus;
   focus1;
   focus2;
@@ -86,7 +87,7 @@ export class LoginPageComponent implements OnInit {
         (res) => {
           // console.log("res result", res);
           localStorage.setItem("token", res);
-          this.route.navigate(["/home"]);
+          this.route.navigate(["/profile"]);
         },
         (err) => {
           console.log("the err", err);

@@ -14,15 +14,17 @@
     <div class="container align-items-center">
       <div class="row">
         <div class="col-lg-4 col-md-6 ml-auto mr-auto">
-          <div class="card card-coin card-plain">
+          <div *ngIf="loggedInUser" class="card card-coin card-plain">
             <div class="card-header">
               <img
                 class="img-center img-fluid rounded-circle"
                 src="assets/img/mike.jpg"
               />
 
-              <h4 class="title">Nom Prenom</h4>
-              <p>Graphic Designer, Illustrateur, UI/UX Designer</p>
+              <h4 class="title">
+                {{ loggedInUser["firstname"] }} {{ loggedInUser["lastname"] }}
+              </h4>
+              <p>{{ loggedInUser["bio"] }}</p>
             </div>
             <div class="card-body">
               <button type="button" class="btn btn-primary btn-block">
@@ -101,17 +103,17 @@
                                 <input
                                   class="form-control"
                                   type="text"
-                                  value="Mike"
+                                  [value]="loggedInUser.firstname"
                                 />
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
-                                <label> Email address </label>
+                                <label> Your Lastname </label>
                                 <input
                                   class="form-control"
-                                  placeholder="mike@email.com"
-                                  type="email"
+                                  type="text"
+                                  [value]="loggedInUser.lastname"
                                 />
                               </div>
                             </div>
@@ -119,11 +121,12 @@
                           <div class="row">
                             <div class="col-md-6">
                               <div class="form-group">
-                                <label> Phone </label>
+                                <label> Email address </label>
                                 <input
                                   class="form-control"
-                                  type="text"
-                                  value="001-12321345"
+                                  placeholder="mike@email.com"
+                                  type="email"
+                                  [value]="loggedInUser.email"
                                 />
                               </div>
                             </div>
@@ -141,11 +144,12 @@
                           <div class="row">
                             <div class="col-md-12">
                               <div class="form-group">
-                                <label> Message </label>
+                                <label> Bio </label>
                                 <input
                                   class="form-control"
                                   placeholder="Hello there!"
                                   type="text"
+                                  [value]="loggedInUser.bio"
                                 />
                               </div>
                             </div>
@@ -155,7 +159,7 @@
                             placement="right"
                             type="submit"
                           >
-                            Send text
+                            Update
                           </button>
                         </form>
                       </div>

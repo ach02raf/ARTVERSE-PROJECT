@@ -16,6 +16,7 @@ export class AuthentificationService {
   TOKEN_KEY = "token-key";
   headers = new HttpHeaders().set("Content-Type", "application/json");
   currentUser = {};
+  loggedInUser: any = "achraf";
   constructor(private http: HttpClient) {}
 
   inscriptionPost(user: any): Observable<any> {
@@ -31,6 +32,16 @@ export class AuthentificationService {
     );
   }
 
+  getUserID() {
+    const token = localStorage.getItem("token");
+    let payload: any;
+    if (token) {
+      payload = JSON.parse(atob(token.split(".")[1]));
+    } else {
+      return null;
+    }
+    return payload.userId;
+  }
   getToken() {
     return localStorage.getItem("token");
   }
@@ -80,13 +91,42 @@ export class AuthentificationService {
         map((response) => {
           // Extract token from response and save to localStorage
           const token = response["token"];
-          localStorage.setItem("access_token", token);
+          localStorage.setItem("token", token);
           console.log("reeeesss", response["token"]);
 
           return response;
         })
       );
   }
+
+  findUserById(id: any) {
+    return this.http.get(`http://localhost:5000/user/getUserById/${id}`);
+  }
+
+  // async getLoggedInUser() {
+  //   console.log("id user", this.getUserID());
+
+  //   const token = localStorage.getItem("token");
+
+  //   if (token) {
+  //     const payload = await JSON.parse(atob(token.split(".")[1]));
+  //     this.findUserById(payload.userId).subscribe(
+  //       (user) => {
+  //         this.loggedInUser = user;
+  //         console.log("log get user", this.loggedInUser);
+  //       },
+  //       (error) => {
+  //         console.error("Error retrieving user:", error);
+  //         this.loggedInUser = null;
+  //       }
+  //     );
+  //     console.log("log get user fin", this.loggedInUser);
+  //   } else {
+  //     this.loggedInUser = null;
+  //   }
+
+  //   return this.loggedInUser;
+  // }
 
   // Error
   handleError(error: HttpErrorResponse) {
