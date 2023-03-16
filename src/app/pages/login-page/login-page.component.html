@@ -17,7 +17,7 @@
               <div class="col-md-7 col-sm-12">
                 <div class="card-body">
                   <div class="text-muted text-center ml-auto mr-auto">
-                    <h3 class="mb-3">SignIn</h3>
+                    <h3 class="mb-3">Sign In</h3>
                   </div>
                   <div class="btn-wrapper text-center">
                     <a
@@ -37,10 +37,21 @@
                     <small> Or sign in with credentials </small>
                   </div>
 
-                  <form class="form" [formGroup]="cnxForm" (ngSubmit)="cnx()">
+                  <form
+                    class="form"
+                    [formGroup]="cnxForm"
+                    (ngSubmit)="cnx()"
+                    novalidate
+                  >
                     <div
                       class="input-group"
-                      [ngClass]="{ 'input-group-focus': focus2 === true }"
+                      [ngClass]="{
+                        'input-group-focus': focus2 === true,
+                        'has-danger':
+                          isSubmitted == true && cnxForm.controls.email.invalid,
+                        'has-success':
+                          isSubmitted == true && cnxForm.controls.email.valid
+                      }"
                     >
                       <div class="input-group-prepend">
                         <div class="input-group-text">
@@ -49,9 +60,9 @@
                       </div>
                       <input
                         class="form-control"
+                        formControlName="email"
                         placeholder="Email"
                         [(ngModel)]="email"
-                        [ngModelOptions]="{ standalone: true }"
                         type="text"
                         (focus)="focus2 = true"
                         (blur)="focus2 = false"
@@ -59,7 +70,14 @@
                     </div>
                     <div
                       class="input-group"
-                      [ngClass]="{ 'input-group-focus': focus3 === true }"
+                      [ngClass]="{
+                        'input-group-focus': focus3 === true,
+                        'has-danger':
+                          isSubmitted == true &&
+                          cnxForm.controls.password.invalid,
+                        'has-success':
+                          isSubmitted == true && cnxForm.controls.password.valid
+                      }"
                     >
                       <div class="input-group-prepend">
                         <div class="input-group-text">
@@ -69,13 +87,20 @@
                       <input
                         class="form-control"
                         placeholder="Password"
-                        [(ngModel)]="password"
-                        [ngModelOptions]="{ standalone: true }"
+                        [(ngModel)]="pswd"
+                        formControlName="password"
                         type="password"
                         (focus)="focus3 = true"
                         (blur)="focus3 = false"
                       />
                     </div>
+
+                    <small
+                      class="form-text text-info"
+                      data-target="#myModal"
+                      (click)="myModal.show()"
+                      >Forgot password?</small
+                    >
 
                     <div class="form-check text-left">
                       <label class="form-check-label">
@@ -93,6 +118,70 @@
                     </div>
                   </form>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal -->
+
+        <div
+          aria-hidden="true"
+          aria-labelledby="myModalLabel"
+          bsModal
+          class="modal fade modal-black"
+          #myModal="bs-modal"
+          id="myModal"
+          role="dialog"
+          tabindex="-1"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="forgotPasswordModalLabel">
+                  Forgot password
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>
+                  Veuillez entrer votre adresse e-mail pour rechercher votre
+                  compte :
+                </p>
+
+                <div class="form-group">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="resetPasswordEmail"
+                    placeholder="Enter email"
+                    [(ngModel)]="resetByEmail"
+                  />
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  data-dismiss="modal"
+                  type="button"
+                  (click)="myModal.hide()"
+                  class="btn btn-secondary"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="resetPasswd()"
+                >
+                  Reset password
+                </button>
               </div>
             </div>
           </div>

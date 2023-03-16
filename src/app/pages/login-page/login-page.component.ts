@@ -1,5 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup } from "@angular/forms";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
+import { Router } from "@angular/router";
 import { AuthentificationService } from "src/app/services/authentification.service";
 
 @Component({
@@ -8,40 +16,81 @@ import { AuthentificationService } from "src/app/services/authentification.servi
   styleUrls: ["./login-page.component.scss"],
 })
 export class LoginPageComponent implements OnInit {
-  password: string;
+  @ViewChild("forgotPasswordModal") forgotPasswordModal!: ElementRef;
+
+  pswd: string;
   email: string;
+  resetByEmail: string;
   cnxForm: FormGroup;
+  isSubmitted = false;
+
   focus;
   focus1;
   focus2;
   focus3;
   focus4;
-  usereData: { password: string; email: string };
-  constructor(private authServ: AuthentificationService) {
+  userData: { password: string; email: string };
+  constructor(
+    private authServ: AuthentificationService,
+    private route: Router,
+    private modalService: NgbModal
+  ) {
     this.initializeForm();
+  }
+
+  showForgotPasswordModal() {
+    this.modalService.open(this.forgotPasswordModal, { centered: true });
+  }
+
+  ngOnInit(): void {
+    this.resetByEmail = this.email;
   }
   initializeForm() {
     this.cnxForm = new FormGroup({
-      password: new FormControl(),
-      email: new FormControl(),
+      password: new FormControl(this.pswd, [Validators.required]),
+      email: new FormControl(this.email, [
+        Validators.required,
+        Validators.email,
+      ]),
     });
   }
-  cnx() {
-    this.usereData = {
-      password: this.password,
-      email: this.email,
-    };
-    this.authServ.login(this.usereData).subscribe(
-      (res) => {
-        console.log("res result", res);
 
-        localStorage.setItem("token", res);
+  resetPasswd() {
+    console.log(this.resetByEmail);
+    this.authServ.sendMailResetPassword(this.resetByEmail).subscribe(
+      (response) => {
+        console.log("Success", response);
+        // Handle success case here
       },
-      (err) => {
-        console.log("the err", err);
+      (error) => {
+        console.log("this.resetByEmail", this.resetByEmail);
+
+        console.log("Error", error);
+        // Handle error case here
       }
     );
   }
 
-  ngOnInit(): void {}
+  cnx() {
+    this.userData = {
+      password: this.pswd,
+      email: this.email,
+    };
+    this.isSubmitted = true;
+
+    if (this.cnxForm.invalid) {
+      return false;
+    } else {
+      this.authServ.login(this.userData).subscribe(
+        (res) => {
+          // console.log("res result", res);
+          localStorage.setItem("token", res);
+          this.route.navigate(["/home"]);
+        },
+        (err) => {
+          console.log("the err", err);
+        }
+      );
+    }
+  }
 }

@@ -53,19 +53,110 @@
             cols="50"
             placeholder="ecrire qlq chose"></textarea>
           <div class="custom-file">
+            <label for="customFile" class="form-label"
+              >Choose one or more images</label
+            >
             <input
               type="file"
+              multiple
               class="custom-file-input"
               id="customFile"
               (change)="onFileSelected($event)" />
           </div>
-          <img
-            *ngIf="selectedImage"
-            [src]="selectedImage"
-            alt="Selected Image" />
-          <button *ngIf="selectedImage" (click)="clearSelectedImage()">
+          <carousel *ngIf="images.length != 0" [showIndicators]="false" pause>
+            <slide
+              *ngFor="let image of images; let i = index"
+              class="text-center">
+              <img
+                *ngIf="image"
+                class="d-block w-100"
+                [src]="image.url"
+                [alt]="image.name" />
+              <button
+                class="btn btn-primary btn-fab btn-icon btn-round"
+                (click)="clearSelectedImage(index)">
+                <i class="tim-icons icon-gift-2"></i>
+              </button>
+            </slide>
+          </carousel>
+          <!-- <div
+            *ngIf="images.length != 0"
+            id="carouselExampleControls"
+            class="carousel slide"
+            data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <ng-container *ngFor="let image of images; let i = index">
+                <div class="carousel-item" [ngClass]="{ active: i == 0 }">
+                  <img
+                    *ngIf="image"
+                    class="d-block w-100"
+                    [src]="image.url"
+                    [alt]="image.name" />
+                </div>
+              </ng-container>
+            </div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExampleControls"
+              data-bs-slide="prev">
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExampleControls"
+              data-bs-slide="next">
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div> -->
+
+          <!-- <div
+            *ngIf="images.length != 0"
+            id="carouselExampleControls"
+            class="carousel slide"
+            data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div *ngFor="let image of images" class="carousel-item active">
+                <img
+                  *ngIf="image"
+                  class="d-block w-100"
+                  [src]="image.url"
+                  [alt]="image.name" />
+              </div>
+            </div>
+            <button
+              class="carousel-control-prev dark"
+              type="button"
+              data-bs-target="#carouselExampleControls"
+              data-bs-slide="prev">
+              <span
+                class="carousel-control-prev-icon dark"
+                aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next dark"
+              type="button"
+              data-bs-target="#carouselExampleControls"
+              data-bs-slide="next">
+              <span
+                class="carousel-control-next-icon dark"
+                aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div> -->
+
+          <!-- <button *ngIf="images.length != 0" (click)="clearSelectedImage()">
             Clear Selected Image
-          </button>
+          </button> -->
+
           <button
             class="btn btn-success"
             style="width: 100%; margin-top: 30px"

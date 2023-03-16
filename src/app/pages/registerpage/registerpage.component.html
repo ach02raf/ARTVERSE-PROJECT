@@ -44,7 +44,15 @@
                   >
                     <div
                       class="input-group"
-                      [ngClass]="{ 'input-group-focus': focus === true }"
+                      [ngClass]="{
+                        'input-group-focus': focus === true,
+                        'has-danger':
+                          isSubmitted == true &&
+                          inscriptionForm.controls.firstname.invalid,
+                        'has-success':
+                          isSubmitted == true &&
+                          inscriptionForm.controls.firstname.valid
+                      }"
                     >
                       <div class="input-group-prepend">
                         <div class="input-group-text">
@@ -55,7 +63,7 @@
                         class="form-control"
                         placeholder="Firstname"
                         [(ngModel)]="firstname"
-                        [ngModelOptions]="{ standalone: true }"
+                        formControlName="firstname"
                         type="text"
                         (focus)="focus = true"
                         (blur)="focus = false"
@@ -63,7 +71,15 @@
                     </div>
                     <div
                       class="input-group"
-                      [ngClass]="{ 'input-group-focus': focus1 === true }"
+                      [ngClass]="{
+                        'input-group-focus': focus1 === true,
+                        'has-danger':
+                          isSubmitted == true &&
+                          inscriptionForm.controls.lastname.invalid,
+                        'has-success':
+                          isSubmitted == true &&
+                          inscriptionForm.controls.lastname.valid
+                      }"
                     >
                       <div class="input-group-prepend">
                         <div class="input-group-text">
@@ -74,7 +90,7 @@
                         class="form-control"
                         placeholder="Lastname"
                         [(ngModel)]="lastname"
-                        [ngModelOptions]="{ standalone: true }"
+                        formControlName="lastname"
                         type="text"
                         (focus)="focus1 = true"
                         (blur)="focus1 = false"
@@ -83,7 +99,15 @@
 
                     <div
                       class="input-group"
-                      [ngClass]="{ 'input-group-focus': focus2 === true }"
+                      [ngClass]="{
+                        'input-group-focus': focus2 === true,
+                        'has-danger':
+                          isSubmitted == true &&
+                          inscriptionForm.controls.email.invalid,
+                        'has-success':
+                          isSubmitted == true &&
+                          inscriptionForm.controls.email.valid
+                      }"
                     >
                       <div class="input-group-prepend">
                         <div class="input-group-text">
@@ -94,7 +118,7 @@
                         class="form-control"
                         placeholder="Email"
                         [(ngModel)]="email"
-                        [ngModelOptions]="{ standalone: true }"
+                        formControlName="email"
                         type="text"
                         (focus)="focus2 = true"
                         (blur)="focus2 = false"
@@ -102,7 +126,15 @@
                     </div>
                     <div
                       class="input-group"
-                      [ngClass]="{ 'input-group-focus': focus3 === true }"
+                      [ngClass]="{
+                        'input-group-focus': focus3 === true,
+                        'has-danger':
+                          isSubmitted == true &&
+                          inscriptionForm.controls.password.invalid,
+                        'has-success':
+                          isSubmitted == true &&
+                          inscriptionForm.controls.password.valid
+                      }"
                     >
                       <div class="input-group-prepend">
                         <div class="input-group-text">
@@ -113,7 +145,7 @@
                         class="form-control"
                         placeholder="Password"
                         [(ngModel)]="password"
-                        [ngModelOptions]="{ standalone: true }"
+                        formControlName="password"
                         type="password"
                         (focus)="focus3 = true"
                         (blur)="focus3 = false"
@@ -121,7 +153,15 @@
                     </div>
                     <div
                       class="input-group"
-                      [ngClass]="{ 'input-group-focus': focus4 === true }"
+                      [ngClass]="{
+                        'input-group-focus': focus4 === true,
+                        'has-danger':
+                          isSubmitted == true &&
+                          inscriptionForm.controls.bio.invalid,
+                        'has-success':
+                          isSubmitted == true &&
+                          inscriptionForm.controls.bio.valid
+                      }"
                     >
                       <div class="input-group-prepend">
                         <div class="input-group-text">
@@ -132,7 +172,7 @@
                         class="form-control"
                         placeholder="bio"
                         [(ngModel)]="bio"
-                        [ngModelOptions]="{ standalone: true }"
+                        formControlName="bio"
                         type="text"
                         (focus)="focus4 = true"
                         (blur)="focus4 = false"

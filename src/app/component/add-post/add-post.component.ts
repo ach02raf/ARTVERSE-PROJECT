@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
-
+interface Image {
+  name: string;
+  url: SafeUrl;
+}
 @Component({
   selector: "app-add-post",
   templateUrl: "./add-post.component.html",
@@ -16,28 +19,27 @@ export class AddPostComponent implements OnInit {
     commentaires: [{ iduser: 1, comment: "i like this image" }],
     hashtag: ["#art", "#new"],
   };
+  images: Image[] = [];
+
   constructor(private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {}
-  selectedFileName: string = "";
-  selectedImage: SafeUrl | undefined;
 
-  onFileSelected(event: any) {
-    const selectedFile = event.target.files[0];
-    if (selectedFile && selectedFile.type.startsWith("image/")) {
-      this.selectedFileName = selectedFile.name;
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.selectedImage = this.sanitizer.bypassSecurityTrustUrl(
-          reader.result as string
-        );
+  onFileSelected(event: any): void {
+    const files = event.target.files;
+    for (const file of files) {
+      const url = URL.createObjectURL(file);
+      const safeUrl: SafeUrl = this.sanitizer.bypassSecurityTrustUrl(url);
+      const image: Image = {
+        name: file.name,
+        url: safeUrl,
       };
-      reader.readAsDataURL(selectedFile);
+      this.images.push(image);
     }
+    console.log(this.images);
   }
 
-  clearSelectedImage() {
-    this.selectedFileName = "";
-    this.selectedImage = undefined;
+  clearSelectedImage(index: any) {
+    this.images.splice(index, 1);
   }
 }
