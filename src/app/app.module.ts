@@ -26,12 +26,14 @@ import { LandingpageComponent } from "./pages/examples/landingpage/landingpage.c
 import { AuthInterceptor } from "./services/AuthInterceptor";
 import { NavbarComponent } from "./component/navbar/navbar.component";
 import { FooterComponent } from "./component/footer/footer.component";
+import { AutoresizeDirectiveDirective } from './autoresize-directive.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     FooterComponent,
+    AutoresizeDirectiveDirective,
     // IndexComponent,
     // ProfilepageComponent,
     // RegisterpageComponent,

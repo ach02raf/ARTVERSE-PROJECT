@@ -8,7 +8,7 @@ import { asyncScheduler, Observable, throwError } from "rxjs";
 import { catchError, map, observeOn, tap } from "rxjs/operators";
 
 @Injectable({
-  providedIn: "root",
+  providedIn: "root", 
 })
 export class AuthentificationService {
   // public user: Observable<any>;
