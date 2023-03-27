@@ -1,9 +1,10 @@
 <div class="col">
-  <h3>ç'est temps de partager votre merveilleux travail</h3>
+  <h3>Share Your Artworks With Us</h3>
   <button
     class="btn btn-danger"
     data-target="#myModal"
-    (click)="myModal.show()">
+    (click)="myModal.show()"
+  >
     créer un nouveau poste
   </button>
   <br />
@@ -16,7 +17,8 @@
     #myModal="bs-modal"
     id="myModal"
     role="dialog"
-    tabindex="-1">
+    tabindex="-1"
+  >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header justify-content-center">
@@ -25,7 +27,8 @@
             class="close"
             data-dismiss="modal"
             type="button"
-            (click)="myModal.hide()">
+            (click)="myModal.hide()"
+          >
             <i class="tim-icons icon-simple-remove"> </i>
           </button>
           <h4 class="title title-up">Créer une publication</h4>
@@ -36,7 +39,8 @@
             alt="Circle image"
             class="img-fluid rounded-circle"
             src="assets/img/james.jpg"
-            style="width: 40px; height: 40px; margin: 5px" />
+            style="width: 40px; height: 40px; margin: 5px"
+          />
           <p>ach02raf</p>
         </div>
         <div class="form-group">
@@ -51,31 +55,36 @@
             "
             rows="3"
             cols="50"
-            placeholder="ecrire qlq chose"></textarea>
+            placeholder="ecrire qlq chose"
+          ></textarea>
           <div class="custom-file">
-            <label for="customFile" class="form-label"
-              >Choose one or more images</label
-            >
+            <button for="customFile" class="btn btn-default btn-sm">
+              Choose one or more images
+            </button>
             <input
               type="file"
               multiple
               class="custom-file-input"
               id="customFile"
-              (change)="onFileSelected($event)" />
+              (change)="onFileSelected($event)"
+            />
           </div>
           <carousel *ngIf="images.length != 0" [showIndicators]="false" pause>
             <slide
               *ngFor="let image of images; let i = index"
-              class="text-center">
+              class="text-center"
+            >
               <img
                 *ngIf="image"
                 class="d-block w-100"
                 [src]="image.url"
-                [alt]="image.name" />
+                [alt]="image.name"
+              />
               <button
                 class="btn btn-primary btn-fab btn-icon btn-round"
-                (click)="clearSelectedImage(index)">
-                <i class="tim-icons icon-gift-2"></i>
+                (click)="clearSelectedImage(index)"
+              >
+                <i class="tim-icons icon-trash-simple"></i>
               </button>
             </slide>
           </carousel>
@@ -160,7 +169,8 @@
           <button
             class="btn btn-success"
             style="width: 100%; margin-top: 30px"
-            disabled>
+            disabled
+          >
             Publier
           </button>
         </div>

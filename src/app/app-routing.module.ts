@@ -7,6 +7,7 @@ import { HomeComponent } from "./pages/HomePage/home/home.component";
 import { ProfileComponent } from "./pages/profile/profile.component";
 import { LoginPageComponent } from "./pages/login-page/login-page.component";
 import { ResetPasswordPageComponent } from "./pages/reset-password-page/reset-password-page.component";
+import { ErrorNotFoundComponent } from "./error-not-found/error-not-found.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
@@ -15,6 +16,8 @@ const routes: Routes = [
   { path: "login", component: LoginPageComponent },
   { path: "register", component: RegisterpageComponent },
   { path: "reset/:token", component: ResetPasswordPageComponent },
+  { path: "not-found", component: ErrorNotFoundComponent },
+  { path: "**", redirectTo: "not-found" },
 ];
 
 @NgModule({

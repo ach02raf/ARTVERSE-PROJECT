@@ -26,7 +26,8 @@ import { LandingpageComponent } from "./pages/examples/landingpage/landingpage.c
 import { AuthInterceptor } from "./services/AuthInterceptor";
 import { NavbarComponent } from "./component/navbar/navbar.component";
 import { FooterComponent } from "./component/footer/footer.component";
-import { AutoresizeDirectiveDirective } from './autoresize-directive.directive';
+import { AutoresizeDirectiveDirective } from "./autoresize-directive.directive";
+import { ErrorNotFoundComponent } from "./error-not-found/error-not-found.component";
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { AutoresizeDirectiveDirective } from './autoresize-directive.directive';
     NavbarComponent,
     FooterComponent,
     AutoresizeDirectiveDirective,
+    ErrorNotFoundComponent,
     // IndexComponent,
     // ProfilepageComponent,
     // RegisterpageComponent,
@@ -46,6 +48,7 @@ import { AutoresizeDirectiveDirective } from './autoresize-directive.directive';
     RouterModule,
     AppRoutingModule,
     ReactiveFormsModule,
+
     // BsDropdownModule.forRoot(),
     // ProgressbarModule.forRoot(),
     // TooltipModule.forRoot(),
