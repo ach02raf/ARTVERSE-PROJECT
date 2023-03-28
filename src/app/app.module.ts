@@ -27,6 +27,7 @@ import { AuthInterceptor } from "./services/AuthInterceptor";
 import { NavbarComponent } from "./component/navbar/navbar.component";
 import { FooterComponent } from "./component/footer/footer.component";
 import { AutoresizeDirectiveDirective } from './autoresize-directive.directive';
+import { HashtagColorPipePipe } from './pipe/hashtag-color-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { AutoresizeDirectiveDirective } from './autoresize-directive.directive';
     NavbarComponent,
     FooterComponent,
     AutoresizeDirectiveDirective,
+    HashtagColorPipePipe,
     // IndexComponent,
     // ProfilepageComponent,
     // RegisterpageComponent,

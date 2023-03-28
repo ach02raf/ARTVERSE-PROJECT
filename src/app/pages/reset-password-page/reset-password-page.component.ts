@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { AuthentificationService } from "src/app/services/authentification.service";
+import { AuthentificationService } from 'src/app/services/authentification.service';
 
 @Component({
   selector: "app-reset-password-page",

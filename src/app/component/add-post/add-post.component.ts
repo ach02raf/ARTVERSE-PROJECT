@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
+import { HashtagColorPipePipe } from '../../pipe/hashtag-color-pipe.pipe';
+
 interface Image {
   name: string;
   url: SafeUrl;
@@ -20,10 +22,15 @@ export class AddPostComponent implements OnInit {
     hashtag: ["#art", "#new"],
   };
   images: Image[] = [];
+  postText: any ;
+  hashtags = [{"id" :1 , tag :"new"},{"id" :2 , tag :"hi"},{"id" :3 , tag :"nikew"},{"id" :4 , tag :"now"}];
+  filteredHashtags: string[] = [];
 
   constructor(private sanitizer: DomSanitizer) {}
-
-  ngOnInit(): void {}
+  postTextElement: HTMLElement | null;
+  ngOnInit(): void {
+    this.postTextElement = document.querySelector('.form-control.inputtag');
+  }
 
   onFileSelected(event: any): void {
     const files = event.target.files;
@@ -42,4 +49,40 @@ export class AddPostComponent implements OnInit {
   clearSelectedImage(index: any) {
     this.images.splice(index, 1);
   }
+
+  onSubmit() {
+    const postText = this.postTextElement.textContent || ''; // get the value of the contenteditable element
+    const hashtags = postText.match(/#\w+/g);
+    const uniqueHashtags = Array.from(new Set(hashtags));
+    console.log(uniqueHashtags);
+    // Code to handle form submission
+  }
+  
+
+ 
+
+  onInputChange(value: string) {
+    if (value.indexOf("#") !== -1) {
+      const inputHashtag = value.substring(value.lastIndexOf("#") + 1);
+      
+      this.filteredHashtags = this.hashtags.filter((hashtag) =>
+    hashtag.tag.toLowerCase().startsWith(inputHashtag.toLowerCase())
+  )
+  .map((hashtag) => hashtag.tag);
+    } else {
+      this.filteredHashtags = [];
+    }
+  }
+  
+
+  addHashtag(hashtag: string) {
+    const lastIndex = this.postText.lastIndexOf("#");
+    this.postText =
+    this.postText.substring(0, lastIndex) + "#" + hashtag + " ";
+    
+    }
+
+    
+    
+ 
 }

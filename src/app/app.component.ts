@@ -8,7 +8,9 @@ import {
 import { Location } from "@angular/common";
 import { DOCUMENT } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
-import { map, Observable } from "rxjs";
+import { Observable } from "rxjs";
+import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: "app-root",

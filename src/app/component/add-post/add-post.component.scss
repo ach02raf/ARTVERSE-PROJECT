@@ -26,4 +26,73 @@
   
   textarea::-webkit-scrollbar-thumb:hover {
     background-color: #aba7a7;
+  } 
+
+  ul li, ol li {
+    color: #1F2251;
+}
+
+.list-group-item { 
+  padding:5px;
+  margin-bottom: -0.0625rem;
+  background-color: #ffffff;
+  border: 0.0625rem solid #e9ecef;
+}
+
+.inputtag {
+  margin-top: 5px;
+  min-height: 100px;
+  height: fit-content;
+}
+ul.list-group { 
+   
+  width: 160px;
+  z-index: 2000000 ;
+  
+}
+
+
+
+.modal-content {
+  padding: 10px;
+}
+ .modal-header{
+  padding: 0px;
+ }
+
+ .custom-textarea {
+  padding: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+  border-radius: 5px;
+  border: none;
+  box-shadow: none;
+  resize: vertical;
+  height: auto;
+  position: relative;
+  ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    z-index: 10;
+    li {
+      padding: 5px;
+      cursor: pointer;
+      &:hover {
+        background-color: #f5f5f5;
+      }
+    }
   }
+}
+
+.inputtag{
+  z-index: 1;
+}
+.hashtag {
+  color: red;
+}
+
