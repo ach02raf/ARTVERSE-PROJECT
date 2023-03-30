@@ -49,34 +49,6 @@
     <div class="section section-basic" id="basic-elements">
       <img class="path" src="assets/img/path1.png" />
 
-      <div class="container-fluide">
-        <div class="row justify-content-md-center">
-          <div class="col col-lg-3">
-            <app-feed-identity></app-feed-identity>
-          </div>
-          <div class="col-md-auto mx-5">
-            <div>
-              <app-add-post></app-add-post>
-              <app-for-you-list></app-for-you-list>
-            </div>
-          </div>
-          <div class="col col-lg-3">
-            <app-suggestion></app-suggestion>
-          </div>
-        </div>
-        <!-- <div class="row">
-        <div class="col">
-        <span>1 of 3</span>
-        </div>
-        <div class="col-md-auto">
-        <span>Variable width content</span>
-        </div>
-        <div class="col col-lg-2">
-        <span>3 of 3</span>
-        </div>
-        </div> -->
-      </div>
-
       <div class="">
         <!-- <div class="row">
           <app-feed-identity class="col-4"></app-feed-identity>
@@ -89,26 +61,56 @@
             <tabset class="nav-tabs-danger">
               <tab>
                 <ng-template tabHeading>
+                  <i class="tim-icons icon-compass-05"> </i> Feed
+                </ng-template>
+                <div class="container-fluide">
+                  <div class="row justify-content-md-center">
+                    <div class="col col-lg-3">
+                      <app-feed-identity></app-feed-identity>
+                    </div>
+                    <div class="col-md-auto mx-5">
+                      <div>
+                        <app-add-post></app-add-post>
+                        <app-for-you-list></app-for-you-list>
+                      </div>
+                    </div>
+                    <div class="col col-lg-3">
+                      <app-suggestion></app-suggestion>
+                    </div>
+                  </div>
+                  <!-- <div class="row">
+        <div class="col">
+        <span>1 of 3</span>
+        </div>
+        <div class="col-md-auto">
+        <span>Variable width content</span>
+        </div>
+        <div class="col col-lg-2">
+        <span>3 of 3</span>
+        </div>
+        </div> -->
+                </div>
+                <!-- <ng-template tabHeading>
                   <i class="tim-icons icon-spaceship"> </i> Pour Vous
                 </ng-template>
-                <app-add-post></app-add-post>
+                <app-add-post></app-add-post> -->
                 <!-- <app-searsh></app-searsh> -->
-                <app-for-you-list></app-for-you-list>
+                <!-- <app-for-you-list></app-for-you-list> -->
               </tab>
               <tab>
                 <ng-template tabHeading>
-                  <i class="tim-icons icon-compass-05"> </i> Suivi
+                  <i class="tim-icons icon-compass-05"> </i> Projects
                 </ng-template>
                 <app-project></app-project>
               </tab>
-              <tab>
+              <!-- <tab>
                 <ng-template tabHeading>
                   <i class="tim-icons icon-single-02"></i> Vos abonnements
                 </ng-template>
                 <app-add-post></app-add-post>
                 <app-searsh></app-searsh>
                 <app-for-you-list></app-for-you-list>
-              </tab>
+              </tab> -->
 
               <tab>
                 <ng-template tabHeading>

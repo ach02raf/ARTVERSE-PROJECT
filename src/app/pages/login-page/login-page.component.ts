@@ -87,7 +87,8 @@ export class LoginPageComponent implements OnInit {
         (res) => {
           // console.log("res result", res);
           localStorage.setItem("token", res);
-          this.route.navigate(["/profile"]);
+          // this.route.navigate(["/profile"]);
+          this.route.navigate(["/home"]);
         },
         (err) => {
           console.log("the err", err);

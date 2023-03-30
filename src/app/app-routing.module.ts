@@ -12,7 +12,7 @@ import { ErrorNotFoundComponent } from "./error-not-found/error-not-found.compon
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
   { path: "home", component: HomeComponent },
-  { path: "profile", component: ProfileComponent },
+  { path: "profile/:username", component: ProfileComponent },
   { path: "login", component: LoginPageComponent },
   { path: "register", component: RegisterpageComponent },
   { path: "reset/:token", component: ResetPasswordPageComponent },

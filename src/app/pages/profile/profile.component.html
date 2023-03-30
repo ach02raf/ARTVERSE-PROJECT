@@ -4,20 +4,23 @@
 
     <img class="path" src="assets/img/path4.png" />
 
-    <div class="container align-items-center">
+    <div class="container align-items-center text-center">
       <div class="row">
         <div class="col-lg-4 col-md-6 ml-auto mr-auto">
-          <div *ngIf="loggedInUser" class="card card-coin card-plain">
+          <div *ngIf="user" class="card card-coin card-plain">
             <div class="card-header">
               <img
                 class="img-center img-fluid rounded-circle"
                 src="assets/img/mike.jpg"
               />
 
-              <h4 class="title">
-                {{ loggedInUser["firstname"] }} {{ loggedInUser["lastname"] }}
-              </h4>
-              <p>{{ loggedInUser["bio"] }}</p>
+              <h3 class="card-title mt-3">
+                {{ user["firstname"] }} {{ user["lastname"] }}
+              </h3>
+              <h6 class="text-primary">Photographer</h6>
+              <h5 class="text-muted">
+                {{ user["bio"] }}
+              </h5>
             </div>
             <div class="card-body">
               <button type="button" class="btn btn-primary btn-block">
@@ -84,7 +87,10 @@
                   </div>
                 </tab>
 
-                <tab heading="Edit Profile">
+                <tab
+                  *ngIf="loggedInUser._id === user._id"
+                  heading="Edit Profile"
+                >
                   <div class="">
                     <div class="card card-plain">
                       <div class="card-body">
@@ -96,7 +102,7 @@
                                 <input
                                   class="form-control text-uppercase"
                                   type="text"
-                                  [value]="loggedInUser.firstname"
+                                  [value]="user.firstname"
                                 />
                               </div>
                             </div>
@@ -106,7 +112,7 @@
                                 <input
                                   class="form-control text-uppercase"
                                   type="text"
-                                  [value]="loggedInUser.lastname"
+                                  [value]="user.lastname"
                                 />
                               </div>
                             </div>
@@ -119,7 +125,7 @@
                                   class="form-control"
                                   placeholder="mike@email.com"
                                   type="email"
-                                  [value]="loggedInUser.email"
+                                  [value]="user.email"
                                 />
                               </div>
                             </div>
@@ -142,7 +148,7 @@
                                   class="form-control"
                                   placeholder="Hello there!"
                                   type="text"
-                                  [value]="loggedInUser.bio"
+                                  [value]="user.bio"
                                 />
                               </div>
                             </div>

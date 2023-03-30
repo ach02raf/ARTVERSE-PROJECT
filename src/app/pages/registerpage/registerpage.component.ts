@@ -61,7 +61,7 @@ export class RegisterpageComponent implements OnInit, OnDestroy {
     } else {
       this.authServ.inscriptionPost(user).subscribe(
         (res) => {
-          this.route.navigate(["/profile"]);
+          this.route.navigate(["/home"]);
 
           localStorage.setItem("token", res);
         },
