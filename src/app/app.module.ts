@@ -28,6 +28,7 @@ import { NavbarComponent } from "./component/navbar/navbar.component";
 import { FooterComponent } from "./component/footer/footer.component";
 import { AutoresizeDirectiveDirective } from "./autoresize-directive.directive";
 import { ErrorNotFoundComponent } from "./error-not-found/error-not-found.component";
+// import { FeedIdentityComponent } from "./component/feed-identity/feed-identity.component";
 
 @NgModule({
   declarations: [
@@ -36,6 +37,8 @@ import { ErrorNotFoundComponent } from "./error-not-found/error-not-found.compon
     FooterComponent,
     AutoresizeDirectiveDirective,
     ErrorNotFoundComponent,
+
+    // FeedIdentityComponent,
     // IndexComponent,
     // ProfilepageComponent,
     // RegisterpageComponent,

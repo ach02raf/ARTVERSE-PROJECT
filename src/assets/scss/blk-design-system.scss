@@ -15,18 +15,13 @@
  */
 
 // Core
-
 @import "blk-design-system/custom/functions";
 @import "blk-design-system/bootstrap/functions";
-
 @import "blk-design-system/custom/variables";
 @import "blk-design-system/bootstrap/variables";
-
 @import "blk-design-system/custom/mixins";
 @import "blk-design-system/bootstrap/mixins";
-
 // Bootstrap components
-
 @import "blk-design-system/bootstrap/root";
 @import "blk-design-system/bootstrap/reboot";
 @import "blk-design-system/bootstrap/type";
@@ -59,9 +54,7 @@
 @import "blk-design-system/bootstrap/carousel";
 @import "blk-design-system/bootstrap/utilities";
 @import "blk-design-system/bootstrap/print";
-
 // Custom components
-
 @import "blk-design-system/custom/alerts.scss";
 @import "blk-design-system/custom/buttons.scss";
 @import "blk-design-system/custom/dropdown.scss";
@@ -85,20 +78,15 @@
 @import "blk-design-system/custom/pills.scss";
 @import "blk-design-system/custom/tabs.scss";
 @import "blk-design-system/custom/info-areas.scss";
-
 // Sections
 @import "blk-design-system/custom/sections.scss";
-
 // Vendor / Plugins
-
 @import "blk-design-system/custom/vendor/plugin-perfect-scrollbar.scss";
 @import "blk-design-system/custom/vendor/plugin-animate-bootstrap-notify.scss";
 @import "blk-design-system/custom/vendor/plugin-bootstrap-switch.scss";
 @import "blk-design-system/custom/vendor/plugin-nouislider.scss";
 @import "blk-design-system/custom/vendor/plugin-datetimepicker.scss";
-
 // Cards
-
 @import "blk-design-system/custom/card";
 @import "blk-design-system/custom/cards/card-chart";
 @import "blk-design-system/custom/cards/card-map";
@@ -108,7 +96,6 @@
 @import "blk-design-system/custom/cards/card-register";
 @import "blk-design-system/custom/cards/card-stats";
 @import "blk-design-system/custom/cards/card-chart";
-
 // Angular changes
 @import "blk-design-system/angular/tabs";
 @import "blk-design-system/angular/pills";

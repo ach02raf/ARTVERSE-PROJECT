@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
+import { AuthentificationService } from "src/app/services/authentification.service";
 interface Image {
   name: string;
   url: SafeUrl;
@@ -21,9 +22,21 @@ export class AddPostComponent implements OnInit {
   };
   images: Image[] = [];
 
-  constructor(private sanitizer: DomSanitizer) {}
+  loggedInUser: any;
 
-  ngOnInit(): void {}
+  idUser: any;
+  constructor(
+    private sanitizer: DomSanitizer,
+    private authServ: AuthentificationService
+  ) {
+    this.idUser = this.authServ.getUserID();
+  }
+
+  ngOnInit(): void {
+    this.authServ.findUserById(this.idUser).subscribe((res) => {
+      this.loggedInUser = res;
+    });
+  }
 
   onFileSelected(event: any): void {
     const files = event.target.files;

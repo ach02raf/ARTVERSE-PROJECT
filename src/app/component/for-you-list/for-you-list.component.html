@@ -1,43 +1,37 @@
-<div class="row">
-  <div class="col-3" *ngFor="let item of List">
-    <div class="card">
-      <div class="card-body">
-        <div class="row">
-          <div class="col col-2" style="padding-right: 0px;">
-            <img
-              alt="Circle image"
-              class="img-fluid rounded-circle shadow"
-              src="assets/img/james.jpg"
-              style="width: 50px ; "
-
-            />
-          </div>
-          <div class="col">
-            <h5 class="card-title">Card title</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{item.date}}</h6>
-          </div>
-         
-        </div> 
-   
-        <div class="row"  style="padding-top: 10px;" >
-          <img src="./../../../../assets/img/{{ item.images }}"   style="height: 300px; width: 350px;  " />
-        </div> 
-        <div class="row "  style="padding: 10px;" >
- 
-          <p class="card-text">{{ item.text }}</p>
+<div *ngFor="let item of List">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="" style="padding-right: 0px">
+          <img
+            alt="Circle image"
+            class="img-fluid rounded-circle shadow"
+            src="assets/img/james.jpg"
+            style="width: 50px"
+          />
         </div>
-
-        <div class="row justify-content-end">
-          
-          <div class="col-3">
-           <button class="btn btn-primary btn-fab btn-icon btn-round">
-               <i class="tim-icons icon-heart-2"></i>
-               </button>
-          </div>
+        <div class="col">
+          <h5 class="card-title">Card title</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ item.date }}</h6>
         </div>
-  
-          
-       
+      </div>
+
+      <div class="row" style="padding-top: 10px">
+        <img
+          src="./../../../../assets/img/{{ item.images }}"
+          style="height: 300px; width: 350px"
+        />
+      </div>
+      <div class="row" style="padding: 10px">
+        <p class="card-text">{{ item.text }}</p>
+      </div>
+
+      <div class="row justify-content-end">
+        <div class="col-3">
+          <button class="btn btn-primary btn-fab btn-icon btn-round">
+            <i class="tim-icons icon-heart-2"></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>

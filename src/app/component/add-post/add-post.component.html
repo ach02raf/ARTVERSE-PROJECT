@@ -1,14 +1,26 @@
-<div class="col">
-  <h3>Share Your Artworks With Us</h3>
-  <button
+<div class="">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="input-group">
+          <input
+            placeholder="Add new post..."
+            (click)="myModal.show()"
+            class="form-control mx-2"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <h3>Share Your Artworks With Us</h3> -->
+  <!-- <button
     class="btn btn-danger"
     data-target="#myModal"
     (click)="myModal.show()"
   >
-    créer un nouveau poste
-  </button>
-  <br />
-  <br />
+    Share Artworks
+  </button> -->
+
   <div
     aria-hidden="true"
     aria-labelledby="myModalLabel"
@@ -33,7 +45,7 @@
           </button>
           <h4 class="title title-up">Créer une publication</h4>
         </div>
-        <hr style="border-color: black; width: 100%; opacity: 0.2" />
+        <hr />
         <div style="display: flex; align-items: center">
           <img
             alt="Circle image"
@@ -41,10 +53,17 @@
             src="assets/img/james.jpg"
             style="width: 40px; height: 40px; margin: 5px"
           />
-          <p>ach02raf</p>
+          <p>{{ loggedInUser["firstname"] }}</p>
         </div>
         <div class="form-group">
           <textarea
+            class="form-control overflow-auto"
+            cols="80"
+            name="name"
+            placeholder="You can write your text here..."
+            rows="4"
+          ></textarea>
+          <!-- <textarea
             class="form-control overflow-auto"
             style="
               resize: none;
@@ -56,11 +75,18 @@
             rows="3"
             cols="50"
             placeholder="ecrire qlq chose"
-          ></textarea>
+          ></textarea> -->
           <div class="custom-file">
-            <button for="customFile" class="btn btn-default btn-sm">
-              Choose one or more images
+            <button
+              for="customFile"
+              class="btn btn-default btn-round btn-sm mt-3"
+            >
+              <i class="tim-icons icon-cloud-upload-94"></i> Select Images
             </button>
+            <!-- <button for="customFile" class="btn btn-default btn-sm">
+              Select Images
+            </button> -->
+
             <input
               type="file"
               multiple
@@ -80,6 +106,7 @@
                 [src]="image.url"
                 [alt]="image.name"
               />
+
               <button
                 class="btn btn-primary btn-fab btn-icon btn-round"
                 (click)="clearSelectedImage(index)"
