@@ -1,9 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit ,ViewChild } from "@angular/core";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
-import { AuthentificationService } from "src/app/services/authentification.service";
-import { HashtagColorPipePipe } from "../../pipe/hashtag-color-pipe.pipe";
-import { PublicationService } from "../../services/publication.service";
-import { debounceTime } from "rxjs/operators";
+import { PublicationService } from '../../services/publication.service';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 interface Image {
   name: string;
@@ -16,47 +14,26 @@ interface Image {
   styleUrls: ["./add-post.component.scss"],
 })
 export class AddPostComponent implements OnInit {
-  // publication = {
-  //   _id: 1,
-  //   text: "ForYouListComponent",
-  //   date: "12/12/2022",
-  //   images: ["chester-wade.jpg"],
-  //   reaction: [{ likes: 1 }, { hate: 2 }],
-  //   commentaires: [{ iduser: 1, comment: "i like this image" }],
-  //   hashtag: ["#art", "#new"],
-  // };
+  @ViewChild('myModal') myModal: ModalDirective;
+  @ViewChild('myModal2') myModal2: ModalDirective;
   images: Image[] = [];
   postText: any;
-  // hashtags = [
-  //   { id: 1, tag: "new" },
-  //   { id: 2, tag: "hi" },
-  //   { id: 3, tag: "nikew" },
-  //   { id: 4, tag: "now" },
-  // ];
-  // filteredHashtags: string[] = [];
-
-  loggedInUser: any;
-
-  idUser: any;
-
-  hashtags: String[] = [];
+  hashtags = [];
   filteredHashtags: any[] = [];
-
+  isModalVisible = true;
+  invalide = false ;
+    isCopyrightChecked: boolean = false;
   constructor(
     private sanitizer: DomSanitizer,
-    private authServ: AuthentificationService,
     private publicationService: PublicationService
-  ) {
-    this.idUser = this.authServ.getUserID();
-  }
+  ) {}
 
   postTextElement: HTMLElement | null;
 
-  ngOnInit(): void {
-    this.authServ.findUserById(this.idUser).subscribe((res) => {
-      this.loggedInUser = res;
-    });
+ 
 
+  ngOnInit(): void {
+    
     this.getHashtag();
     this.postTextElement = document.querySelector(".form-control.inputtag");
   }
@@ -84,73 +61,78 @@ export class AddPostComponent implements OnInit {
   clearSelectedImage(index: any) {
     this.images.splice(index, 1);
   }
-  onSubmit() {
+  onSubmit() {  
     const postText = this.postTextElement.textContent || "";
-    if (postText.trim() === "") {
-      alert("Text is required!");
-      return;
-    }
-    if (this.images.length === 0) {
-      alert("At least one image is required!");
-      return;
-    }
-    const hashtags = postText.match(/#(\w+)/g) || [];
-    const uniqueHashtags = Array.from(new Set(hashtags.map(tag => tag.slice(1))));
-    
-    const formData = new FormData();
-    formData.append("text", postText);
-    uniqueHashtags.forEach((tag) => {
-      if (tag.trim() !== '') {
-        formData.append("hashtags", tag);
-      }
-    });
-    this.images.forEach((image) => formData.append("images", image.file));
+if (postText.trim() === '') {
+  this.invalide = true ;
   
-    // send API request to create the new post
-    this.publicationService.createPost(formData).subscribe(
-      (response) => {
-        console.log(response);
-        // handle response from the API
+  return;
+}
+ 
+const hashtags = postText.match(/#(\w+)/g) || [];
+const uniqueHashtags = Array.from(new Set(hashtags.map(tag => tag.slice(1))));
 
-        // clear input fields
-        this.postTextElement.innerHTML = "";
-        this.images = [];
+const formData = new FormData();
 
-        alert("Post created successfully!");
-      },
-      (error) => {
-        console.error(error);
-        
-        // handle error from the API
-      }
-    );
+formData.append("text", postText);
+formData.append("userId", "0");
+formData.append("copyrightChecked", this.isCopyrightChecked.toString());
+
+if (uniqueHashtags.length === 1) {
+  formData.append("hashtags", uniqueHashtags[0]);
+} else {
+  uniqueHashtags.forEach((tag) => {
+    formData.append("hashtags", tag);
+  });
+}
+
+this.images.forEach((image) => formData.append("images", image.file));
+
+ // send API request to create the new post
+ this.publicationService.createPost(formData).subscribe(
+  (response) => {
+    console.log("ok",response);
+    // handle response from the API
+    this.postTextElement.innerHTML = "";
+    this.images = [];
+    this.myModal.hide();
+    this.myModal2.show();
+  },
+  (error) => {
+    console.error("err" ,error);
+    // handle error from the API
   }
+);
+}
+  
+ 
+ 
+ 
+ 
 
-  onInputChange(value: string) {
-    const regex = /(^|\s)(#[a-zA-Z\d]+)/g;
-    const replacedValue = value.replace(
-      regex,
-      `$1<span style="color:red;">$2</span>`
-    );
-    this.postText = replacedValue;
+onInputChange(value: string) {
+  const regex = /(^|\s)(#[a-zA-Z\d]+)/g;
+  const replacedValue = value.replace(regex, `$1<span style="color:red;">$2</span>`);
+  this.postText = replacedValue;
+  this.invalide = false ;
+ 
+  if (value.indexOf("#") !== -1) {
+    const inputHashtag = value.substring(value.lastIndexOf("#") + 1);
 
-    if (value.indexOf("#") !== -1) {
-      const inputHashtag = value.substring(value.lastIndexOf("#") + 1);
-
-      this.filteredHashtags = this.hashtags
-        .filter((hashtag) =>
-          hashtag["tag_name"]
-            .toLowerCase()
-            .startsWith(inputHashtag.toLowerCase())
-        )
-        .map((hashtag) => ({ tag_name: hashtag["tag_name "] }));
-    } else {
-      this.filteredHashtags = [];
-    }
+    this.filteredHashtags = this.hashtags
+      .filter((hashtag) =>
+        hashtag.tag_name.toLowerCase().startsWith(inputHashtag.toLowerCase())
+      )
+      .map((hashtag) => ({ tag_name: hashtag.tag_name }));
+  } else {
+    this.filteredHashtags = [];
   }
+}
+
 
   addHashtag(hashtag: string) {
     const lastIndex = this.postText.lastIndexOf("#");
-    this.postText = this.postText.substring(0, lastIndex) + "#" + hashtag + " ";
+    this.postText =
+      this.postText.substring(0, lastIndex) + "#" + hashtag + " ";
   }
 }
