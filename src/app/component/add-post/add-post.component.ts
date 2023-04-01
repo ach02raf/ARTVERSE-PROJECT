@@ -73,12 +73,12 @@ export class AddPostComponent implements OnInit {
     const uniqueHashtags = Array.from(new Set(hashtags.map(tag => tag.slice(1))));
     
     const formData = new FormData();
+
     formData.append("text", postText);
     uniqueHashtags.forEach((tag) => {
-      if (tag.trim() !== '') {
-        formData.append("hashtags", tag);
-      }
-    });
+     
+        formData.append("hashtags", tag);});
+   
     this.images.forEach((image) => formData.append("images", image.file));
   
     // send API request to create the new post
@@ -95,6 +95,7 @@ export class AddPostComponent implements OnInit {
       },
       (error) => {
         console.error(error);
+        
         // handle error from the API
       }
     );

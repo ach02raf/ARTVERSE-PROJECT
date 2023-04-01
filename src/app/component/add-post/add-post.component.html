@@ -59,31 +59,25 @@
             placeholder="ecrire qlq chose"
           ></textarea> -->
 
-          
           <form (ngSubmit)="onSubmit()">
             <div style="position: relative" class="post-text">
-              
               <div
                 contenteditable="true"
-                
                 class="form-control inputtag"
                 name="postText"
                 placeholder="Écrivez quelque chose ici..."
                 (input)="onInputChange($event.target.textContent)"
-           
-                 
               >
-              
-              
                 <ul class="list-group" *ngIf="filteredHashtags.length">
                   <li
-                  class="list-group-item d-flex justify-content-between align-items-center"
-                  *ngFor="let hashtag of filteredHashtags"
-                >
-                  #{{ hashtag.tag_name }}
-                  <span class="badge badge-primary badge-pill"> {{ hashtag.followers?.toString() || '0' }}</span>
-                </li>
-                
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                    *ngFor="let hashtag of filteredHashtags"
+                  >
+                    #{{ hashtag.tag_name }}
+                    <span class="badge badge-primary badge-pill">
+                      {{ hashtag.followers?.toString() || "0" }}</span
+                    >
+                  </li>
                 </ul>
               </div>
             </div>
