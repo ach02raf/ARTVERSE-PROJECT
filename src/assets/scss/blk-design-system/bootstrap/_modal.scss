@@ -2,11 +2,9 @@
 // .modal           - container to scroll within
 // .modal-dialog    - positioning shell for the actual modal
 // .modal-content   - actual modal w/ bg and corners and stuff
-
 .modal-open {
   // Kill the scroll on the body
   overflow: hidden;
-
   .modal {
     overflow-x: hidden;
     overflow-y: auto;
@@ -38,7 +36,6 @@
   margin: $modal-dialog-margin;
   // allow clicks to pass through for custom click handling to close modal
   pointer-events: none;
-
   // When fading in the modal, animate it to slide down
   .modal.fade & {
     @include transition($modal-transition);
@@ -53,7 +50,6 @@
   display: flex;
   align-items: center;
   min-height: calc(100% - (#{$modal-dialog-margin} * 2));
-
   // Ensure `modal-dialog-centered` extends the full height of the view (IE10/11)
   &::before {
     display: block; // IE10
@@ -88,7 +84,6 @@
   left: 0;
   z-index: $zindex-modal-backdrop;
   background-color: $modal-backdrop-bg;
-
   // Fade for backdrop
   &.fade {
     opacity: 0;
@@ -107,7 +102,6 @@
   padding: $modal-header-padding;
   border-bottom: $modal-header-border-width solid $modal-header-border-color;
   @include border-top-radius($modal-content-border-radius);
-
   .close {
     padding: $modal-header-padding;
     // auto on the left force icon to the right even when there is no .modal-title
@@ -139,7 +133,6 @@
   justify-content: flex-end; // Right align buttons with flex property because text-align doesn't work on flex items
   padding: $modal-inner-padding;
   border-top: $modal-footer-border-width solid $modal-footer-border-color;
-
   // Easily place margin between footer elements
   > :not(:first-child) {
     margin-left: 0.25rem;
@@ -165,19 +158,15 @@
     max-width: $modal-md;
     margin: $modal-dialog-margin-y-sm-up auto;
   }
-
   .modal-dialog-centered {
     min-height: calc(100% - (#{$modal-dialog-margin-y-sm-up} * 2));
-
     &::before {
       height: calc(100vh - (#{$modal-dialog-margin-y-sm-up} * 2));
     }
   }
-
   .modal-content {
     @include box-shadow($modal-content-box-shadow-sm-up);
   }
-
   .modal-sm {
     max-width: $modal-sm;
   }

@@ -1,72 +1,45 @@
- 
-
-.custom-textarea,
-.list-group-item {
-  padding: 5px;
-  font-size: 16px;
-  line-height: 1.5; 
-}
-
 .custom-textarea {
+  padding: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+  border-radius: 5px;
   border: none;
   box-shadow: none;
   resize: vertical;
   height: auto;
-  position: relative;
 }
 
-.custom-textarea ul {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
+textarea::-webkit-scrollbar-thumb {
+  cursor: default;
   background-color: #fff;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  z-index: 1;  
-  top: 100%;
-  left: 0;
-  width: 100%;
-  background-color: #fff ;
- 
-  border: 1px solid #ccc ;
-  z-index: 10;
+  border-radius: 6px;
 }
 
-.custom-textarea ul li {
-  padding: 3px;
-  cursor: pointer;
+textarea::-webkit-scrollbar-thumb:hover {
+  background-color: #aba7a7;
 }
 
-.custom-textarea ul li:hover {
-  background-color: #f5f5f5 ;
+ul li,
+ol li {
+  color: #1f2251;
+}
+
+.list-group-item {
+  padding: 5px;
+  margin-bottom: -0.0625rem;
+  background-color: #ffffff;
+  border: 0.0625rem solid #e9ecef;
 }
 
 .inputtag {
   margin-top: 5px;
   min-height: 100px;
   height: fit-content;
-  z-index: 1;
 }
 
 ul.list-group {
   width: 160px;
-}
-
-ul.list-group li,
-.hashtag {
-  color: #1F2251;
-}
-
-.list-group-item {
-  margin-bottom: -0.0625rem;
-  background-color: #fff ;
-  font-size: 10px;
-  border: 0.0625rem solid #ccc ;
-}
-
-.post-text {
-  position: relative;
+  z-index: 2000000;
 }
 
 .modal-content {
@@ -76,35 +49,40 @@ ul.list-group li,
 .modal-header {
   padding: 0px;
 }
-ul.list-group {
-  max-height: 100px;
-  overflow-y: scroll;
-  width: 160px;
+
+.custom-textarea {
+  padding: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+  border-radius: 5px;
+  border: none;
+  box-shadow: none;
+  resize: vertical;
+  height: auto;
+  position: relative;
+  ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    z-index: 10;
+    li {
+      padding: 5px;
+      cursor: pointer;
+      &:hover {
+        background-color: #f5f5f5;
+      }
+    }
+  }
 }
 
-
-
-// to custom scroll 
-
-/* Set the width of the scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
+.inputtag {
+  z-index: 1;
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-  background-color: #f1f1f100;
+.hashtag {
+  color: red;
 }
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background-color:   #f200ce ;
-  border-radius: 10px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
-}
-
-

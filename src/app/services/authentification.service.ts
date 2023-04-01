@@ -8,7 +8,7 @@ import { asyncScheduler, Observable, throwError } from "rxjs";
 import { catchError, map, observeOn, tap } from "rxjs/operators";
 
 @Injectable({
-  providedIn: "root", 
+  providedIn: "root",
 })
 export class AuthentificationService {
   // public user: Observable<any>;
@@ -17,19 +17,11 @@ export class AuthentificationService {
   headers = new HttpHeaders().set("Content-Type", "application/json");
   currentUser = {};
   loggedInUser: any = "achraf";
+
   constructor(private http: HttpClient) {}
 
   inscriptionPost(user: any): Observable<any> {
-    return this.http.post("http://localhost:5000/user/inscription", user).pipe(
-      tap((response: any) => {
-        localStorage.setItem("token", response.token);
-      }),
-
-      catchError((error) => {
-        console.log("error enter", error);
-        return throwError("the errror is : ", error);
-      })
-    );
+    return this.http.post("http://localhost:5000/user/inscription", user);
   }
 
   getUserID() {
@@ -37,11 +29,13 @@ export class AuthentificationService {
     let payload: any;
     if (token) {
       payload = JSON.parse(atob(token.split(".")[1]));
+      console.log("payload", payload);
     } else {
       return null;
     }
-    return payload.userId;
+    return payload._id;
   }
+
   getToken() {
     return localStorage.getItem("token");
   }
@@ -71,15 +65,7 @@ export class AuthentificationService {
       );
   }
   login(credentials: { password: string; email: string }): Observable<any> {
-    return this.http.post("http://localhost:5000/user/login", credentials).pipe(
-      tap((response: any) => {
-        localStorage.setItem("token", response.token);
-      }),
-
-      catchError((error) => {
-        return throwError("the error is : ", error);
-      })
-    );
+    return this.http.post("http://localhost:5000/user/login", credentials);
   }
 
   resetPassword(token, password): Observable<any> {
@@ -91,6 +77,8 @@ export class AuthentificationService {
         map((response) => {
           // Extract token from response and save to localStorage
           const token = response["token"];
+          console.log("toooken", token);
+
           localStorage.setItem("token", token);
           console.log("reeeesss", response["token"]);
 

@@ -1,0 +1,26 @@
+<div class="card card-profile profile-bg align-items-center">
+  <div class="card-header">Add Friends !</div>
+  <div *ngFor="let person of suggested" class="card-body mt-2">
+    <div class="media">
+      <a class="pull-left" href="javascript:void(0)">
+        <div class="avatar">
+          <img
+            alt="64x64"
+            class="media-object img-raised"
+            src="assets/img/logo.png"
+          />
+        </div>
+      </a>
+      <div class="">
+        <h5 class="mx-2">
+          {{ person.firstname }} {{ person.lastname }} <br />
+          <small class="text-muted"> {{ person.art }} </small>
+        </h5>
+
+        <button class="btn btn-info btn-sm mt-1 mx-2">
+          <i class="tim-icons icon-simple-add mr-1"></i>Follow
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -26,8 +26,10 @@ import { LandingpageComponent } from "./pages/examples/landingpage/landingpage.c
 import { AuthInterceptor } from "./services/AuthInterceptor";
 import { NavbarComponent } from "./component/navbar/navbar.component";
 import { FooterComponent } from "./component/footer/footer.component";
-import { AutoresizeDirectiveDirective } from './autoresize-directive.directive';
-import { HashtagColorPipePipe } from './pipe/hashtag-color-pipe.pipe';
+import { ErrorNotFoundComponent } from "./error-not-found/error-not-found.component";
+// import { FeedIdentityComponent } from "./component/feed-identity/feed-identity.component";
+import { AutoresizeDirectiveDirective } from "./autoresize-directive.directive";
+import { HashtagColorPipePipe } from "./pipe/hashtag-color-pipe.pipe";
 
 @NgModule({
   declarations: [
@@ -35,6 +37,9 @@ import { HashtagColorPipePipe } from './pipe/hashtag-color-pipe.pipe';
     NavbarComponent,
     FooterComponent,
     AutoresizeDirectiveDirective,
+    ErrorNotFoundComponent,
+
+    // FeedIdentityComponent,
     HashtagColorPipePipe,
     // IndexComponent,
     // ProfilepageComponent,
@@ -48,6 +53,7 @@ import { HashtagColorPipePipe } from './pipe/hashtag-color-pipe.pipe';
     RouterModule,
     AppRoutingModule,
     ReactiveFormsModule,
+
     // BsDropdownModule.forRoot(),
     // ProgressbarModule.forRoot(),
     // TooltipModule.forRoot(),

@@ -1,14 +1,34 @@
-<div class="col">
-  <h3>ç'est temps de partager votre merveilleux travail</h3>
-  <button
+<div class="">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="input-group">
+          <div class="avatar mx-2">
+            <img
+              alt="64x64"
+              class="media-object img-raised"
+              src="assets/img/james.jpg"
+            />
+          </div>
+
+          <input
+            placeholder="Add new post..."
+            (click)="myModal.show()"
+            class="form-control mx-2"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <h3>Share Your Artworks With Us</h3> -->
+  <!-- <button
     class="btn btn-danger"
     data-target="#myModal"
     (click)="myModal.show()"
   >
-    créer un nouveau poste
-  </button>
-  <br />
-  <br />
+    Share Artworks
+  </button> -->
+
   <div
     aria-hidden="true"
     aria-labelledby="myModalLabel"
@@ -46,18 +66,18 @@
 
         <div class="form-group">
           <!--    <textarea
-            class="form-control overflow-auto"
-            style="
-              resize: none;
-              border: none;
-              box-shadow: none;
-              max-height: none;
-              height: auto;
-            "
-            rows="3"
-            cols="50"
-            placeholder="ecrire qlq chose"
-          ></textarea> -->
+          class="form-control overflow-auto"
+          style="
+            resize: none;
+            border: none;
+            box-shadow: none;
+            max-height: none;
+            height: auto;
+          "
+          rows="3"
+          cols="50"
+          placeholder="ecrire qlq chose"
+        ></textarea> -->
 
           <form (ngSubmit)="onSubmit()">
             <div style="position: relative" class="post-text">
@@ -115,82 +135,82 @@
               </slide>
             </carousel>
             <!-- <div
-            *ngIf="images.length != 0"
-            id="carouselExampleControls"
-            class="carousel slide"
-            data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <ng-container *ngFor="let image of images; let i = index">
-                <div class="carousel-item" [ngClass]="{ active: i == 0 }">
-                  <img
-                    *ngIf="image"
-                    class="d-block w-100"
-                    [src]="image.url"
-                    [alt]="image.name" />
-                </div>
-              </ng-container>
-            </div>
-            <button
-              class="carousel-control-prev"
-              type="button"
-              data-bs-target="#carouselExampleControls"
-              data-bs-slide="prev">
-              <span
-                class="carousel-control-prev-icon"
-                aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button
-              class="carousel-control-next"
-              type="button"
-              data-bs-target="#carouselExampleControls"
-              data-bs-slide="next">
-              <span
-                class="carousel-control-next-icon"
-                aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div> -->
-
-            <!-- <div
-            *ngIf="images.length != 0"
-            id="carouselExampleControls"
-            class="carousel slide"
-            data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <div *ngFor="let image of images" class="carousel-item active">
+          *ngIf="images.length != 0"
+          id="carouselExampleControls"
+          class="carousel slide"
+          data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <ng-container *ngFor="let image of images; let i = index">
+              <div class="carousel-item" [ngClass]="{ active: i == 0 }">
                 <img
                   *ngIf="image"
                   class="d-block w-100"
                   [src]="image.url"
                   [alt]="image.name" />
               </div>
+            </ng-container>
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="prev">
+            <span
+              class="carousel-control-prev-icon"
+              aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="next">
+            <span
+              class="carousel-control-next-icon"
+              aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div> -->
+
+            <!-- <div
+          *ngIf="images.length != 0"
+          id="carouselExampleControls"
+          class="carousel slide"
+          data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div *ngFor="let image of images" class="carousel-item active">
+              <img
+                *ngIf="image"
+                class="d-block w-100"
+                [src]="image.url"
+                [alt]="image.name" />
             </div>
-            <button
-              class="carousel-control-prev dark"
-              type="button"
-              data-bs-target="#carouselExampleControls"
-              data-bs-slide="prev">
-              <span
-                class="carousel-control-prev-icon dark"
-                aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button
-              class="carousel-control-next dark"
-              type="button"
-              data-bs-target="#carouselExampleControls"
-              data-bs-slide="next">
-              <span
-                class="carousel-control-next-icon dark"
-                aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div> -->
+          </div>
+          <button
+            class="carousel-control-prev dark"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="prev">
+            <span
+              class="carousel-control-prev-icon dark"
+              aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next dark"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="next">
+            <span
+              class="carousel-control-next-icon dark"
+              aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div> -->
 
             <!-- <button *ngIf="images.length != 0" (click)="clearSelectedImage()">
-            Clear Selected Image
-          </button> -->
+          Clear Selected Image
+        </button> -->
 
             <button
               class="btn btn-success"
