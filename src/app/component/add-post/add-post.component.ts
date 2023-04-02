@@ -4,6 +4,7 @@ import { AuthentificationService } from "src/app/services/authentification.servi
 import { HashtagColorPipePipe } from "../../pipe/hashtag-color-pipe.pipe";
 import { PublicationService } from "../../services/publication.service";
 import { debounceTime } from "rxjs/operators";
+import { LoggedInUserService } from "src/app/services/logged-in-user.service";
 
 interface Image {
   name: string;
@@ -44,16 +45,16 @@ export class AddPostComponent implements OnInit {
 
   constructor(
     private sanitizer: DomSanitizer,
-    private authServ: AuthentificationService,
+    private loggedUserServ: LoggedInUserService,
     private publicationService: PublicationService
   ) {
-    this.idUser = this.authServ.getUserID();
+    this.idUser = this.loggedUserServ.getUserID();
   }
 
   postTextElement: HTMLElement | null;
 
   ngOnInit(): void {
-    this.authServ.findUserById(this.idUser).subscribe((res) => {
+    this.loggedUserServ.findUserById(this.idUser).subscribe((res) => {
       this.loggedInUser = res;
     });
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { LoggedInUserService } from "src/app/services/logged-in-user.service";
 
 @Component({
   selector: "app-for-you-list",
@@ -6,12 +7,17 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./for-you-list.component.scss"],
 })
 export class ForYouListComponent implements OnInit {
-  constructor() {}
+  loggedInUser: any;
+
+  idUser: any;
+  constructor(private loggedUserServ: LoggedInUserService) {
+    this.idUser = this.loggedUserServ.getUserID();
+  }
 
   List = [
     {
       _id: 1,
-      text: "ForYouListComponent",
+      text: "For You List Component",
       date: "12/12/2022",
       images: ["chester-wade.jpg"],
       reaction: [{ likes: 1 }, { hate: 2 }],
@@ -20,7 +26,7 @@ export class ForYouListComponent implements OnInit {
     },
     {
       _id: 2,
-      text: "ForYouListComponent",
+      text: "For You List Component",
       date: "13/12/2022",
       images: ["mark-finn.jpg"],
       reaction: [{ likes: 1 }, { hate: 2 }],
@@ -47,5 +53,10 @@ export class ForYouListComponent implements OnInit {
     // },
   ];
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loggedUserServ.findUserById(this.idUser).subscribe((res) => {
+      this.loggedInUser = res;
+      console.log("foryoulist", this.loggedInUser);
+    });
+  }
 }

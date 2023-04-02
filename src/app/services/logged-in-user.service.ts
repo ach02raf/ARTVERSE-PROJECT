@@ -14,7 +14,7 @@ export class LoggedInUserService {
     let payload: any;
     if (token) {
       payload = JSON.parse(atob(token.split(".")[1]));
-      console.log("payload", payload);
+      console.log("payload loggedin", payload);
     } else {
       return null;
     }

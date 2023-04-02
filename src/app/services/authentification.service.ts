@@ -4,8 +4,8 @@ import {
   HttpHeaders,
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { asyncScheduler, Observable, throwError } from "rxjs";
-import { catchError, map, observeOn, tap } from "rxjs/operators";
+import { Observable, throwError } from "rxjs";
+import { catchError, map, tap } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
