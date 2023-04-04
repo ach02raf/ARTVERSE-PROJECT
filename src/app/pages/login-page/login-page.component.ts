@@ -60,6 +60,7 @@ export class LoginPageComponent implements OnInit {
     this.authServ.sendMailResetPassword(this.resetByEmail).subscribe(
       (response) => {
         console.log("Success", response);
+        this.route.navigate(["/home"]);
         // Handle success case here
       },
       (error) => {
