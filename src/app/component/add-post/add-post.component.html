@@ -1,13 +1,34 @@
-<div class="col">
-  <h3>ç'est temps de partager votre merveilleux travail</h3>
-  <button
+<div class="">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="input-group">
+          <div class="avatar mx-2">
+            <img
+              alt="64x64"
+              class="media-object img-raised"
+              src="assets/img/james.jpg"
+            />
+          </div>
+
+          <input
+            placeholder="Add new post..."
+            (click)="myModal.show()"
+            class="form-control mx-2"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <h3>Share Your Artworks With Us</h3> -->
+  <!-- <button
     class="btn btn-danger"
     data-target="#myModal"
-    (click)="myModal.show()">
-    créer un nouveau poste
-  </button>
-  <br />
-  <br />
+    (click)="myModal.show()"
+  >
+    Share Artworks
+  </button> -->
+
   <div
     aria-hidden="true"
     aria-labelledby="myModalLabel"
@@ -16,7 +37,8 @@
     #myModal="bs-modal"
     id="myModal"
     role="dialog"
-    tabindex="-1">
+    tabindex="-1"
+  >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header justify-content-center">
@@ -25,144 +47,178 @@
             class="close"
             data-dismiss="modal"
             type="button"
-            (click)="myModal.hide()">
+            (click)="myModal.hide()"
+          >
             <i class="tim-icons icon-simple-remove"> </i>
           </button>
           <h4 class="title title-up">Créer une publication</h4>
         </div>
-        <hr style="border-color: black; width: 100%; opacity: 0.2" />
+        <hr style="border-color: rgb(44, 44, 44); width: 100%; opacity: 0.2" />
         <div style="display: flex; align-items: center">
           <img
             alt="Circle image"
             class="img-fluid rounded-circle"
             src="assets/img/james.jpg"
-            style="width: 40px; height: 40px; margin: 5px" />
+            style="width: 40px; height: 40px; margin: 5px"
+          />
           <p>ach02raf</p>
         </div>
-        <div class="form-group">
-          <textarea
-            class="form-control overflow-auto"
-            style="
-              resize: none;
-              border: none;
-              box-shadow: none;
-              max-height: none;
-              height: auto;
-            "
-            rows="3"
-            cols="50"
-            placeholder="ecrire qlq chose"></textarea>
-          <div class="custom-file">
-            <label for="customFile" class="form-label"
-              >Choose one or more images</label
-            >
-            <input
-              type="file"
-              multiple
-              class="custom-file-input"
-              id="customFile"
-              (change)="onFileSelected($event)" />
-          </div>
-          <carousel *ngIf="images.length != 0" [showIndicators]="false" pause>
-            <slide
-              *ngFor="let image of images; let i = index"
-              class="text-center">
-              <img
-                *ngIf="image"
-                class="d-block w-100"
-                [src]="image.url"
-                [alt]="image.name" />
-              <button
-                class="btn btn-primary btn-fab btn-icon btn-round"
-                (click)="clearSelectedImage(index)">
-                <i class="tim-icons icon-gift-2"></i>
-              </button>
-            </slide>
-          </carousel>
-          <!-- <div
-            *ngIf="images.length != 0"
-            id="carouselExampleControls"
-            class="carousel slide"
-            data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <ng-container *ngFor="let image of images; let i = index">
-                <div class="carousel-item" [ngClass]="{ active: i == 0 }">
-                  <img
-                    *ngIf="image"
-                    class="d-block w-100"
-                    [src]="image.url"
-                    [alt]="image.name" />
-                </div>
-              </ng-container>
-            </div>
-            <button
-              class="carousel-control-prev"
-              type="button"
-              data-bs-target="#carouselExampleControls"
-              data-bs-slide="prev">
-              <span
-                class="carousel-control-prev-icon"
-                aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button
-              class="carousel-control-next"
-              type="button"
-              data-bs-target="#carouselExampleControls"
-              data-bs-slide="next">
-              <span
-                class="carousel-control-next-icon"
-                aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div> -->
 
-          <!-- <div
-            *ngIf="images.length != 0"
-            id="carouselExampleControls"
-            class="carousel slide"
-            data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <div *ngFor="let image of images" class="carousel-item active">
+        <div class="form-group">
+          <!--    <textarea
+          class="form-control overflow-auto"
+          style="
+            resize: none;
+            border: none;
+            box-shadow: none;
+            max-height: none;
+            height: auto;
+          "
+          rows="3"
+          cols="50"
+          placeholder="ecrire qlq chose"
+        ></textarea> -->
+
+          <form (ngSubmit)="onSubmit()">
+            <div style="position: relative" class="post-text">
+              <div
+                contenteditable="true"
+                class="form-control inputtag"
+                name="postText"
+                placeholder="Écrivez quelque chose ici..."
+                (input)="onInputChange($event.target.textContent)"
+              >
+                <ul class="list-group" *ngIf="filteredHashtags.length">
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                    *ngFor="let hashtag of filteredHashtags"
+                  >
+                    #{{ hashtag.tag_name }}
+                    <span class="badge badge-primary badge-pill">
+                      {{ hashtag.followers?.toString() || "0" }}</span
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="custom-file">
+              <label for="customFile" class="form-label"
+                >Choose one or more images</label
+              >
+              <input
+                type="file"
+                multiple
+                class="custom-file-input"
+                id="customFile"
+                (change)="onFileSelected($event)"
+              />
+            </div>
+
+            <carousel *ngIf="images.length != 0" [showIndicators]="false" pause>
+              <slide
+                *ngFor="let image of images; let i = index"
+                class="text-center"
+              >
+                <img
+                  *ngIf="image"
+                  class="d-block w-100"
+                  [src]="image.url"
+                  [alt]="image.name"
+                />
+                <button
+                  class="btn btn-primary btn-fab btn-icon btn-round"
+                  (click)="clearSelectedImage(index)"
+                >
+                  <i class="tim-icons icon-gift-2"></i>
+                </button>
+              </slide>
+            </carousel>
+            <!-- <div
+          *ngIf="images.length != 0"
+          id="carouselExampleControls"
+          class="carousel slide"
+          data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <ng-container *ngFor="let image of images; let i = index">
+              <div class="carousel-item" [ngClass]="{ active: i == 0 }">
                 <img
                   *ngIf="image"
                   class="d-block w-100"
                   [src]="image.url"
                   [alt]="image.name" />
               </div>
-            </div>
-            <button
-              class="carousel-control-prev dark"
-              type="button"
-              data-bs-target="#carouselExampleControls"
-              data-bs-slide="prev">
-              <span
-                class="carousel-control-prev-icon dark"
-                aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button
-              class="carousel-control-next dark"
-              type="button"
-              data-bs-target="#carouselExampleControls"
-              data-bs-slide="next">
-              <span
-                class="carousel-control-next-icon dark"
-                aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div> -->
-
-          <!-- <button *ngIf="images.length != 0" (click)="clearSelectedImage()">
-            Clear Selected Image
-          </button> -->
-
+            </ng-container>
+          </div>
           <button
-            class="btn btn-success"
-            style="width: 100%; margin-top: 30px"
-            disabled>
-            Publier
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="prev">
+            <span
+              class="carousel-control-prev-icon"
+              aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
           </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="next">
+            <span
+              class="carousel-control-next-icon"
+              aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div> -->
+
+            <!-- <div
+          *ngIf="images.length != 0"
+          id="carouselExampleControls"
+          class="carousel slide"
+          data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div *ngFor="let image of images" class="carousel-item active">
+              <img
+                *ngIf="image"
+                class="d-block w-100"
+                [src]="image.url"
+                [alt]="image.name" />
+            </div>
+          </div>
+          <button
+            class="carousel-control-prev dark"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="prev">
+            <span
+              class="carousel-control-prev-icon dark"
+              aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next dark"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="next">
+            <span
+              class="carousel-control-next-icon dark"
+              aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div> -->
+
+            <!-- <button *ngIf="images.length != 0" (click)="clearSelectedImage()">
+          Clear Selected Image
+        </button> -->
+
+            <button
+              class="btn btn-success"
+              style="width: 100%; margin-top: 30px"
+            >
+              Publier
+            </button>
+          </form>
         </div>
       </div>
     </div>

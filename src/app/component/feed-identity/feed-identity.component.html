@@ -1,0 +1,45 @@
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+      <div *ngIf="loggedInUser" class="card card-coin">
+        <div class="card-header">
+          <img class="rounded-circle" src="assets/img/mike.jpg" />
+
+          <h4 class="title">
+            {{ loggedInUser["firstname"] }} {{ loggedInUser["lastname"] }}
+          </h4>
+          <p>{{ loggedInUser["bio"] }}</p>
+        </div>
+        <div class="card-body"></div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div *ngIf="loggedInUser" class="">
+  <div class="card card-profile profile-bg align-items-center">
+    <div class="card-header">
+      <div class="card-avatar">
+        <a href=""><img class="img img-raised" src="assets/img/mike.jpg" /></a>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3 class="card-title">
+        {{ loggedInUser["firstname"] }} {{ loggedInUser["lastname"] }}
+      </h3>
+      <h6 class="text-primary">Photographer</h6>
+      <h5 class="text-muted">
+        {{ loggedInUser["bio"] }}
+      </h5>
+    </div>
+    <div class="card-footer">
+      <div class="float-left">
+        <a
+          [routerLink]="['/profile', loggedInUser.username]"
+          class="btn btn-primary btn-sm btn-simple"
+          ><i class="tim-icons icon-single-02"></i> View Profile
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

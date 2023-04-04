@@ -1,0 +1,37 @@
+.card-profile {
+  text-align: center;
+}
+
+.card {
+  border: 0;
+  box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 7px;
+}
+
+.card-profile.profile-bg .card-header {
+  background-position: center;
+  background-size: cover;
+}
+
+.card .card-header {
+  border: 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.card-profile.profile-bg .card-header .card-avatar .img {
+  border: 1px solid #fff;
+}
+
+.card-profile .card-avatar img,
+.card-avatar img {
+  border-radius: 50% !important;
+}
+
+.img-raised {
+  box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.3);
+}
+
+img {
+  max-width: 40%;
+  border-radius: 0.2857rem;
+}

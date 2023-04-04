@@ -4,11 +4,11 @@ import {
   HttpHeaders,
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { asyncScheduler, Observable, throwError } from "rxjs";
-import { catchError, map, observeOn, tap } from "rxjs/operators";
+import { Observable, throwError } from "rxjs";
+import { catchError, map, tap } from "rxjs/operators";
 
 @Injectable({
-  providedIn: "root", 
+  providedIn: "root",
 })
 export class AuthentificationService {
   // public user: Observable<any>;
@@ -16,19 +16,24 @@ export class AuthentificationService {
   TOKEN_KEY = "token-key";
   headers = new HttpHeaders().set("Content-Type", "application/json");
   currentUser = {};
+  loggedInUser: any = "achraf";
+
   constructor(private http: HttpClient) {}
 
   inscriptionPost(user: any): Observable<any> {
-    return this.http.post("http://localhost:5000/user/inscription", user).pipe(
-      tap((response: any) => {
-        localStorage.setItem("token", response.token);
-      }),
+    return this.http.post("http://localhost:5000/user/inscription", user);
+  }
 
-      catchError((error) => {
-        console.log("error enter", error);
-        return throwError("the errror is : ", error);
-      })
-    );
+  getUserID() {
+    const token = localStorage.getItem("token");
+    let payload: any;
+    if (token) {
+      payload = JSON.parse(atob(token.split(".")[1]));
+      console.log("payload", payload);
+    } else {
+      return null;
+    }
+    return payload._id;
   }
 
   getToken() {
@@ -60,15 +65,7 @@ export class AuthentificationService {
       );
   }
   login(credentials: { password: string; email: string }): Observable<any> {
-    return this.http.post("http://localhost:5000/user/login", credentials).pipe(
-      tap((response: any) => {
-        localStorage.setItem("token", response.token);
-      }),
-
-      catchError((error) => {
-        return throwError("the error is : ", error);
-      })
-    );
+    return this.http.post("http://localhost:5000/user/login", credentials);
   }
 
   resetPassword(token, password): Observable<any> {
@@ -80,13 +77,44 @@ export class AuthentificationService {
         map((response) => {
           // Extract token from response and save to localStorage
           const token = response["token"];
-          localStorage.setItem("access_token", token);
+          console.log("toooken", token);
+
+          localStorage.setItem("token", token);
           console.log("reeeesss", response["token"]);
 
           return response;
         })
       );
   }
+
+  findUserById(id: any) {
+    return this.http.get(`http://localhost:5000/user/getUserById/${id}`);
+  }
+
+  // async getLoggedInUser() {
+  //   console.log("id user", this.getUserID());
+
+  //   const token = localStorage.getItem("token");
+
+  //   if (token) {
+  //     const payload = await JSON.parse(atob(token.split(".")[1]));
+  //     this.findUserById(payload.userId).subscribe(
+  //       (user) => {
+  //         this.loggedInUser = user;
+  //         console.log("log get user", this.loggedInUser);
+  //       },
+  //       (error) => {
+  //         console.error("Error retrieving user:", error);
+  //         this.loggedInUser = null;
+  //       }
+  //     );
+  //     console.log("log get user fin", this.loggedInUser);
+  //   } else {
+  //     this.loggedInUser = null;
+  //   }
+
+  //   return this.loggedInUser;
+  // }
 
   // Error
   handleError(error: HttpErrorResponse) {

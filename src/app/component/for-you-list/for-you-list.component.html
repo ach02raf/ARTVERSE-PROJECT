@@ -1,43 +1,34 @@
-<div class="row">
-  <div class="col-3" *ngFor="let item of List">
-    <div class="card">
-      <div class="card-body">
-        <div class="row">
-          <div class="col col-2" style="padding-right: 0px;">
-            <img
-              alt="Circle image"
-              class="img-fluid rounded-circle shadow"
-              src="assets/img/james.jpg"
-              style="width: 50px ; "
+<div *ngFor="let item of List">
+  <div class="card card-blog">
+    <div class="p-3">
+      <img
+        alt="... "
+        class="avatar img-raised"
+        src="assets/img/james.jpg "
+      /><span class="pl-3">
+        Denise Coldewey <br />
+        {{ item.date }}
+      </span>
+    </div>
 
-            />
-          </div>
-          <div class="col">
-            <h5 class="card-title">Card title</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{item.date}}</h6>
-          </div>
-         
-        </div> 
-   
-        <div class="row"  style="padding-top: 10px;" >
-          <img src="./../../../../assets/img/{{ item.images }}"   style="height: 300px; width: 350px;  " />
-        </div> 
-        <div class="row "  style="padding: 10px;" >
- 
-          <p class="card-text">{{ item.text }}</p>
+    <div class="card-image">
+      <img
+        class="img rounded"
+        src="./../../../../assets/img/{{ item.images }} "
+      />
+    </div>
+    <div class="card-body">
+      <span class="category text-info" *ngFor="let hash of item.hashtag">
+        {{ hash }}
+      </span>
+      <h5 class="card-title">
+        {{ item.text }}
+      </h5>
+      <div class="card-footer">
+        <div class="stats stats-right">
+          <i class="tim-icons icon-heart-2"></i> 342 ·
+          <i class="tim-icons icon-single-copy-04"></i> 45
         </div>
-
-        <div class="row justify-content-end">
-          
-          <div class="col-3">
-           <button class="btn btn-primary btn-fab btn-icon btn-round">
-               <i class="tim-icons icon-heart-2"></i>
-               </button>
-          </div>
-        </div>
-  
-          
-       
       </div>
     </div>
   </div>

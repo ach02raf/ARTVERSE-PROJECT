@@ -29,7 +29,12 @@ import { ForYouListComponent } from "../component/for-you-list/for-you-list.comp
 import { SearshComponent } from "../component/searsh/searsh.component";
 import { CompetitionComponent } from "../component/competition/competition.component";
 import { ProfileComponent } from "./profile/profile.component";
-import { ResetPasswordPageComponent } from './reset-password-page/reset-password-page.component';
+import { ResetPasswordPageComponent } from "./reset-password-page/reset-password-page.component";
+import { ProjectComponent } from "../component/project/project.component";
+import { FeedIdentityComponent } from "../component/feed-identity/feed-identity.component";
+import { SuggestionComponent } from "../component/suggestion/suggestion.component";
+import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
+
 // import { NavbarComponent } from "../component/navbar/navbar.component";
 
 @NgModule({
@@ -65,6 +70,10 @@ import { ResetPasswordPageComponent } from './reset-password-page/reset-password
     CompetitionComponent,
     ProfileComponent,
     ResetPasswordPageComponent,
+    FeedIdentityComponent,
+    ProjectComponent,
+    SuggestionComponent,
+    DashboardAdminComponent,
   ],
   exports: [
     IndexComponent,
