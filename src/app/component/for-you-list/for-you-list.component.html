@@ -5,10 +5,10 @@
         alt="... "
         class="avatar img-raised"
         src="assets/img/james.jpg "
-      /><span class="pl-3">
-        Denise Coldewey <br />
+      /><span class="pl-3"> Denise Coldewey </span>
+      <div class="text-muted">
         {{ item.date }}
-      </span>
+      </div>
     </div>
 
     <div class="card-image">
@@ -25,9 +25,48 @@
         {{ item.text }}
       </h5>
       <div class="card-footer">
-        <div class="stats stats-right">
-          <i class="tim-icons icon-heart-2"></i> 342 ·
-          <i class="tim-icons icon-single-copy-04"></i> 45
+        <div
+          ngbCollapse
+          [ngbCollapseToggle]="isCollapsed"
+          class="stats stats-right"
+        >
+          <div
+            class="btn-group btn-group-sm"
+            role="group"
+            aria-label="Basic example"
+          >
+            <button
+              class="btn btn-sm"
+              type="button"
+              aria-controls="collapseThree"
+            >
+              <i class="tim-icons icon-heart-2"></i>
+              342 ·
+            </button>
+            <button
+              class="btn btn-sm"
+              type="button"
+              (click)="isCollapsed = !isCollapsed"
+              [attr.aria-expanded]="!isCollapsed"
+              aria-controls="collapseThree"
+            >
+              <i
+                class="tim-icons icon-single-copy-04"
+                [class.icon-rotate]="!isCollapsed"
+              ></i>
+              45
+            </button>
+          </div>
+
+          <div ngbCollapse [ngbCollapseToggle]="isCollapsed">
+            <div class="card">
+              <div id="collapseThree" [ngbCollapse]="isCollapsed">
+                <div>
+                  <app-add-comment></app-add-comment>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

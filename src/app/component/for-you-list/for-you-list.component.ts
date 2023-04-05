@@ -8,6 +8,7 @@ import { LoggedInUserService } from "src/app/services/logged-in-user.service";
 })
 export class ForYouListComponent implements OnInit {
   loggedInUser: any;
+  isCollapsed = true;
 
   idUser: any;
   constructor(private loggedUserServ: LoggedInUserService) {
@@ -17,22 +18,14 @@ export class ForYouListComponent implements OnInit {
   List = [
     {
       _id: 1,
-      text: "For You List Component",
+      text: "Anim pariatur cliche reprehenderit, enim eiusmod high lif accusamus terry richardson ad squid. 3 wolf moon officia aute,non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch moon tempor, sunt",
       date: "12/12/2022",
       images: ["chester-wade.jpg"],
       reaction: [{ likes: 1 }, { hate: 2 }],
       commentaires: [{ iduser: 1, comment: "i like this image" }],
       hashtag: ["#art", "#new"],
     },
-    {
-      _id: 2,
-      text: "For You List Component",
-      date: "13/12/2022",
-      images: ["mark-finn.jpg"],
-      reaction: [{ likes: 1 }, { hate: 2 }],
-      commentaires: [{ iduser: 1, comment: "i like this image" }],
-      hashtag: ["#art", "#new"],
-    },
+
     // {
     //   _id: 2,
     //   text: "ForYouListComponent",
