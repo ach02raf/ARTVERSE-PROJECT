@@ -31,16 +31,17 @@
       </div>
     </div>
 
-    <div class="card-image">
-      <img
-        class="img rounded"
-        src="./../../../../assets/img/{{ item.images }} "
-      />
-    </div>
+    <carousel
+      class="card-image"
+      *ngIf="item.img.length != 0"
+      [showIndicators]="false"
+      pause
+    >
+      <slide *ngFor="let img of item.img; let i = index" class="text-center">
+        <img class="img rounded" src="/assets/uploads/{{ img.imgName }} " />
+      </slide>
+    </carousel>
     <div class="card-body">
-      <span class="category text-info" *ngFor="let hash of item.hashtag">
-        {{ hash }}
-      </span>
       <h5 class="card-title">
         {{ item.text }}
       </h5>
@@ -55,15 +56,17 @@
             role="group"
             aria-label="Basic example"
           >
-            <button
-              class="btn btn-sm"
-              type="button"
-              aria-controls="collapseThree"
-            >
-              <i class="tim-icons icon-heart-2"></i>
+          <button
+          class="btn btn-sm"
+          type="button"
+          aria-controls="collapseThree"
+          (click)="likePost(item._id)"
+        >
+          <i class="tim-icons"  [class.icon-heart-2]="reaction(item.reaction)"></i>
+          {{reactioncount(item.reaction)}}
+        </button>
+        
 
-              342
-            </button>
             <button
               class="btn btn-sm"
               type="button"
@@ -75,7 +78,8 @@
                 class="tim-icons icon-single-copy-04"
                 [class.icon-rotate]="!isCollapsed"
               ></i>
-              45
+                        {{reactioncount(item.commentaires)}}
+
             </button>
           </div>
 
@@ -83,7 +87,7 @@
             <div class="card">
               <div id="collapseThree" [ngbCollapse]="isCollapsed">
                 <div>
-                  <app-add-comment></app-add-comment>
+                  <app-add-comment  [idPub]="item._id" [listComm]="item.commentaires" ></app-add-comment>
                 </div>
               </div>
             </div>

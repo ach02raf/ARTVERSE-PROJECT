@@ -40,7 +40,10 @@ ol li {
 ul.list-group {
   width: 160px;
   z-index: 2000000;
+  max-height: 100px; /* adjust the height as needed */
+  overflow-y: scroll;
 }
+
 
 .modal-content {
   padding: 10px;
@@ -85,4 +88,23 @@ ul.list-group {
 
 .hashtag {
   color: red;
+}
+
+
+ul.list-group::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+ul.list-group::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+ul.list-group::-webkit-scrollbar-thumb {
+  background: #55054e;
+  border-radius: 5px;
+}
+
+ul.list-group::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
