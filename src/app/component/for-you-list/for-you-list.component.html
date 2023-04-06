@@ -38,7 +38,7 @@
       pause
     >
       <slide *ngFor="let img of item.img; let i = index" class="text-center">
-        <img class="img rounded" src="/assets/uploads/{{ img.imgName }} " />
+        <img class="img rounded" src="assets/img/{{ img.imgName }} " />
       </slide>
     </carousel>
     <div class="card-body">
@@ -56,16 +56,18 @@
             role="group"
             aria-label="Basic example"
           >
-          <button
-          class="btn btn-sm"
-          type="button"
-          aria-controls="collapseThree"
-          (click)="likePost(item._id)"
-        >
-          <i class="tim-icons"  [class.icon-heart-2]="reaction(item.reaction)"></i>
-          {{reactioncount(item.reaction)}}
-        </button>
-        
+            <button
+              class="btn btn-sm"
+              type="button"
+              aria-controls="collapseThree"
+              (click)="likePost(item._id)"
+            >
+              <i
+                class="tim-icons"
+                [class.icon-heart-2]="reaction(item.reaction)"
+              ></i>
+              {{ reactioncount(item.reaction) }}
+            </button>
 
             <button
               class="btn btn-sm"
@@ -78,8 +80,7 @@
                 class="tim-icons icon-single-copy-04"
                 [class.icon-rotate]="!isCollapsed"
               ></i>
-                        {{reactioncount(item.commentaires)}}
-
+              {{ reactioncount(item.commentaires) }}
             </button>
           </div>
 
@@ -87,7 +88,10 @@
             <div class="card">
               <div id="collapseThree" [ngbCollapse]="isCollapsed">
                 <div>
-                  <app-add-comment  [idPub]="item._id" [listComm]="item.commentaires" ></app-add-comment>
+                  <app-add-comment
+                    [idPub]="item._id"
+                    [listComm]="item.commentaires"
+                  ></app-add-comment>
                 </div>
               </div>
             </div>
