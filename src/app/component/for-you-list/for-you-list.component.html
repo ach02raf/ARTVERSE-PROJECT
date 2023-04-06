@@ -16,20 +16,28 @@
         </div>
       </div>
 
-      <div class="row" style="padding-top: 10px">
-        <img
-          src="./../../../../assets/img/{{ item.images }}"
-          style="height: 300px; width: 350px"
-        />
+      <div class="row" style="padding-top: 10px" *ngFor="let img of item.img">
+        <img src="assets/uploads/{{img.imgName}}" alt="Image">
       </div>
+
       <div class="row" style="padding: 10px">
         <p class="card-text">{{ item.text }}</p>
       </div>
 
       <div class="row justify-content-end">
         <div class="col-3">
-          <button class="btn btn-primary btn-fab btn-icon btn-round">
+          <button
+            class="btn btn-primary btn-fab btn-icon btn-round"
+            (click)="likePost(item._id)"
+          >
             <i class="tim-icons icon-heart-2"></i>
+          </button>
+
+          <button
+            class="btn btn-secondary btn-fab btn-icon btn-round"
+            (click)="dislikePost(item._id)"
+          >
+            <i class="tim-icons icon-heart-broken"></i>
           </button>
         </div>
       </div>
