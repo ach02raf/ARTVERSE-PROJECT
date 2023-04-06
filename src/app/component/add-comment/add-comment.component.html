@@ -10,19 +10,21 @@
         />
       </div>
     </a>
-    <div class="media-body mb-2">
+    <div class="media-body mb-2" >
       <div class="row">
         <div class="col">
           <textarea
             class="form-control"
             placeholder="Write some nice stuff or nothing..."
             rows="4"
+            #commentInput
           ></textarea>
         </div>
         <div class="media-footer col-3">
           <button
             class="btn btn-primary btn-sm btn-wd pull-right"
             href="javascript:void(0)"
+            (click)="postComment(commentInput)"
           >
             Post Comment
           </button>
@@ -30,8 +32,10 @@
       </div>
     </div>
   </div>
-  <div class="media-area">
-    <div class="media">
+
+
+  <div class="media-area" >
+    <div class="media"  *ngFor="let comm of listComm ; let i = index " >
       <a class="pull-left" href="javascript:void(0)">
         <div class="avatar">
           <img
@@ -42,84 +46,36 @@
         </div>
       </a>
       <div class="media-body">
-        <h5 class="media-heading">
+         <h5 class="media-heading">
           Tina Andrew <small class="text-muted"> · 7 minutes ago </small>
         </h5>
-        <p>
-          foundation in truth I stand with the most humility. We are so blessed!
-        </p>
-        <p>Don't forget, You're Awesome!</p>
+        <p>{{comm.comment}}       </p>
+
         <div class="media-footer">
           <a
             class="btn btn-primary btn-link pull-right"
             href="javascript:void(0)"
             tooltip="Reply to Comment"
-            aria-describedby="tooltip-18"
-            ><i class="tim-icons icon-send"></i> Reply
-          </a>
-          <a
-            class="btn btn-danger btn-link pull-right"
-            href="javascript:void(0)"
-            ><i class="tim-icons icon-heart-2"></i> 243
-          </a>
-        </div>
-        <div class="media media-post">
-          <a class="pull-left author" href="javascript:void(0)">
-            <div class="avatar">
-              <img
-                alt="64x64"
-                class="media-object img-raised"
-                src="assets/img/julie.jpeg"
-              />
-            </div>
-          </a>
-          <div class="media-body">
-            <input
-              class="form-control"
-              placeholder="Write a nice reply or go home..."
-              rows="4"
-            />
-            <div class="media-footer">
-              <button
-                class="btn btn-primary btn-sm pull-right"
-                href="javascript:void(0)"
-              >
-                <i class="tim-icons icon-send"></i> Reply
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="media">
-      <a class="pull-left" href="javascript:void(0)">
-        <div class="avatar">
-          <img
-            alt="Tim Picture"
-            class="media-object img-raised"
-            src="assets/img/julie.jpeg"
-          />
-        </div>
-      </a>
-      <div class="media-body">
-        <h5 class="media-heading">
-          John Camber <small class="text-muted"> · Yesterday </small>
-        </h5>
-        <p>We will keep you posted for the latest news.</p>
-        <p>Don't forget, You're Awesome!</p>
-        <div class="media-footer">
-          <a
-            class="btn btn-primary btn-link pull-right"
-            href="javascript:void(0)"
-            tooltip="Reply to Comment"
-            aria-describedby="tooltip-19"
+            aria-describedby="tooltip-19"   (click)="postCommentReply(ReplyInput , i)"
             ><i class="tim-icons icon-send"></i> Reply
           </a>
           <a
             class="btn btn-default btn-link pull-right"
             href="javascript:void(0)"
-            ><i class="tim-icons icon-heart-2"></i> 25
+            (click)="reactionComm(i)"
+            ><i class="tim-icons icon-heart-2"></i> {{comm.reaction}}
           </a>
+          <div class="row">
+            <div class="col">
+              <textarea
+                class="form-control"
+                placeholder="Write some nice stuff or nothing..."
+                rows="1"
+                #ReplyInput
+              ></textarea>
+            </div>
+            
+          </div>
         </div>
         <div class="media">
           <a class="pull-left" href="javascript:void(0)">
@@ -131,20 +87,13 @@
               />
             </div>
           </a>
-          <div class="media-body">
+          <div class="media-body" *ngFor="let com of comm ; let i = index ">
             <h5 class="media-heading">
               Tina Andrew <small class="text-muted"> · 2 Days Ago </small>
             </h5>
-            <p>Hello guys, nice to have you on the platform</p>
-            <p>Don't forget, You're Awesome!</p>
+            <p>{{com.text}} </p>
             <div class="media-footer">
-              <a
-                class="btn btn-primary btn-link pull-right"
-                href="javascript:void(0)"
-                tooltip="Reply to Comment"
-                aria-describedby="tooltip-20"
-                ><i class="tim-icons icon-send"></i> Reply
-              </a>
+             
               <a
                 class="btn btn-danger btn-link pull-right"
                 href="javascript:void(0)"
@@ -152,38 +101,6 @@
               </a>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="media">
-      <a class="pull-left" href="javascript:void(0)">
-        <div class="avatar">
-          <img
-            alt="64x64"
-            class="media-object img-raised"
-            src="assets/img/james.jpg"
-          />
-        </div>
-      </a>
-      <div class="media-body">
-        <h5 class="media-heading">
-          Rosa Thompson <small class="text-muted"> · 2 Days Ago </small>
-        </h5>
-        <p>Hello guys, nice to have you on the platform! .</p>
-        <p>Don't forget, You're Awesome!</p>
-        <div class="media-footer">
-          <a
-            class="btn btn-primary btn-link pull-right"
-            href="javascript:void(0)"
-            tooltip="Reply to Comment"
-            aria-describedby="tooltip-21"
-            ><i class="tim-icons icon-send"></i> Reply
-          </a>
-          <a
-            class="btn btn-danger btn-link pull-right"
-            href="javascript:void(0)"
-            ><i class="tim-icons icon-heart-2"></i> 243
-          </a>
         </div>
       </div>
     </div>

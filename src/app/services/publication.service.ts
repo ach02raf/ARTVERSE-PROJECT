@@ -11,6 +11,9 @@ export class PublicationService {
   apiUrlGetPost='http://localhost:5000/Posts/getPublications';
   apiUrlGetOneImg='http://localhost:5000/Posts/getImage';
   apiUrReactionPost='http://localhost:5000/Posts/reaction';
+  apiUrcomm='http://localhost:5000/Posts/addcomment';
+  apiUrcommreaction='http://localhost:5000/Posts/commreaction';
+  apiaddcommentReply='http://localhost:5000/Posts/addcommentReply';
   constructor(private http: HttpClient) { }
 
   getMyHashtag(): Observable<any> {
@@ -35,4 +38,15 @@ export class PublicationService {
     return this.http.put(this.apiUrReactionPost , data);
   }
 
+  addcomment(data: any): Observable<any> {
+    return this.http.put(this.apiUrcomm , data);
+  }
+  addcommentreaction(data: any): Observable<any> {
+    return this.http.put(this.apiUrcommreaction , data);
+  }
+
+  addcommentReply(data: any): Observable<any> {
+    return this.http.put(this.apiaddcommentReply , data);
+  }
+  
 }

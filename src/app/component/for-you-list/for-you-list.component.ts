@@ -48,7 +48,7 @@ export class ForYouListComponent implements OnInit {
   
   likePost(id: number) {
     
-    const  data = {publicationId : id   , UserId : 2 };
+    const  data = {publicationId : id   , UserId : 0 };
     this.publicationService.Reaction(data).subscribe((data) => {
   alert(id);
         });
@@ -56,11 +56,20 @@ export class ForYouListComponent implements OnInit {
   }
 
   // Dislike a post
-  dislikePost(id: number) {
+  reaction(list: any) {
     
-    alert(id);
-  }
+   
+  const reactionIndex =list.findIndex(reaction => reaction.idUser === 0);
 
+  if (reactionIndex > -1) {
+    return true ;
+  } else {
+    return false ;
+  }
+  }
+  reactioncount(list : any ){
+    return list.length ;
+  }
 
 
  
