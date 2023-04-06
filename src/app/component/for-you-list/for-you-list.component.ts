@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { PublicationService } from '../../services/publication.service';
+import { LoggedInUserService } from "src/app/services/logged-in-user.service";
 
 @Component({
   selector: "app-for-you-list",
@@ -8,12 +9,25 @@ import { PublicationService } from '../../services/publication.service';
 })
 export class ForYouListComponent implements OnInit {
   constructor(
-    private publicationService: PublicationService) {}
+    private publicationService: PublicationService , private loggedUserServ: LoggedInUserService) {
+      this.idUser = this.loggedUserServ.getUserID();
+    }
     imageData: any;
   List = [];
   public commentText: string;
+  loggedInUser: any;
+  isCollapsed = true;
+
+  idUser: any;
+
   ngOnInit(): void {
-    this.getPubliction() 
+    this.loggedUserServ.findUserById(this.idUser).subscribe((res) => {
+      this.loggedInUser = res;
+      console.log("foryoulist", this.loggedInUser);
+    });
+    this.getPubliction() ;
+     
+     
     }
 
 
@@ -46,4 +60,9 @@ export class ForYouListComponent implements OnInit {
     
     alert(id);
   }
+
+
+
+ 
+  
 }

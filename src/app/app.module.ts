@@ -26,7 +26,7 @@ import { LandingpageComponent } from "./pages/examples/landingpage/landingpage.c
 import { AuthInterceptor } from "./services/AuthInterceptor";
 import { NavbarComponent } from "./component/navbar/navbar.component";
 import { FooterComponent } from "./component/footer/footer.component";
-import { ErrorNotFoundComponent } from "./error-not-found/error-not-found.component";
+import { ErrorNotFoundComponent } from "./pages/error-not-found/error-not-found.component";
 // import { FeedIdentityComponent } from "./component/feed-identity/feed-identity.component";
 import { AutoresizeDirectiveDirective } from "./autoresize-directive.directive";
 import { HashtagColorPipePipe } from "./pipe/hashtag-color-pipe.pipe";
@@ -41,6 +41,7 @@ import { HashtagColorPipePipe } from "./pipe/hashtag-color-pipe.pipe";
 
     // FeedIdentityComponent,
     HashtagColorPipePipe,
+
     // IndexComponent,
     // ProfilepageComponent,
     // RegisterpageComponent,

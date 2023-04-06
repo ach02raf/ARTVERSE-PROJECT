@@ -33,7 +33,9 @@ import { ResetPasswordPageComponent } from "./reset-password-page/reset-password
 import { ProjectComponent } from "../component/project/project.component";
 import { FeedIdentityComponent } from "../component/feed-identity/feed-identity.component";
 import { SuggestionComponent } from "../component/suggestion/suggestion.component";
-
+import { DashboardAdminComponent } from "./dashboard-admin/dashboard-admin.component";
+import { NgbCollapseModule } from "@ng-bootstrap/ng-bootstrap";
+import { AddCommentComponent } from "../component/add-comment/add-comment.component";
 // import { NavbarComponent } from "../component/navbar/navbar.component";
 
 @NgModule({
@@ -55,6 +57,7 @@ import { SuggestionComponent } from "../component/suggestion/suggestion.componen
     BsDatepickerModule.forRoot(),
     CarouselModule.forRoot(),
     ModalModule.forRoot(),
+    NgbCollapseModule,
   ],
   declarations: [
     IndexComponent,
@@ -72,6 +75,8 @@ import { SuggestionComponent } from "../component/suggestion/suggestion.componen
     FeedIdentityComponent,
     ProjectComponent,
     SuggestionComponent,
+    DashboardAdminComponent,
+    AddCommentComponent,
   ],
   exports: [
     IndexComponent,

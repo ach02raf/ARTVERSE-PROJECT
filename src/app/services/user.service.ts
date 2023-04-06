@@ -16,4 +16,8 @@ export class UserService {
       `http://localhost:5000/user/getUserByUsername/${username}`
     );
   }
+
+  getAllUsers() {
+    return this.http.get(`http://localhost:5000/user/UserList`);
+  }
 }

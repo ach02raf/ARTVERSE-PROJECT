@@ -1,7 +1,11 @@
 import { Component, OnInit ,ViewChild } from "@angular/core";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
-import { PublicationService } from '../../services/publication.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { AuthentificationService } from "src/app/services/authentification.service";
+import { HashtagColorPipePipe } from "../../pipe/hashtag-color-pipe.pipe";
+import { PublicationService } from "../../services/publication.service";
+import { debounceTime } from "rxjs/operators";
+import { LoggedInUserService } from "src/app/services/logged-in-user.service";
 
 interface Image {
   name: string;
@@ -23,17 +27,24 @@ export class AddPostComponent implements OnInit {
   isModalVisible = true;
   invalide = false ;
     isCopyrightChecked: boolean = false;
+    postTextElement: HTMLElement | null;
+  idUser: any;
+  loggedInUser: Object;
   constructor(
     private sanitizer: DomSanitizer,
+    
+    private loggedUserServ: LoggedInUserService,
     private publicationService: PublicationService
-  ) {}
-
-  postTextElement: HTMLElement | null;
+  ) { 
+    this.idUser = this.loggedUserServ.getUserID();
+  }
 
  
 
   ngOnInit(): void {
-    
+    this.loggedUserServ.findUserById(this.idUser).subscribe((res) => {
+      this.loggedInUser = res;
+    });   
     this.getHashtag();
     this.postTextElement = document.querySelector(".form-control.inputtag");
   }

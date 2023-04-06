@@ -1,44 +1,93 @@
 <div *ngFor="let item of List">
-  <div class="card">
+  <div class="card card-blog">
+    <div class="p-3 d-flex align-items-center">
+      <img alt="..." class="avatar img-raised" src="assets/img/james.jpg" />
+      <div class="pl-3">
+        <span class="text-white"> Denise Coldewey </span>
+        <div class="text-muted">
+          <small>
+            {{ item.date }}
+          </small>
+        </div>
+      </div>
+      <div class="d-flex align-items-center justify-content-between ml-auto">
+        <div class="dropdown" dropdown>
+          <i
+            aria-expanded="false"
+            aria-haspopup="true"
+            data-toggle="dropdown"
+            dropdownToggle
+            id="dropdownMenuButton"
+            class="fas fa-ellipsis-v"
+          ></i>
+          <div
+            aria-labelledby="dropdownMenuButton"
+            class="dropdown-menu"
+            *dropdownMenu
+          >
+            <a class="dropdown-item" href="#"> signaler </a> >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-image">
+      <img
+        class="img rounded"
+        src="./../../../../assets/img/{{ item.images }} "
+      />
+    </div>
     <div class="card-body">
-      <div class="row">
-        <div class="" style="padding-right: 0px">
-          <img
-            alt="Circle image"
-            class="img-fluid rounded-circle shadow"
-            src="assets/img/james.jpg"
-            style="width: 50px"
-          />
-        </div>
-        <div class="col">
-          <h5 class="card-title">Card title</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{ item.date }}</h6>
-        </div>
-      </div>
-
-      <div class="row" style="padding-top: 10px" *ngFor="let img of item.img">
-        <img src="assets/uploads/{{ img.imgName }}" alt="Image" />
-      </div>
-
-      <div class="row" style="padding: 10px">
-        <p class="card-text">{{ item.text }}</p>
-      </div>
-
-      <div class="row justify-content-end">
-        <div class="col-3">
-          <button
-            class="btn btn-primary btn-fab btn-icon btn-round"
-            (click)="likePost(item._id)"
+      <span class="category text-info" *ngFor="let hash of item.hashtag">
+        {{ hash }}
+      </span>
+      <h5 class="card-title">
+        {{ item.text }}
+      </h5>
+      <div class="card-footer">
+        <div
+          ngbCollapse
+          [ngbCollapseToggle]="isCollapsed"
+          class="stats stats-right"
+        >
+          <div
+            class="btn-group btn-group-sm"
+            role="group"
+            aria-label="Basic example"
           >
-            <i class="tim-icons icon-heart-2"></i>
-          </button>
+            <button
+              class="btn btn-sm"
+              type="button"
+              aria-controls="collapseThree"
+            >
+              <i class="tim-icons icon-heart-2"></i>
 
-          <button
-            class="btn btn-secondary btn-fab btn-icon btn-round"
-            (click)="dislikePost(item._id)"
-          >
-            <i class="tim-icons icon-heart-broken"></i>
-          </button>
+              342
+            </button>
+            <button
+              class="btn btn-sm"
+              type="button"
+              (click)="isCollapsed = !isCollapsed"
+              [attr.aria-expanded]="!isCollapsed"
+              aria-controls="collapseThree"
+            >
+              <i
+                class="tim-icons icon-single-copy-04"
+                [class.icon-rotate]="!isCollapsed"
+              ></i>
+              45
+            </button>
+          </div>
+
+          <div ngbCollapse [ngbCollapseToggle]="isCollapsed">
+            <div class="card">
+              <div id="collapseThree" [ngbCollapse]="isCollapsed">
+                <div>
+                  <app-add-comment></app-add-comment>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
