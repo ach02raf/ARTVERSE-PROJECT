@@ -1,0 +1,108 @@
+<div class="m-3">
+  <h4 class="text-center mt-2">Post your comment <br /></h4>
+  <div class="media media-post">
+    <a class="pull-left author" href="javascript:void(0)">
+      <div class="avatar">
+        <img
+          alt="64x64"
+          class="media-object img-raised"
+          src="assets/img/james.jpg"
+        />
+      </div>
+    </a>
+    <div class="media-body mb-2" >
+      <div class="row">
+        <div class="col">
+          <textarea
+            class="form-control"
+            placeholder="Write some nice stuff or nothing..."
+            rows="4"
+            #commentInput
+          ></textarea>
+        </div>
+        <div class="media-footer col-3">
+          <button
+            class="btn btn-primary btn-sm btn-wd pull-right"
+            href="javascript:void(0)"
+            (click)="postComment(commentInput)"
+          >
+            Post Comment
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="media-area" >
+    <div class="media"  *ngFor="let comm of listComm ; let i = index " >
+      <a class="pull-left" href="javascript:void(0)">
+        <div class="avatar">
+          <img
+            alt="..."
+            class="media-object img-raised"
+            src="assets/img/julie.jpeg"
+          />
+        </div>
+      </a>
+      <div class="media-body">
+         <h5 class="media-heading">
+          Tina Andrew <small class="text-muted"> · 7 minutes ago </small>
+        </h5>
+        <p>{{comm.comment}}       </p>
+
+        <div class="media-footer">
+          <a
+            class="btn btn-primary btn-link pull-right"
+            href="javascript:void(0)"
+            tooltip="Reply to Comment"
+            aria-describedby="tooltip-19"   (click)="postCommentReply(ReplyInput , i)"
+            ><i class="tim-icons icon-send"></i> Reply
+          </a>
+          <a
+            class="btn btn-default btn-link pull-right"
+            href="javascript:void(0)"
+            (click)="reactionComm(i)"
+            ><i class="tim-icons icon-heart-2"></i> {{comm.reaction}}
+          </a>
+          <div class="row">
+            <div class="col">
+              <textarea
+                class="form-control"
+                placeholder="Write some nice stuff or nothing..."
+                rows="1"
+                #ReplyInput
+              ></textarea>
+            </div>
+            
+          </div>
+        </div>
+        <div class="media">
+          <a class="pull-left" href="javascript:void(0)">
+            <div class="avatar">
+              <img
+                alt="64x64"
+                class="media-object img-raised"
+                src="assets/img/julie.jpeg"
+              />
+            </div>
+          </a>
+          <div class="media-body" *ngFor="let com of comm ; let i = index ">
+            <h5 class="media-heading">
+              Tina Andrew <small class="text-muted"> · 2 Days Ago </small>
+            </h5>
+            <p>{{com.text}} </p>
+            <div class="media-footer">
+             
+              <a
+                class="btn btn-danger btn-link pull-right"
+                href="javascript:void(0)"
+                ><i class="tim-icons icon-heart-2"></i> 243
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
