@@ -1,4 +1,4 @@
-<div *ngFor="let item of List">
+<div *ngFor="let item of List; index">
   <div class="card card-blog">
     <div class="p-3 d-flex align-items-center">
       <img alt="..." class="avatar img-raised" src="assets/img/james.jpg" />
@@ -31,20 +31,21 @@
       </div>
     </div>
 
-    <carousel
-      class="card-image"
-      *ngIf="item.img.length != 0"
-      [showIndicators]="false"
-      pause
-    >
-      <slide *ngFor="let img of item.img; let i = index" class="text-center">
-        <img class="img rounded" src="assets/img/{{ img.imgName }} " />
-      </slide>
-    </carousel>
     <div class="card-body">
       <h5 class="card-title">
         {{ item.text }}
       </h5>
+      <carousel
+        class="card-image"
+        *ngIf="item.img.length != 0"
+        [showIndicators]="false"
+        pause
+      >
+        <slide *ngFor="let img of item.img; let i = index" class="text-center">
+          <!-- <img class="img rounded" src="assets/img/{{ img.imgName }} " /> -->
+          <img class="img rounded" src="assets/img/{{ img.imgName }}" />
+        </slide>
+      </carousel>
       <div class="card-footer">
         <div
           ngbCollapse
@@ -86,7 +87,7 @@
 
           <div ngbCollapse [ngbCollapseToggle]="isCollapsed">
             <div class="card">
-              <div id="collapseThree" [ngbCollapse]="isCollapsed">
+              <div [id]="item._id" [ngbCollapse]="isCollapsed">
                 <div>
                   <app-add-comment
                     [idPub]="item._id"

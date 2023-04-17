@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { PublicationService } from '../../services/publication.service';
+import { PublicationService } from "../../services/publication.service";
 import { LoggedInUserService } from "src/app/services/logged-in-user.service";
 
 @Component({
@@ -9,10 +9,12 @@ import { LoggedInUserService } from "src/app/services/logged-in-user.service";
 })
 export class ForYouListComponent implements OnInit {
   constructor(
-    private publicationService: PublicationService , private loggedUserServ: LoggedInUserService) {
-      this.idUser = this.loggedUserServ.getUserID();
-    }
-    imageData: any;
+    private publicationService: PublicationService,
+    private loggedUserServ: LoggedInUserService
+  ) {
+    this.idUser = this.loggedUserServ.getUserID();
+  }
+  imageData: any;
   List = [];
   public commentText: string;
   loggedInUser: any;
@@ -25,18 +27,14 @@ export class ForYouListComponent implements OnInit {
       this.loggedInUser = res;
       console.log("foryoulist", this.loggedInUser);
     });
-    this.getPubliction() ;
-     
-     
-    }
-
+    this.getPubliction();
+  }
 
   getPubliction() {
     this.publicationService.getPost().subscribe((data) => {
       this.List = data;
       console.log(this.List);
     });
-    
   }
 
   getImageUrl(id: any) {
@@ -45,33 +43,25 @@ export class ForYouListComponent implements OnInit {
       return imageUrl;
     });
   }
-  
-  likePost(id: number) {
-    
-    const  data = {publicationId : id   , UserId : 0 };
-    this.publicationService.Reaction(data).subscribe((data) => {
-  alert(id);
-        });
 
+  likePost(id: number) {
+    const data = { publicationId: id, UserId: this.loggedInUser._id };
+    this.publicationService.Reaction(data).subscribe((data) => {
+      alert(id);
+    });
   }
 
   // Dislike a post
   reaction(list: any) {
-    
-   
-  const reactionIndex =list.findIndex(reaction => reaction.idUser === 0);
+    const reactionIndex = list.findIndex((reaction) => reaction.idUser === 0);
 
-  if (reactionIndex > -1) {
-    return true ;
-  } else {
-    return false ;
+    if (reactionIndex > -1) {
+      return true;
+    } else {
+      return false;
+    }
   }
+  reactioncount(list: any) {
+    return list.length;
   }
-  reactioncount(list : any ){
-    return list.length ;
-  }
-
-
- 
-  
 }

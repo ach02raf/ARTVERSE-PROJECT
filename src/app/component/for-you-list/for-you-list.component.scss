@@ -1,4 +1,8 @@
 .card-blog .card-image img {
-  height: 100%;
+  height: 350px;
+  /* set a fixed height */
   width: 100%;
+  /* set a percentage width */
+  object-fit: cover;
+  /* scale the image to cover the container, preserving aspect ratio */
 }
