@@ -18,13 +18,11 @@
             data-toggle="dropdown"
             dropdownToggle
             id="dropdownMenuButton"
-            class="fas fa-ellipsis-v"
-          ></i>
+            class="fas fa-ellipsis-v"></i>
           <div
             aria-labelledby="dropdownMenuButton"
             class="dropdown-menu"
-            *dropdownMenu
-          >
+            *dropdownMenu>
             <a class="dropdown-item" href=""> signaler </a>
           </div>
         </div>
@@ -35,10 +33,9 @@
       class="card-image"
       *ngIf="item.img.length != 0"
       [showIndicators]="false"
-      pause
-    >
-      <slide *ngFor="let img of item.img; let i = index" class="text-center">
-        <img class="img rounded" src="assets/img/{{ img.imgName }} " />
+      pause>
+      <slide *ngFor="let img of item.img" class="text-center">
+        <img [src]="getImage(img.idimg, item._id)" />
       </slide>
     </carousel>
     <div class="card-body">
@@ -49,23 +46,19 @@
         <div
           ngbCollapse
           [ngbCollapseToggle]="isCollapsed"
-          class="stats stats-right"
-        >
+          class="stats stats-right">
           <div
             class="btn-group btn-group-sm"
             role="group"
-            aria-label="Basic example"
-          >
+            aria-label="Basic example">
             <button
               class="btn btn-sm"
               type="button"
               aria-controls="collapseThree"
-              (click)="likePost(item._id)"
-            >
+              (click)="likePost(item._id)">
               <i
                 class="tim-icons"
-                [class.icon-heart-2]="reaction(item.reaction)"
-              ></i>
+                [class.icon-heart-2]="reaction(item.reaction)"></i>
               {{ reactioncount(item.reaction) }}
             </button>
 
@@ -74,12 +67,10 @@
               type="button"
               (click)="isCollapsed = !isCollapsed"
               [attr.aria-expanded]="!isCollapsed"
-              aria-controls="collapseThree"
-            >
+              aria-controls="collapseThree">
               <i
                 class="tim-icons icon-single-copy-04"
-                [class.icon-rotate]="!isCollapsed"
-              ></i>
+                [class.icon-rotate]="!isCollapsed"></i>
               {{ reactioncount(item.commentaires) }}
             </button>
           </div>
@@ -90,8 +81,7 @@
                 <div>
                   <app-add-comment
                     [idPub]="item._id"
-                    [listComm]="item.commentaires"
-                  ></app-add-comment>
+                    [listComm]="item.commentaires"></app-add-comment>
                 </div>
               </div>
             </div>
