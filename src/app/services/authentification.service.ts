@@ -52,7 +52,7 @@ export class AuthentificationService {
   sendMailResetPassword(email) {
     console.log("email service" + email);
 
-    return this.http
+  /*   return this.http
       .post("http://localhost:5000/user/forgotPassword", { email: email })
       .pipe(
         tap((response: any) => {
@@ -62,14 +62,14 @@ export class AuthentificationService {
         catchError((error) => {
           return throwError(() => new Error("test")).pipe();
         })
-      );
+      ); */
   }
   login(credentials: { password: string; email: string }): Observable<any> {
     return this.http.post("http://localhost:5000/user/login", credentials);
   }
 
-  resetPassword(token, password): Observable<any> {
-    return this.http
+  resetPassword(token, password) {
+   /*  return this.http
       .patch(`http://localhost:5000/user/resetPassword/${token}`, {
         password: `${password}`,
       })
@@ -84,7 +84,7 @@ export class AuthentificationService {
 
           return response;
         })
-      );
+      ); */
   }
 
   findUserById(id: any) {
