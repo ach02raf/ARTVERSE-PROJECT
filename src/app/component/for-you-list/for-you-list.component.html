@@ -1,4 +1,4 @@
-<div *ngFor="let item of List">
+<div *ngFor="let item of List ; let ind = index">
   <div class="card card-blog">
     <div class="p-3 d-flex align-items-center">
       <img alt="..." class="avatar img-raised" src="assets/img/james.jpg" />
@@ -6,7 +6,8 @@
         <span class="text-white"> Denise Coldewey </span>
         <div class="text-muted">
           <small>
-            {{ item.date }}
+          
+            {{ format(item.date) }}
           </small>
         </div>
       </div>
@@ -18,14 +19,12 @@
             data-toggle="dropdown"
             dropdownToggle
             id="dropdownMenuButton"
-            class="fas fa-ellipsis-v"
-          ></i>
+            class="fas fa-ellipsis-v"></i>
           <div
             aria-labelledby="dropdownMenuButton"
             class="dropdown-menu"
-            *dropdownMenu
-          >
-            <a class="dropdown-item" href="#"> signaler </a> >
+            *dropdownMenu>
+            <a class="dropdown-item" href=""> signaler </a>
           </div>
         </div>
       </div>
@@ -35,10 +34,9 @@
       class="card-image"
       *ngIf="item.img.length != 0"
       [showIndicators]="false"
-      pause
-    >
-      <slide *ngFor="let img of item.img; let i = index" class="text-center">
-        <img class="img rounded" src="/assets/uploads/{{ img.imgName }} " />
+      pause>
+      <slide *ngFor="let img of item.img" class="text-center">
+        <img [src]="getImage(img.idimg, item._id)" />
       </slide>
     </carousel>
     <div class="card-body">
@@ -49,45 +47,41 @@
         <div
           ngbCollapse
           [ngbCollapseToggle]="isCollapsed"
-          class="stats stats-right"
-        >
+          class="stats stats-right">
           <div
             class="btn-group btn-group-sm"
             role="group"
-            aria-label="Basic example"
-          >
-          <button
-          class="btn btn-sm"
-          type="button"
-          aria-controls="collapseThree"
-          (click)="likePost(item._id)"
-        >
-          <i class="tim-icons"  [class.icon-heart-2]="reaction(item.reaction)"></i>
-          {{reactioncount(item.reaction)}}
-        </button>
-        
+            aria-label="Basic example">
+            <button
+              class="btn btn-sm"
+              type="button"
+              aria-controls="collapseThree"
+              (click)="likePost(item._id)">
+              <i [class]="reaction(item.reaction) ? 'fas fa-heart' : 'far fa-heart'"></i>
+
+              {{ reactioncount(item.reaction) }}
+            </button>
 
             <button
               class="btn btn-sm"
               type="button"
               (click)="isCollapsed = !isCollapsed"
               [attr.aria-expanded]="!isCollapsed"
-              aria-controls="collapseThree"
-            >
+              [aria-controls]="ind">
               <i
                 class="tim-icons icon-single-copy-04"
-                [class.icon-rotate]="!isCollapsed"
-              ></i>
-                        {{reactioncount(item.commentaires)}}
-
+                [class.icon-rotate]="!isCollapsed"></i>
+              {{ reactioncount(item.commentaires) }}
             </button>
           </div>
 
           <div ngbCollapse [ngbCollapseToggle]="isCollapsed">
             <div class="card">
-              <div id="collapseThree" [ngbCollapse]="isCollapsed">
+              <div [id]="ind" [ngbCollapse]="isCollapsed">
                 <div>
-                  <app-add-comment  [idPub]="item._id" [listComm]="item.commentaires" ></app-add-comment>
+                  <app-add-comment
+                    [idPub]="item._id"
+                    [listComm]="item.commentaires"></app-add-comment>
                 </div>
               </div>
             </div>

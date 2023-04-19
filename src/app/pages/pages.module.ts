@@ -36,7 +36,6 @@ import { SuggestionComponent } from "../component/suggestion/suggestion.componen
 import { DashboardAdminComponent } from "./dashboard-admin/dashboard-admin.component";
 import { NgbCollapseModule } from "@ng-bootstrap/ng-bootstrap";
 import { AddCommentComponent } from "../component/add-comment/add-comment.component";
-// import { NavbarComponent } from "../component/navbar/navbar.component";
 
 @NgModule({
   imports: [
