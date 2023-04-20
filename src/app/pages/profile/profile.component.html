@@ -23,11 +23,14 @@
               </h5>
             </div>
             <div class="card-body">
-              <button type="button" class="btn btn-primary btn-block">
+              <button   *ngIf="loggedInUser._id != user._id"  type="button" class="btn btn-primary btn-block">
                 <i class="tim-icons icon-simple-add mx-2"></i>Suivre
               </button>
-              <button type="button" class="btn btn-block">
+              <button    *ngIf="loggedInUser._id != user._id" type="button" class="btn btn-block">
                 <i class="tim-icons icon-email-85 mx-2"></i>Message
+              </button>
+              <button    *ngIf="loggedInUser._id === user._id" type="button" class="btn btn-block" (click)="myModal.show()"  >
+                <i class="tim-icons icon-spaceship"> </i> Ajouter Projet
               </button>
               <tabset
                 class="nav-tabs-danger justify-content-center tab-subcategories"
@@ -195,4 +198,39 @@
       </div>
     </div>
   </div>
+
+
+  <div
+  aria-hidden="true"
+  aria-labelledby="myModalLabel"
+  bsModal
+  class="modal fade modal-black"
+  #myModal="bs-modal"
+  id="myModal"
+  role="dialog"
+  tabindex="-1"
+>
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header justify-content-center">
+      <button
+        aria-hidden="true"
+        class="close"
+        data-dismiss="modal"
+        type="button"
+        (click)="myModal.hide()"
+      >
+        <i class="tim-icons icon-simple-remove"> </i>
+      </button>
+
+<app-add-project-modal></app-add-project-modal>
+</div>
+</div>
+</div>
+ 
+
+</div>
+
+
+
 </div>

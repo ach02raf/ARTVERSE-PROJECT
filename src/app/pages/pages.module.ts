@@ -36,7 +36,7 @@ import { SuggestionComponent } from "../component/suggestion/suggestion.componen
 import { DashboardAdminComponent } from "./dashboard-admin/dashboard-admin.component";
 import { NgbCollapseModule } from "@ng-bootstrap/ng-bootstrap";
 import { AddCommentComponent } from "../component/add-comment/add-comment.component";
-
+import { AddProjectModalComponent } from "../component/add-project-modal/add-project-modal.component";
 @NgModule({
   imports: [
     CommonModule,
@@ -76,6 +76,7 @@ import { AddCommentComponent } from "../component/add-comment/add-comment.compon
     SuggestionComponent,
     DashboardAdminComponent,
     AddCommentComponent,
+    AddProjectModalComponent,
   ],
   exports: [
     IndexComponent,

@@ -38,7 +38,7 @@ export class ForYouListComponent implements OnInit {
   async getPubliction() {
     this.publicationService.getPost().subscribe(async (data) => {
       this.List = await data;
-      // console.log("for you list post : ", this.List);
+       console.log("for you list post : ", this.List);
       for (let item of this.List) {
         let imageforpub = [];
         for (let itam of item.img) {
@@ -76,7 +76,7 @@ export class ForYouListComponent implements OnInit {
   }
 
   likePost(id: number) {
-    const data = { publicationId: id, UserId: 0 };
+    const data = { publicationId: id, UserId: this.loggedInUser._id };
     this.publicationService.Reaction(data).subscribe((data) => {
       alert(id);
     });
