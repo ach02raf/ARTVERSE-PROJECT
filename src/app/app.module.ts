@@ -30,6 +30,7 @@ import { ErrorNotFoundComponent } from "./pages/error-not-found/error-not-found.
 // import { FeedIdentityComponent } from "./component/feed-identity/feed-identity.component";
 import { AutoresizeDirectiveDirective } from "./autoresize-directive.directive";
 import { HashtagColorPipePipe } from "./pipe/hashtag-color-pipe.pipe";
+//import { AddProjectModalComponent } from './component/add-project-modal/add-project-modal.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,8 @@ import { HashtagColorPipePipe } from "./pipe/hashtag-color-pipe.pipe";
 
     // FeedIdentityComponent,
     HashtagColorPipePipe,
+
+   // AddProjectModalComponent,
 
     // IndexComponent,
     // ProfilepageComponent,

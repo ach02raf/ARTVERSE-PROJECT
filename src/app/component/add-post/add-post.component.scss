@@ -108,3 +108,11 @@ ul.list-group::-webkit-scrollbar-thumb {
 ul.list-group::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.form-label {
+  color: rgba(255, 255, 255, 0.6);
+  background: cadetblue;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-top: 10px;
+}
