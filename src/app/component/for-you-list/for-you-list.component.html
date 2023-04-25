@@ -1,5 +1,4 @@
- 
-<div *ngFor="let item of List  ">
+<div *ngFor="let item of List">
   <div class="card card-blog">
     <div class="p-3 d-flex align-items-center">
       <img alt="..." class="avatar img-raised" src="assets/img/james.jpg" />
@@ -7,7 +6,6 @@
         <span class="text-white"> Denise Coldewey </span>
         <div class="text-muted">
           <small>
-          
             {{ format(item.date) }}
           </small>
         </div>
@@ -72,8 +70,14 @@
               class="btn btn-sm"
               type="button"
               aria-controls="collapseThree"
-              (click)="likePost(item._id)">
-              <i [class]="reaction(item.reaction) ? 'fas fa-heart' : 'far fa-heart'"></i>
+              (click)="likePost(item._id)"
+            >
+              <i
+                [class]="
+                  reaction(item.reaction) ? 'fas fa-heart' : 'far fa-heart'
+                "
+                [style.color]="reaction(item.reaction) ? 'text-danger' : 'gray'"
+              ></i>
 
               {{ reactioncount(item.reaction) }}
             </button>
@@ -83,7 +87,7 @@
               type="button"
               (click)="isCollapsed = !isCollapsed"
               [attr.aria-expanded]="!isCollapsed"
-              >
+            >
               <i
                 class="tim-icons icon-single-copy-04"
                 [class.icon-rotate]="!isCollapsed"
@@ -94,7 +98,7 @@
 
           <div ngbCollapse [ngbCollapseToggle]="isCollapsed">
             <div class="card">
-              <div  [ngbCollapse]="isCollapsed">
+              <div [ngbCollapse]="isCollapsed">
                 <div>
                   <app-add-comment
                     [idPub]="item._id"

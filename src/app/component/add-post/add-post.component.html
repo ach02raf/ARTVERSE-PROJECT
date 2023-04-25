@@ -15,7 +15,6 @@
             placeholder="Add new post..."
             (click)="myModal.show()"
             class="form-control mx-2"
-            readonly
           />
         </div>
       </div>
@@ -62,7 +61,7 @@
             src="assets/img/james.jpg"
             style="width: 40px; height: 40px; margin: 5px"
           />
-          <p>{{ loggedInUser.firstname }} {{ loggedInUser.lastname }}</p>
+          <p>{{ loggedInUser["firstname"] }} {{ loggedInUser["lastname"] }}</p>
         </div>
 
         <div class="form-group">
@@ -79,26 +78,10 @@
           cols="50"
           placeholder="ecrire qlq chose"
         ></textarea> -->
-          <div>
-            <input
-              type="text"
-              [(ngModel)]="inputValue"
-              #inp
-              (keydown.enter)="addHashtagg()"
-              placeholder="Enter hashtags..."
-            />
-            <div class="hashtag-list">
-              <div class="hashtag" *ngFor="let hashtag of tabbleau">
-                <span class="hashtag-text">{{ hashtag }}</span>
-                <span class="remove-icon" (click)="removeHashtag(hashtag)"
-                  >x</span
-                >
-              </div>
-            </div>
-          </div>
+
           <form (ngSubmit)="onSubmit()">
             <div class="alert alert-danger" role="alert" *ngIf="invalide">
-              This is a danger alert—check it out!
+              Please enter some text to post your publication!
             </div>
             <div style="position: relative" class="post-text">
               <div

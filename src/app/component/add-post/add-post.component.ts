@@ -31,8 +31,7 @@ export class AddPostComponent implements OnInit {
   postTextElement: HTMLElement | null;
   idUser: any;
   loggedInUser: any;
-  tabbleau = ["maha"];
-  inputValue: string = "";
+
   constructor(
     private sanitizer: DomSanitizer,
 
@@ -155,26 +154,5 @@ export class AddPostComponent implements OnInit {
   addHashtag(hashtag: string) {
     const lastIndex = this.postText.lastIndexOf("#");
     this.postText = this.postText.substring(0, lastIndex) + "#" + hashtag + " ";
-  }
-
-  addHashtagg() {
-    console.log("value", this.inputValue);
-
-    console.log("index", this.tabbleau.indexOf(this.inputValue));
-
-    if (this.tabbleau.indexOf(this.inputValue) === -1) {
-      this.tabbleau.push(this.inputValue);
-    }
-
-    console.log(this.tabbleau);
-  }
-
-  removeHashtag(hash: string) {
-    const index = this.tabbleau.indexOf(hash);
-    console.log("innnddd", index);
-
-    if (index !== -1) {
-      this.tabbleau.splice(index, 1);
-    }
   }
 }

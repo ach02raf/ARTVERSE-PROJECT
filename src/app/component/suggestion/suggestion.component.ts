@@ -55,7 +55,7 @@ export class SuggestionComponent implements OnInit {
       this.suggested = users.slice(0, 3); // get the first three elements
 
       console.log("suggest", this.suggested);
-      console.log("suggest", this.suggested[0].firstname);
+      console.log("suggest", this.suggested[0]["firstname"]);
     });
     this.userServ.findUserByUsername("yosrawanene28").subscribe((res) => {
       this.user = res;
