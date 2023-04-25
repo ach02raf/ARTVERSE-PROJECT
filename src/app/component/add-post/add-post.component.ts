@@ -167,7 +167,6 @@ export class AddPostComponent implements OnInit {
     }
 
     console.log(this.tabbleau);
-    this.inputValue = "";
   }
 
   removeHashtag(hash: string) {

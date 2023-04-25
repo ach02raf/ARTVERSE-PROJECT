@@ -13,24 +13,29 @@
     <div class="alert alert-danger" role="alert" *ngIf="invalide">
       This is a danger alert—check it out!
     </div>
- 
-    
+
     <div>
       <input
         type="text"
         [(ngModel)]="inputValue"
         #inp
-        (keydown.enter)="addHashtagg()"
+        (keydown.enter)="addHashtagg(inp.value)"
         placeholder="Enter hashtags..."
       />
+      <!-- <input
+        type="text"
+        [(ngModel)]="inputValue"
+        #inp
+        (keyup)="test(inputValue)"
+        placeholder="Enter hashtags..."
+      /> -->
       <div class="hashtag-list">
-        <div class="hashtag" *ngFor="let hashtag of tabbleau">
-          <span class="hashtag-text">{{ hashtag }}</span>
-          <span class="remove-icon" (click)="removeHashtag(hashtag)"
-            >x</span>
-            </div>
-            </div>
-            </div>
+        <div class="hashtag" *ngFor="let hash of tabbleau">
+          <span class="hashtag-text">{{ hash }}</span>
+          <span class="remove-icon" (click)="removeHashtag(hash)">x</span>
+        </div>
+      </div>
+    </div>
 
     <div class="custom-file">
       <label for="customFile" class="form-label"

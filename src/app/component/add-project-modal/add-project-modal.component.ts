@@ -6,6 +6,7 @@ import { HashtagColorPipePipe } from "../../pipe/hashtag-color-pipe.pipe";
 import { PublicationService } from "../../services/publication.service";
 import { debounceTime } from "rxjs/operators";
 import { LoggedInUserService } from "src/app/services/logged-in-user.service";
+import { log } from "console";
 
 interface Image {
   name: string;
@@ -13,12 +14,11 @@ interface Image {
   url: SafeUrl;
 }
 @Component({
-  selector: 'app-add-project-modal',
-  templateUrl: './add-project-modal.component.html',
-  styleUrls: ['./add-project-modal.component.scss']
+  selector: "app-add-project-modal",
+  templateUrl: "./add-project-modal.component.html",
+  styleUrls: ["./add-project-modal.component.scss"],
 })
 export class AddProjectModalComponent implements OnInit {
-
   @ViewChild("myModal") myModal: ModalDirective;
   @ViewChild("myModal2") myModal2: ModalDirective;
   images: Image[] = [];
@@ -33,7 +33,7 @@ export class AddProjectModalComponent implements OnInit {
   loggedInUser: any;
   tabbleau = ["maha"];
 
-  inputValue: string = "";
+  inputValue: string = "yosra";
   constructor(
     private sanitizer: DomSanitizer,
 
@@ -46,6 +46,7 @@ export class AddProjectModalComponent implements OnInit {
   ngOnInit(): void {
     this.loggedUserServ.findUserById(this.idUser).subscribe((res) => {
       this.loggedInUser = res;
+      console.log("test methode init", this.inputValue);
     });
 
     console.log("test maha 2", this.idUser);
@@ -59,8 +60,9 @@ export class AddProjectModalComponent implements OnInit {
       this.hashtags = data;
     });
   }
-
- 
+  test(data: any) {
+    console.log("test methode", data);
+  }
 
   onFileSelected(event: any): void {
     event.preventDefault(); // empêche le rafraîchissement de la page
@@ -82,22 +84,18 @@ export class AddProjectModalComponent implements OnInit {
     this.images.splice(index, 1);
   }
 
-
-
-
   // hashtag manuplation
 
-  addHashtagg() {
-    console.log("value", this.inputValue);
+  addHashtagg(inpu: string) {
+    console.log("value", inpu);
 
-    console.log("index", this.tabbleau.indexOf(this.inputValue));
+    console.log("index", this.tabbleau.indexOf(inpu));
 
-    if (this.tabbleau.indexOf(this.inputValue) === -1) {
-      this.tabbleau.push(this.inputValue);
+    if (this.tabbleau.indexOf(inpu) == -1) {
+      this.tabbleau.push(inpu);
     }
 
     console.log(this.tabbleau);
-   
   }
 
   removeHashtag(hash: string) {
@@ -109,27 +107,13 @@ export class AddProjectModalComponent implements OnInit {
     }
   }
 
-  displayValue(value : any){
-    console.log("value 2", value );
+  displayValue(value: any) {
+    console.log("value 2", value);
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   onSubmit() {
-    const postText = this.postTextElement.textContent || "";
+    const postText = this.postTextElement?.textContent || "";
+
     if (postText.trim() === "") {
       this.invalide = true;
 
@@ -173,13 +157,4 @@ export class AddProjectModalComponent implements OnInit {
       }
     );
   }
-
-  
-
-
- 
- 
-  
 }
-
- 
