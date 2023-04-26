@@ -14,26 +14,41 @@
       This is a danger alert—check it out!
     </div>
 
-    <div>
-      <input
-        type="text"
-        [(ngModel)]="inputValue"
-        #inp
-        (keydown.enter)="addHashtagg(inp.value)"
-        placeholder="Enter hashtags..."
-      />
-      <!-- <input
-        type="text"
-        [(ngModel)]="inputValue"
-        #inp
-        (keyup)="test(inputValue)"
-        placeholder="Enter hashtags..."
-      /> -->
-      <div class="hashtag-list">
-        <div class="hashtag" *ngFor="let hash of tabbleau">
-          <span class="hashtag-text">{{ hash }}</span>
-          <span class="remove-icon" (click)="removeHashtag(hash)">x</span>
-        </div>
+    <label for="">title</label>
+    <input
+      class="form-control"
+      type="text"
+      [(ngModel)]="inputValue"
+      #inp
+      (keydown.enter)="addHashtagg(inp.value)"
+      placeholder="Enter title..."
+    />
+
+    <div class="hashtag-list">
+      <div class="hashtag" *ngFor="let hash of tabbleau">
+        <span class="hashtag-text badge badge-pill badge-info"
+          >{{ hash }}
+          <span class="remove-icon" (click)="removeHashtag(hash)">x</span></span
+        >
+      </div>
+    </div>
+
+    <label for="">Tools</label>
+    <input
+      class="form-control"
+      type="text"
+      [(ngModel)]="inputValue"
+      #inp
+      (keydown.enter)="addHashtagg(inp.value)"
+      placeholder="Enter title..."
+    />
+
+    <div class="hashtag-list">
+      <div class="hashtag" *ngFor="let hash of tabbleau">
+        <span class="hashtag-text badge badge-pill badge-warning"
+          >{{ hash }}
+          <span class="remove-icon" (click)="removeHashtag(hash)">x</span></span
+        >
       </div>
     </div>
 
@@ -49,7 +64,8 @@
         (change)="onFileSelected($event)"
       />
     </div>
-    <div class="form-check">
+
+    <!-- <div class="form-check">
       <label class="form-check-label">
         <input
           class="form-check-input"
@@ -61,9 +77,9 @@
         ajouter les droits d'auteur ?
         <span class="form-check-sign">
           <span class="check"></span>
-        </span>
-      </label>
-    </div>
+                </span>
+                </label>
+        </div> -->
 
     <carousel *ngIf="images.length != 0" [showIndicators]="false" pause>
       <slide *ngFor="let image of images; let i = index" class="text-center">

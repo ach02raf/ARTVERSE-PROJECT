@@ -127,7 +127,7 @@
         <li class="nav-item" *ngIf="loggedInUser">
           <a
             class="nav-link btn btn-primary"
-            [routerLink]="['/']"
+            [routerLink]="['/profile', loggedInUser['username']]"
             target="_blank"
             href="javascript:void(0)"
           >
