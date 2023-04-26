@@ -26,13 +26,14 @@ export class NavbarComponent implements OnInit {
 
   Deconnexion() {
     this.authServ.logout();
+    this.loggedInUser = null;
     this.route.navigate(["/home"]);
   }
 
   ngOnInit(): void {
     this.loggedUserServ.findUserById(this.idUser).subscribe((res) => {
       this.loggedInUser = res;
-      console.log(this.loggedInUser);
+      console.log("logged navbar", this.loggedInUser);
     });
   }
 }

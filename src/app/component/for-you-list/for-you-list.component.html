@@ -1,7 +1,7 @@
 <div *ngFor="let item of List">
   <div class="card card-blog">
     <div class="p-3 d-flex align-items-center">
-      <img alt="..." class="avatar img-raised" src="assets/img/james.jpg" />
+      <img alt="... " class="avatar img-raised" src="assets/img/james.jpg " />
       <div class="pl-3">
         <span class="text-white"> Denise Coldewey </span>
         <div class="text-muted">
@@ -13,19 +13,19 @@
       <div class="d-flex align-items-center justify-content-between ml-auto">
         <div class="dropdown" dropdown>
           <i
-            aria-expanded="false"
-            aria-haspopup="true"
-            data-toggle="dropdown"
+            aria-expanded="false "
+            aria-haspopup="true "
+            data-toggle="dropdown "
             dropdownToggle
-            id="dropdownMenuButton"
+            id="dropdownMenuButton "
             class="fas fa-ellipsis-v"
           ></i>
           <div
-            aria-labelledby="dropdownMenuButton"
+            aria-labelledby="dropdownMenuButton "
             class="dropdown-menu"
             *dropdownMenu
           >
-            <a class="dropdown-item" href=""> signaler </a>
+            <a class="dropdown-item" href=" "> signaler </a>
           </div>
         </div>
       </div>
@@ -46,30 +46,26 @@
         {{ item.text }}
       </h5>
       <!-- <carousel
-        class="card-image"
-        *ngIf="item.img.length != 0"
-        [showIndicators]="false"
+        class="card-image "
+        *ngIf="item.img.length !=0 "
+        [showIndicators]="false "
         pause
       >
-        <slide *ngFor="let img of item.img; let i = index" class="text-center">
-          <img class="img rounded" src="assets/img/{{ img.imgName }}" />
+        <slide *ngFor="let img of item.img; let i=i ndex " class="text-center ">
+          <img class="img rounded " src="assets/img/{{ img.imgName }} " />
         </slide>
       </carousel> -->
       <div class="card-footer">
-        <div
-          ngbCollapse
-          [ngbCollapseToggle]="isCollapsed"
-          class="stats stats-right"
-        >
+        <div class="stats stats-right">
           <div
             class="btn-group btn-group-sm"
-            role="group"
-            aria-label="Basic example"
+            role="group "
+            aria-label="Basic example "
           >
             <button
               class="btn btn-sm"
-              type="button"
-              aria-controls="collapseThree"
+              type="button "
+              aria-controls="collapseThree "
               (click)="likePost(item._id)"
             >
               <i
@@ -84,21 +80,22 @@
 
             <button
               class="btn btn-sm"
-              type="button"
-              (click)="isCollapsed = !isCollapsed"
-              [attr.aria-expanded]="!isCollapsed"
+              type="button "
+              [id]="item._id"
+              [attr.aria-expanded]="!isCollapsed[item._id]"
+              (click)="isCollapsed[item._id] = !isCollapsed[item._id]"
             >
               <i
                 class="tim-icons icon-single-copy-04"
-                [class.icon-rotate]="!isCollapsed"
+                [class.icon-rotate]="!isCollapsed[item._id]"
               ></i>
               {{ reactioncount(item.commentaires) }}
             </button>
           </div>
 
-          <div ngbCollapse [ngbCollapseToggle]="isCollapsed">
+          <div [collapse]="isCollapsed[item._id]" [id]="item._id">
             <div class="card">
-              <div [ngbCollapse]="isCollapsed">
+              <div>
                 <div>
                   <app-add-comment
                     [idPub]="item._id"

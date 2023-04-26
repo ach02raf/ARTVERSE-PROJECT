@@ -14,9 +14,9 @@
       <div class="row">
         <div class="col">
           <textarea
-            class="form-control"
+            class="form-control mx-1"
             placeholder="Write some nice stuff or nothing..."
-            rows="4"
+            rows="2"
             #commentInput
           ></textarea>
         </div>
@@ -24,7 +24,7 @@
           <button
             class="btn btn-primary btn-sm btn-wd pull-right"
             href="javascript:void(0)"
-            (click)="postComment(commentInput)"
+            (click)="postComment(commentInput.value)"
           >
             Post Comment
           </button>
@@ -33,7 +33,7 @@
     </div>
   </div>
 
-  <div class="media-area">
+  <div class="media-area ml-3">
     <div class="media" *ngFor="let comm of listComm; let i = index">
       <a class="pull-left" href="javascript:void(0)">
         <div class="avatar">
@@ -45,10 +45,13 @@
         </div>
       </a>
       <div class="media-body">
-        <h5 class="media-heading">
-          Tina Andrew <small class="text-muted"> · 7 minutes ago </small>
+        <h5 class="media-heading mx-2">
+          <!-- {{ findUser(comm[0]["idUser"]) }} -->
+          <!-- {{ user["firstname"] }} -->
+          yosra wanene
+          <small class="text-muted"> · 7 minutes ago </small>
         </h5>
-        <p>{{ comm.comment }}</p>
+        <p class="mx-2">{{ comm.comment }}</p>
 
         <div class="media-footer">
           <a
