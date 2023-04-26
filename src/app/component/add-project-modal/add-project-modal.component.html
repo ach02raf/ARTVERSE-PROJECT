@@ -1,101 +1,119 @@
 <div style="display: flex; align-items: center">
-  <img
-    alt="Circle image"
-    class="img-fluid rounded-circle"
-    src="assets/img/james.jpg"
-    style="width: 40px; height: 40px; margin: 5px"
-  />
-  <p>{{ loggedInUser["firstname"] }} {{ loggedInUser["lastname"] }}</p>
-</div>
-
-<div class="form-group">
-  <form (ngSubmit)="onSubmit()">
-    <div class="alert alert-danger" role="alert" *ngIf="invalide">
-      This is a danger alert—check it out!
-    </div>
-
-    <label for="">title</label>
-    <input
-      class="form-control"
-      type="text"
-      [(ngModel)]="inputValue"
-      #inp
-      (keydown.enter)="addHashtagg(inp.value)"
-      placeholder="Enter title..."
-    />
-
-    <div class="hashtag-list">
-      <div class="hashtag" *ngFor="let hash of tabbleau">
-        <span class="hashtag-text badge badge-pill badge-info"
-          >{{ hash }}
-          <span class="remove-icon" (click)="removeHashtag(hash)">x</span></span
-        >
+  <div class="form-group">
+    <form (ngSubmit)="onSubmit()">
+      <div class="alert alert-danger" role="alert" *ngIf="invalide">
+        This is a danger alert—check it out!
       </div>
-    </div>
-
-    <label for="">Tools</label>
-    <input
-      class="form-control"
-      type="text"
-      [(ngModel)]="inputValue"
-      #inp
-      (keydown.enter)="addHashtagg(inp.value)"
-      placeholder="Enter title..."
-    />
-
-    <div class="hashtag-list">
-      <div class="hashtag" *ngFor="let hash of tabbleau">
-        <span class="hashtag-text badge badge-pill badge-warning"
-          >{{ hash }}
-          <span class="remove-icon" (click)="removeHashtag(hash)">x</span></span
-        >
-      </div>
-    </div>
-
-    <div class="custom-file">
-      <label for="customFile" class="form-label"
-        >Choose one or more images</label
-      >
+      <h4 class="title title-up">Add Project</h4>
+      <label class="mt-4" for="">Title</label>
       <input
-        type="file"
-        multiple
-        class="custom-file-input"
-        id="customFile"
-        (change)="onFileSelected($event)"
+        class="form-control"
+        type="text"
+        [(ngModel)]="inputValueHashtag"
+        #inp
+        (keydown.enter)="addHashtagg(inp.value)"
+        placeholder="Enter Title..."
       />
-    </div>
 
-    <!-- <div class="form-check">
-      <label class="form-check-label">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="exampleCheck1"
-          [(ngModel)]="isCopyrightChecked"
-        />
-        ajouter les droits d'auteur ?
-        <span class="form-check-sign">
-          <span class="check"></span>
-                </span>
-                </label>
-        </div> -->
+      <label class="mt-2" for="">Category</label>
+      <select
+        class="form-control"
+        [(ngModel)]="inputValueCategory"
+        id="exampleFormControlSelect1"
+      >
+        <option *ngFor="let cat of category" class="text-dark">
+          {{ cat }}
+        </option>
+      </select>
 
-    <carousel *ngIf="images.length != 0" [showIndicators]="false" pause>
-      <slide *ngFor="let image of images; let i = index" class="text-center">
-        <img
-          *ngIf="image"
-          class="d-block w-100"
-          [src]="image.url"
-          [alt]="image.name"
-        />
-        <button
-          class="btn btn-primary btn-fab btn-icon btn-round"
-          (click)="clearSelectedImage(index)"
+      <label class="mt-2" for="">Hashtag</label>
+      <input
+        class="form-control"
+        type="text"
+        [(ngModel)]="inputValueHashtag"
+        #inp
+        (keydown.enter)="addHashtagg(inp.value)"
+        placeholder="Enter Hashtags..."
+      />
+
+      <div class="hashtag-list">
+        <div class="hashtag" *ngFor="let hash of tabbleauHashtag">
+          <span class="hashtag-text badge badge-pill badge-info"
+            >{{ hash }}
+            <span class="remove-icon" (click)="removeHashtag(hash)"
+              >x</span
+            ></span
+          >
+        </div>
+      </div>
+
+      <label class="mt-2" for="">Tools</label>
+      <input
+        class="form-control"
+        type="text"
+        [(ngModel)]="inputValueTools"
+        #inpTools
+        (keydown.enter)="addTools(inpTools.value)"
+        placeholder="Enter tools..."
+      />
+
+      <div class="hashtag-list">
+        <div class="hashtag" *ngFor="let tool of tabbleauTools">
+          <span class="hashtag-text badge badge-pill badge-warning"
+            >{{ tool }}
+            <span class="remove-icon" (click)="removeTools(tool)">x</span></span
+          >
+        </div>
+      </div>
+
+      <div class="mt-2" class="custom-file">
+        <label for="customFile" class="form-label"
+          >Choose one or more images</label
         >
-          <i class="tim-icons icon-gift-2"></i>
-        </button>
-      </slide>
-    </carousel>
-  </form>
+        <input
+          type="file"
+          multiple
+          class="custom-file-input"
+          id="customFile"
+          (change)="onFileSelected($event)"
+        />
+      </div>
+      <br /><br />
+
+      <!-- <div class="form-check">
+        <label class="form-check-label">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="exampleCheck1"
+            [(ngModel)]="isCopyrightChecked"
+          />
+          ajouter les droits d'auteur ?
+          <span class="form-check-sign">
+            <span class="check"></span>
+                  </span>
+                  </label>
+            </div> -->
+
+      <carousel *ngIf="images.length != 0" [showIndicators]="false" pause>
+        <slide *ngFor="let image of images; let i = index" class="text-center">
+          <img
+            *ngIf="image"
+            class="d-block w-100"
+            [src]="image.url"
+            [alt]="image.name"
+          />
+          <button
+            class="btn btn-primary btn-fab btn-icon btn-round"
+            (click)="clearSelectedImage(index)"
+          >
+            <i class="tim-icons icon-simple-remove"></i>
+          </button>
+        </slide>
+      </carousel>
+    </form>
+  </div>
+
+  <!-- <p>{{ loggedInUser["firstname"] }} {{ loggedInUser["lastname"] }}</p> -->
 </div>

@@ -31,9 +31,14 @@ export class AddProjectModalComponent implements OnInit {
   postTextElement: HTMLElement | null;
   idUser: any;
   loggedInUser: any;
-  tabbleau = ["maha"];
+  tabbleauHashtag = [];
+  tabbleauTools = [];
 
-  inputValue: string = "yosra";
+  inputValueHashtag: string;
+  inputValueTools: string;
+  inputValueCategory: string;
+
+  category = ["VFX", "3D", "Illustration", "Photography"];
   constructor(
     private sanitizer: DomSanitizer,
 
@@ -46,7 +51,7 @@ export class AddProjectModalComponent implements OnInit {
   ngOnInit(): void {
     this.loggedUserServ.findUserById(this.idUser).subscribe((res) => {
       this.loggedInUser = res;
-      console.log("test methode init", this.inputValue);
+      console.log("test methode init", this.inputValueHashtag);
     });
 
     console.log("test maha 2", this.idUser);
@@ -89,21 +94,42 @@ export class AddProjectModalComponent implements OnInit {
   addHashtagg(inpu: string) {
     console.log("value", inpu);
 
-    console.log("index", this.tabbleau.indexOf(inpu));
+    console.log("index", this.tabbleauHashtag.indexOf(inpu));
 
-    if (this.tabbleau.indexOf(inpu) == -1) {
-      this.tabbleau.push(inpu);
+    if (this.tabbleauHashtag.indexOf(inpu) == -1) {
+      this.tabbleauHashtag.push(inpu);
     }
 
-    console.log(this.tabbleau);
+    console.log(this.tabbleauHashtag);
   }
 
   removeHashtag(hash: string) {
-    const index = this.tabbleau.indexOf(hash);
+    const index = this.tabbleauHashtag.indexOf(hash);
     console.log("innnddd", index);
 
     if (index !== -1) {
-      this.tabbleau.splice(index, 1);
+      this.tabbleauHashtag.splice(index, 1);
+    }
+  }
+
+  addTools(inpu: string) {
+    console.log("value", inpu);
+
+    console.log("index", this.tabbleauTools.indexOf(inpu));
+
+    if (this.tabbleauTools.indexOf(inpu) == -1) {
+      this.tabbleauTools.push(inpu);
+    }
+
+    console.log(this.tabbleauTools);
+  }
+
+  removeTools(hash: string) {
+    const index = this.tabbleauTools.indexOf(hash);
+    console.log("innnddd", index);
+
+    if (index !== -1) {
+      this.tabbleauTools.splice(index, 1);
     }
   }
 
