@@ -43,7 +43,7 @@ import { HashtagColorPipePipe } from "./pipe/hashtag-color-pipe.pipe";
     // FeedIdentityComponent,
     HashtagColorPipePipe,
 
-   // AddProjectModalComponent,
+    // AddProjectModalComponent,
 
     // IndexComponent,
     // ProfilepageComponent,

@@ -1,18 +1,44 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import Chart from "chart.js";
-
+import { Component, OnInit } from "@angular/core";
+import { UserService } from "src/app/services/user.service";
+import { Chart } from "chart.js";
+import { PublicationService } from "src/app/services/publication.service";
 @Component({
-  selector: "app-landingpage",
-  templateUrl: "landingpage.component.html",
+  selector: "app-all-users",
+  templateUrl: "./all-users.component.html",
+  styleUrls: ["./all-users.component.scss"],
 })
-export class LandingpageComponent implements OnInit, OnDestroy {
-  isCollapsed = true;
-  constructor() {}
+export class AllUsersComponent implements OnInit {
+  constructor(
+    private userServ: UserService,
+    private pubService: PublicationService
+  ) {}
+  users: any = [];
+  hoveredUser = "";
+  pub: any = [];
 
-  ngOnInit() {
-    var body = document.getElementsByTagName("body")[0];
-    body.classList.add("landing-page");
+  onRowHover(user: any) {
+    this.hoveredUser = user;
+    console.log("hoveredUser", this.hoveredUser);
+    this.getPublications(this.hoveredUser["_id"]).length;
+    this.chartStat();
+  }
 
+  getPublications(id) {
+    this.pubService.getPostsByUserId(id).subscribe((data) => {
+      this.pub.push(data);
+      this.pub = data;
+      console.log("nos lil data", data);
+    });
+    return this.pub;
+  }
+
+  displayUsers() {
+    this.userServ.getAllUsers().subscribe((data) => {
+      console.log("all users", data);
+      this.users = data;
+    });
+  }
+  chartStat() {
     var canvas: any = document.getElementById("chartBig");
     var ctx = canvas.getContext("2d");
     var gradientFill = ctx.createLinearGradient(0, 350, 0, 50);
@@ -22,23 +48,10 @@ export class LandingpageComponent implements OnInit, OnDestroy {
       type: "line",
       responsive: true,
       data: {
-        labels: [
-          "JUN",
-          "FEB",
-          "MAR",
-          "APR",
-          "MAY",
-          "JUN",
-          "JUL",
-          "AUG",
-          "SEP",
-          "OCT",
-          "NOV",
-          "DEC",
-        ],
+        labels: ["pub", "project", "likes", "comments", "followers", "follow"],
         datasets: [
           {
-            label: "Data",
+            label: "stat",
             fill: true,
             backgroundColor: gradientFill,
             borderColor: "#e44cc4",
@@ -53,7 +66,14 @@ export class LandingpageComponent implements OnInit, OnDestroy {
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
             pointRadius: 4,
-            data: [80, 160, 200, 160, 250, 280, 220, 190, 200, 250, 290, 320],
+            data: [
+              this.getPublications(this.hoveredUser["_id"]).length,
+              10,
+              30,
+              4,
+              15,
+              44,
+            ],
           },
         ],
       },
@@ -111,8 +131,8 @@ export class LandingpageComponent implements OnInit, OnDestroy {
       },
     });
   }
-  ngOnDestroy() {
-    var body = document.getElementsByTagName("body")[0];
-    body.classList.remove("landing-page");
+  ngOnInit() {
+    this.displayUsers();
+    this.chartStat();
   }
 }
