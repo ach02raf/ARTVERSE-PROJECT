@@ -1,51 +1,42 @@
+<h3><i class="fas fa-trophy"></i> Current Challenges</h3>
 <div class="row">
-  <div class="col">
+  <div *ngFor="let challenge of currentChallengeSource" class="col-md-6">
     <div class="card">
       <div class="card-body">
         <div class="row justify-content-between align-items-center">
           <div class="col-lg-6 mb-6 mb-lg-0">
-            <h1 class="text-success  font-weight-light">Soyez créatif avec danup</h1>
-            <p class="text-white" style="padding-left: 20px;">
-               Thème :  newArts
+            <h1 style="padding-left: 20px" class="mt-2">
+              {{ challenge.title }}
+            </h1>
+            <p class="text-white" style="padding-left: 20px">
+              Category : {{ challenge.Category }}
             </p>
-            <p class="text-white  " style="padding-left: 20px;">
-               
-               Date limite : 12/16/2022
+
+            <p class="text-white" style="padding-left: 20px">
+              Partenaire : {{ challenge.partenaire.name }}
             </p>
-             
-            <p class="text-white mt-4" style="padding-left: 20px;">
-               Black Design comes with three pre-built pages to help you get
-               started faster. You can change the text and images and you're good
-               to go.
-             </p>
-            <a
-              class="btn btn-warning mt-4"
-              href="https://demos.creative-tim.com/blk-design-system-angular/#/documentation/alerts"
-            >
-              Appliquer maintenant
-            </a>
+
+            <p class="text-muted mt-4" style="padding-left: 20px">
+              {{ challenge.description }}
+            </p>
+
+            <p class="text-white mt-4" style="padding-left: 20px">
+              <i class="fas fa-users mr-2"></i>
+              {{ challenge.participants.length }}
+              <i class="fas fa-calendar-alt mr-2 ml-4"></i>
+              {{ challenge.deadline }}
+            </p>
+
+            <a class="btn btn-warning mt-4"> Appliquer maintenant </a>
           </div>
-          <div class="col-lg-6 ">
-            <carousel [showIndicators]="false">
+
+          <div class="col-lg-6">
+            <carousel class="w-50" [showIndicators]="false">
               <slide>
                 <img
                   alt="First slide"
                   class="d-block w-100"
-                  src="assets/img/denys.jpg"
-                />
-              </slide>
-              <slide>
-                <img
-                  alt="Second slide"
-                  class="d-block w-100"
-                  src="assets/img/fabien-bazanegue.jpg"
-                />
-              </slide>
-              <slide>
-                <img
-                  alt="Third slide"
-                  class="d-block w-100"
-                  src="assets/img/mark-finn.jpg"
+                  src="assets/img/{{ challenge.image }}"
                 />
               </slide>
             </carousel>
@@ -54,59 +45,68 @@
       </div>
     </div>
   </div>
-  <div class="col">
-     <div class="card">
-       <div class="card-body">
-         <div class="row justify-content-between align-items-center">
-           <div class="col-lg-6 mb-6 mb-lg-0" >
-             <h1 class="text-success  font-weight-light">Soyez créatif avec danup</h1>
-             <p class="text-white" style="padding-left: 20px;">
-                Thème :  newArts
-             </p>
-             <p class="text-white  " style="padding-left: 20px;">
-                
-                Date limite : 12/16/2022
-             </p>
-              
-             <p class="text-white mt-4" style="padding-left: 20px;">
-                Black Design comes with three pre-built pages to help you get
-                started faster. You can change the text and images and you're good
-                to go.
-              </p>
-             <a
-               class="btn btn-warning mt-4"
-               href="https://demos.creative-tim.com/blk-design-system-angular/#/documentation/alerts"
-             >
-               Appliquer maintenant
-             </a>
-           </div>
-           <div class="col-lg-6 ">
-             <carousel [showIndicators]="false">
-               <slide>
-                 <img
-                   alt="First slide"
-                   class="d-block w-100"
-                   src="assets/img/denys.jpg"
-                 />
-               </slide>
-               <slide>
-                 <img
-                   alt="Second slide"
-                   class="d-block w-100"
-                   src="assets/img/fabien-bazanegue.jpg"
-                 />
-               </slide>
-               <slide>
-                 <img
-                   alt="Third slide"
-                   class="d-block w-100"
-                   src="assets/img/mark-finn.jpg"
-                 />
-               </slide>
-             </carousel>
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
+</div>
+
+<h3><i class="fas fa-medal"></i> Finished Challenges</h3>
+<div class="row">
+  <div *ngFor="let challenge of challenges" class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <div class="row justify-content-between align-items-center">
+          <div class="col-lg-6 mb-6 mb-lg-0">
+            <h1 style="padding-left: 20px" class="mt-2">
+              {{ challenge.title }}
+            </h1>
+            <p class="text-white" style="padding-left: 20px">
+              Category : {{ challenge.Category }}
+            </p>
+
+            <p class="text-white" style="padding-left: 20px">
+              Partenaire : {{ challenge.partenaire.name }}
+            </p>
+
+            <p class="text-muted mt-4" style="padding-left: 20px">
+              {{ challenge.description }}
+            </p>
+
+            <p
+              class="text-white p-3 d-flex align-items-center"
+              style="padding-left: 20px"
+            >
+              <span class=""><i class="fas fa-trophy mr-1"></i>Winner :</span>
+              <a
+                class="text-danger font-weight-bold"
+                [routerLink]="[
+                  '/profile',
+                  challenge['winnersData']['username']
+                ]"
+              >
+                <img
+                  alt="... "
+                  class="avatar img-raised ml-4 mr-2 mt-2"
+                  src="assets/img/james.jpg "
+                />
+                {{ challenge["winnersData"]["firstname"] }}
+                {{ challenge["winnersData"]["lastname"] }}
+              </a>
+            </p>
+
+            <a class="btn btn-warning mt-4"> Appliquer maintenant </a>
+          </div>
+
+          <div class="col-lg-6">
+            <carousel class="w-50" [showIndicators]="false">
+              <slide>
+                <img
+                  alt="First slide"
+                  class="d-block w-100"
+                  src="assets/img/{{ challenge.image }}"
+                />
+              </slide>
+            </carousel>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

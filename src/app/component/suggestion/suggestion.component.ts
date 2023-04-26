@@ -17,7 +17,6 @@ export class SuggestionComponent implements OnInit {
       lastname: "yosra",
       username: "yos",
       email: "yos@gmail.co",
-      password: "$2b$10$QihHAvXnZdfQWlx7tiblUe2UxZnBm7HniuLtIMUbhJDMrK7GEHeqG",
       bio: "this is a bio for yosra",
       followers: [],
       galerie: [],
@@ -34,7 +33,6 @@ export class SuggestionComponent implements OnInit {
       lastname: "test",
       username: "yos",
       email: "yos@gmail.co",
-      password: "$2b$10$QihHAvXnZdfQWlx7tiblUe2UxZnBm7HniuLtIMUbhJDMrK7GEHeqG",
       bio: "this is a bio for yosra",
       followers: [],
       galerie: [],
@@ -57,7 +55,7 @@ export class SuggestionComponent implements OnInit {
       this.suggested = users.slice(0, 3); // get the first three elements
 
       console.log("suggest", this.suggested);
-      console.log("suggest", this.suggested[0].firstname);
+      console.log("suggest", this.suggested[0]["firstname"]);
     });
     this.userServ.findUserByUsername("yosrawanene28").subscribe((res) => {
       this.user = res;

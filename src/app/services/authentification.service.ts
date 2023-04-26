@@ -68,7 +68,7 @@ export class AuthentificationService {
     return this.http.post("http://localhost:5000/user/login", credentials);
   }
 
-  resetPassword(token, password): Observable<any> {
+  resetPassword(token, password) {
     return this.http
       .patch(`http://localhost:5000/user/resetPassword/${token}`, {
         password: `${password}`,

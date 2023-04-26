@@ -1,9 +1,5 @@
-<div class="wrapper">
+<div class="">
   <div class="page-header">
-    <img class="dots" src="assets/img/dots.png" />
-
-    <img class="path" src="assets/img/path4.png" />
-
     <div class="container align-items-center text-center">
       <div class="row">
         <div class="col-lg-4 col-md-6 ml-auto mr-auto">
@@ -23,11 +19,27 @@
               </h5>
             </div>
             <div class="card-body">
-              <button type="button" class="btn btn-primary btn-block">
+              <button
+                *ngIf="loggedInUser._id != user._id"
+                type="button"
+                class="btn btn-primary btn-block"
+              >
                 <i class="tim-icons icon-simple-add mx-2"></i>Suivre
               </button>
-              <button type="button" class="btn btn-block">
+              <button
+                *ngIf="loggedInUser._id != user._id"
+                type="button"
+                class="btn btn-block"
+              >
                 <i class="tim-icons icon-email-85 mx-2"></i>Message
+              </button>
+              <button
+                *ngIf="loggedInUser._id === user._id"
+                type="button"
+                class="btn btn-block"
+                (click)="myModal.show()"
+              >
+                <i class="tim-icons icon-spaceship"> </i> Ajouter Projet
               </button>
               <tabset
                 class="nav-tabs-danger justify-content-center tab-subcategories"
@@ -102,7 +114,7 @@
                                 <input
                                   class="form-control text-uppercase"
                                   type="text"
-                                  [value]="user.firstname"
+                                  [value]="user['firstname']"
                                 />
                               </div>
                             </div>
@@ -112,7 +124,7 @@
                                 <input
                                   class="form-control text-uppercase"
                                   type="text"
-                                  [value]="user.lastname"
+                                  [value]="user['lastname']"
                                 />
                               </div>
                             </div>
@@ -125,7 +137,7 @@
                                   class="form-control"
                                   placeholder="mike@email.com"
                                   type="email"
-                                  [value]="user.email"
+                                  [value]="user['email']"
                                 />
                               </div>
                             </div>
@@ -148,7 +160,7 @@
                                   class="form-control"
                                   placeholder="Hello there!"
                                   type="text"
-                                  [value]="user.bio"
+                                  [value]="user['bio']"
                                 />
                               </div>
                             </div>
@@ -169,6 +181,7 @@
             </div>
           </div>
         </div>
+
         <div class="col-lg-8 col-md-6 gallery mt-1">
           <div class="row">
             <div class="">
@@ -192,6 +205,35 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  aria-hidden="true"
+  aria-labelledby="myModalLabel"
+  bsModal
+  class="modal fade modal-black"
+  #myModal="bs-modal"
+  id="myModal"
+  role="dialog"
+  tabindex="-1"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center">
+        <button
+          aria-hidden="true"
+          class="close"
+          data-dismiss="modal"
+          type="button"
+          (click)="myModal.hide()"
+        >
+          <i class="tim-icons icon-simple-remove"> </i>
+        </button>
+
+        <app-add-project-modal></app-add-project-modal>
       </div>
     </div>
   </div>

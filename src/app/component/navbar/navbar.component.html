@@ -101,11 +101,24 @@
           </a>
         </li>
 
+        <li class="nav-item p-0">
+          <a
+            class="nav-link"
+            [routerLink]="['/']"
+            placement="bottom"
+            tooltip=""
+          >
+            <span class="position-relative">
+              <i class="far fa-bell"></i>
+              <span class="badge bg-danger rounded-pill">3</span>
+            </span>
+          </a>
+        </li>
+
         <li class="nav-item" *ngIf="!loggedInUser">
           <a
             class="nav-link btn btn-primary"
             [routerLink]="['/register']"
-            target="_blank"
             href="javascript:void(0)"
           >
             Join the world
@@ -114,7 +127,7 @@
         <li class="nav-item" *ngIf="loggedInUser">
           <a
             class="nav-link btn btn-primary"
-            [routerLink]="['/']"
+            [routerLink]="['/profile', loggedInUser['username']]"
             target="_blank"
             href="javascript:void(0)"
           >
