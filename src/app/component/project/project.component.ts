@@ -11,7 +11,7 @@ export class ProjectComponent implements OnInit {
     {
       img: "julie.jpeg",
       Id_user: 1,
-      title: "project name",
+      title: "DU EXHIBITION",
       date: "22-09-1954",
       reaction: [{ idUser: 1 }, { idUser: 1 }],
       commentaire: [{ idUser: 1 }],
@@ -20,9 +20,9 @@ export class ProjectComponent implements OnInit {
       catg: ["photographie"],
     },
     {
-      img: "lora.jpg",
+      img: "project.jpg",
       Id_user: 1,
-      title: "project name",
+      title: "TENT - To concern",
       date: "22-09-1954",
       reaction: [{ idUser: 1 }, { idUser: 1 }],
       commentaire: [{ idUser: 1 }],
