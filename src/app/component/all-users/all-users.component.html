@@ -1,0 +1,56 @@
+<div class="row justify-content-center">
+  <table class="table table-hover col-lg-6 mr-4">
+    <thead>
+      <tr>
+        <th></th>
+        <th>username</th>
+        <th>email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users" (mouseenter)="onRowHover(user)">
+        <td>
+          <img
+            alt="... "
+            class="avatar img-raised ml-4 mr-2 mt-2"
+            src="assets/img/james.jpg "
+          />
+        </td>
+        <td>{{ user["username"] }}</td>
+        <td>{{ user["email"] }}</td>
+
+        <td class="td-actions text-right dropdown" dropdown>
+          <i
+            aria-expanded="false "
+            aria-haspopup="true "
+            data-toggle="dropdown "
+            dropdownToggle
+            id="dropdownButtonActions "
+            class="fas fa-ellipsis-v"
+          ></i>
+          <div
+            aria-labelledby="dropdownButtonActions "
+            class="dropdown-menu"
+            *dropdownMenu
+          >
+            <button type="button" class="btn btn-info btn-sm ml-3">
+              Contact
+            </button>
+            <button type="button" class="btn btn-success btn-sm ml-3 mt-2">
+              Update
+            </button>
+            <button type="button" class="btn btn-danger btn-sm mt-2 ml-3">
+              Delete
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="col-lg-5 ml-5">
+    <h2 class="text-center">Users' Activities</h2>
+    <h4 class="text-center">{{ hoveredUser["firstname"] }}</h4>
+    <div class="chart-area"><canvas id="chartBig"> </canvas></div>
+  </div>
+</div>

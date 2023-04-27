@@ -45,4 +45,8 @@ export class PublicationService {
   addcommentReply(data: any): Observable<any> {
     return this.http.put(this.apiaddcommentReply, data);
   }
+
+  getPostsByUserId(id: any) {
+    return this.http.get(`http://localhost:5000/Posts/getPublications/${id}`);
+  }
 }
