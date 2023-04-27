@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { UserService } from "src/app/services/user.service";
 import { Chart } from "chart.js";
 import { PublicationService } from "src/app/services/publication.service";
+import { element } from "protractor";
 @Component({
   selector: "app-all-users",
   templateUrl: "./all-users.component.html",
@@ -15,12 +16,19 @@ export class AllUsersComponent implements OnInit {
   users: any = [];
   hoveredUser = "";
   pub: any = [];
+  comments: any = [];
+  nbComment = 0;
+  nbLikes = 0;
+  likes: any = [];
+  Allpub: any = [];
 
   onRowHover(user: any) {
     this.hoveredUser = user;
     console.log("hoveredUser", this.hoveredUser);
     this.getPublications(this.hoveredUser["_id"]).length;
     this.chartStat();
+    this.getComments();
+    this.getLikes();
   }
 
   getPublications(id) {
@@ -29,6 +37,36 @@ export class AllUsersComponent implements OnInit {
       this.pub = data;
       console.log("nos lil data", data);
     });
+    return this.pub;
+  }
+
+  getComments() {
+    this.nbComment = 0;
+    this.getPublications(this.hoveredUser["_id"]).forEach((element) => {
+      console.log("commen commen commouni", element["commentaires"].length);
+      this.nbComment += element["commentaires"].length;
+      console.log(this.nbComment);
+    });
+    return this.nbComment;
+  }
+
+  getLikes() {
+    this.nbLikes = 0;
+    this.getPublications(this.hoveredUser["_id"]).forEach((element) => {
+      console.log("commen commen commouni likes", element["reaction"].length);
+      this.nbLikes += element["reaction"].length;
+      console.log(this.nbLikes);
+    });
+    return this.nbLikes;
+  }
+
+  getAllPosts() {
+    this.pubService.getPost().subscribe((data) => {
+      this.Allpub.push(data);
+      this.Allpub = data;
+      console.log("nos lil posts", data);
+    });
+
     return this.pub;
   }
 
@@ -48,7 +86,7 @@ export class AllUsersComponent implements OnInit {
       type: "line",
       responsive: true,
       data: {
-        labels: ["pub", "project", "likes", "comments", "followers", "follow"],
+        labels: ["pub", "project", "likes", "comments", "followers", "views"],
         datasets: [
           {
             label: "stat",
@@ -69,8 +107,8 @@ export class AllUsersComponent implements OnInit {
             data: [
               this.getPublications(this.hoveredUser["_id"]).length,
               10,
-              30,
-              4,
+              this.getLikes(),
+              this.getComments(),
               15,
               44,
             ],
@@ -105,10 +143,6 @@ export class AllUsersComponent implements OnInit {
               },
               ticks: {
                 display: false,
-                suggestedMin: 0,
-                suggestedMax: 350,
-                padding: 20,
-                fontColor: "#9a9a9a",
               },
             },
           ],
@@ -134,5 +168,6 @@ export class AllUsersComponent implements OnInit {
   ngOnInit() {
     this.displayUsers();
     this.chartStat();
+    this.getAllPosts();
   }
 }

@@ -23,6 +23,8 @@ export class AddCommentComponent implements OnInit {
   user: any;
   users: any;
 
+  listCommentaire: any = [];
+
   idUser: any;
   constructor(
     private loggedUserServ: LoggedInUserService,

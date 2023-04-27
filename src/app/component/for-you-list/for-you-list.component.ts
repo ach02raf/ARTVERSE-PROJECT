@@ -3,6 +3,7 @@ import { PublicationService } from "../../services/publication.service";
 import { LoggedInUserService } from "src/app/services/logged-in-user.service";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import * as buffer from "buffer";
+import { AuthentificationService } from "src/app/services/authentification.service";
 @Component({
   selector: "app-for-you-list",
   templateUrl: "./for-you-list.component.html",
@@ -12,12 +13,14 @@ export class ForYouListComponent implements OnInit {
   constructor(
     private publicationService: PublicationService,
     private loggedUserServ: LoggedInUserService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private authserv: AuthentificationService
   ) {
     this.idUser = this.loggedUserServ.getUserID();
   }
   imageData: any;
   List = [];
+  ListCopy = [];
   public commentText: string;
   loggedInUser: any;
   isCollapsed = true;
@@ -30,6 +33,12 @@ export class ForYouListComponent implements OnInit {
       // console.log("foryoulist", this.loggedInUser);
     });
     this.getPubliction();
+  }
+
+  findUser(id: any) {
+    this.authserv.findUserById(id).subscribe((data) => {
+      console.log("winner winner", data);
+    });
   }
 
   async getPubliction() {
