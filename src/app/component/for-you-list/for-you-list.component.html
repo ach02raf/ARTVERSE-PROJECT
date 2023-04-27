@@ -1,31 +1,31 @@
-<div *ngFor="let item of ListCopy">
+<div *ngFor="let item of ListCopy.reverse()">
   <div class="card card-blog">
     <div class="p-3 d-flex align-items-center">
-      <img alt="..." class="avatar img-raised" src="assets/img/james.jpg" />
+      <img alt="... " class="avatar img-raised" src="assets/img/james.jpg " />
       <div class="pl-3">
         <span class="text-white">
           {{ item["userData"]["firstname"] }} {{ item["userData"]["lastname"] }}
         </span>
         <div class="text-muted">
           <small>
-            {{ item.date }}
+            {{ format(item.date) }}
           </small>
         </div>
       </div>
       <div class="d-flex align-items-center justify-content-between ml-auto">
         <div class="dropdown" dropdown>
           <i
-            aria-expanded="false"
-            aria-haspopup="true"
-            data-toggle="dropdown"
+            aria-expanded="false "
+            aria-haspopup="true "
+            data-toggle="dropdown "
             dropdownToggle
-            id="dropdownMenuButton"
+            id="dropdownMenuButton "
             class="fas fa-ellipsis-v"></i>
           <div
-            aria-labelledby="dropdownMenuButton"
+            aria-labelledby="dropdownMenuButton "
             class="dropdown-menu"
             *dropdownMenu>
-            <a class="dropdown-item" href=""> signaler </a>
+            <a class="dropdown-item" href=" "> signaler </a>
           </div>
         </div>
       </div>
@@ -44,42 +44,54 @@
       <h5 class="card-title">
         {{ item.text }}
       </h5>
+      <!-- <carousel
+        class="card-image "
+        *ngIf="item.img.length !=0 "
+        [showIndicators]="false "
+        pause
+      >
+        <slide *ngFor="let img of item.img; let i=i ndex " class="text-center ">
+          <img class="img rounded " src="assets/img/{{ img.imgName }} " />
+        </slide>
+      </carousel> -->
       <div class="card-footer">
-        <div
-          ngbCollapse
-          [ngbCollapseToggle]="isCollapsed"
-          class="stats stats-right">
+        <div class="stats stats-right">
           <div
             class="btn-group btn-group-sm"
-            role="group"
-            aria-label="Basic example">
+            role="group "
+            aria-label="Basic example ">
             <button
               class="btn btn-sm"
-              type="button"
-              aria-controls="collapseThree"
+              type="button "
+              aria-controls="collapseThree "
               (click)="likePost(item._id)">
               <i
-                class="tim-icons"
-                [class.icon-heart-2]="reaction(item.reaction)"></i>
+                [class]="
+                  reaction(item.reaction) ? 'fas fa-heart' : 'far fa-heart'
+                "
+                [style.color]="
+                  reaction(item.reaction) ? 'text-danger' : 'gray'
+                "></i>
+
               {{ reactioncount(item.reaction) }}
             </button>
 
             <button
               class="btn btn-sm"
-              type="button"
-              (click)="isCollapsed = !isCollapsed"
-              [attr.aria-expanded]="!isCollapsed"
-              aria-controls="collapseThree">
+              type="button "
+              [id]="item._id"
+              [attr.aria-expanded]="!isCollapsed[item._id]"
+              (click)="isCollapsed[item._id] = !isCollapsed[item._id]">
               <i
                 class="tim-icons icon-single-copy-04"
-                [class.icon-rotate]="!isCollapsed"></i>
+                [class.icon-rotate]="!isCollapsed[item._id]"></i>
               {{ reactioncount(item.commentaires) }}
             </button>
           </div>
 
-          <div ngbCollapse [ngbCollapseToggle]="isCollapsed">
+          <div [collapse]="isCollapsed[item._id]" [id]="item._id">
             <div class="card">
-              <div id="collapseThree" [ngbCollapse]="isCollapsed">
+              <div>
                 <div>
                   <app-add-comment
                     [idPub]="item._id"
