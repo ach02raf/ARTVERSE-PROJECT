@@ -23,6 +23,8 @@ export class AddCommentComponent implements OnInit {
   user: any;
   users: any;
 
+  listCommentaire: any = [];
+
   idUser: any;
   constructor(
     private loggedUserServ: LoggedInUserService,
@@ -41,6 +43,12 @@ export class AddCommentComponent implements OnInit {
       //   // this.user = this.authserv.findUserById(id);
       //   console.log("yoyoyo", id);
       // });
+      this.authserv.findUserById(com["idUser"]).subscribe((data) => {
+        console.log("user winner", data);
+
+        this.listCommentaire.push({ ...com, userData: data });
+        console.log("list with users", this.listCommentaire);
+      });
       console.log("comyosb5", com["idUser"]);
       this.authserv.findUserById(com["idUser"]).subscribe((data) => {
         console.log("uss data", data);

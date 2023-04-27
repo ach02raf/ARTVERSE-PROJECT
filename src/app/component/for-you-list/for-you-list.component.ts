@@ -5,6 +5,7 @@ import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 //import { DatePipe } from '@angular/common';
 
 import * as buffer from "buffer";
+import { AuthentificationService } from "src/app/services/authentification.service";
 @Component({
   selector: "app-for-you-list",
   templateUrl: "./for-you-list.component.html",
@@ -15,12 +16,14 @@ export class ForYouListComponent implements OnInit {
     // private datePipe: DatePipe ,
     private publicationService: PublicationService,
     private loggedUserServ: LoggedInUserService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private authserv: AuthentificationService
   ) {
     this.idUser = this.loggedUserServ.getUserID();
   }
   imageData: any;
   List = [];
+  ListCopy = [];
   public commentText: string;
   loggedInUser: any;
   public isCollapsed: boolean[] = [];
@@ -36,6 +39,12 @@ export class ForYouListComponent implements OnInit {
     this.getPubliction();
   }
 
+  findUser(id: any) {
+    this.authserv.findUserById(id).subscribe((data) => {
+      console.log("winner winner", data);
+    });
+  }
+
   async getPubliction() {
     this.publicationService.getPost().subscribe(async (data) => {
       this.List = await data;
@@ -43,6 +52,14 @@ export class ForYouListComponent implements OnInit {
         this.isCollapsed[item._id] = true;
       });
       console.log("for you list post : ", this.List);
+      this.List.forEach((item) => {
+        this.authserv.findUserById(item.Id_user).subscribe((data) => {
+          console.log("user winner", data);
+
+          this.ListCopy.push({ ...item, userData: data });
+          console.log("list with users", this.ListCopy);
+        });
+      });
       for (let item of this.List) {
         let imageforpub = [];
         for (let itam of item.img) {
