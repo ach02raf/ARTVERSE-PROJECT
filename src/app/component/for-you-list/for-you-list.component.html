@@ -1,4 +1,4 @@
-<div *ngFor="let item of ListCopy">
+<div *ngFor="let item of ListCopy.reverse()">
   <div class="card card-blog">
     <div class="p-3 d-flex align-items-center">
       <img alt="... " class="avatar img-raised" src="assets/img/james.jpg " />
@@ -20,13 +20,11 @@
             data-toggle="dropdown "
             dropdownToggle
             id="dropdownMenuButton "
-            class="fas fa-ellipsis-v"
-          ></i>
+            class="fas fa-ellipsis-v"></i>
           <div
             aria-labelledby="dropdownMenuButton "
             class="dropdown-menu"
-            *dropdownMenu
-          >
+            *dropdownMenu>
             <a class="dropdown-item" href=" "> signaler </a>
           </div>
         </div>
@@ -37,8 +35,7 @@
       class="card-image"
       *ngIf="item.img.length != 0"
       [showIndicators]="false"
-      pause
-    >
+      pause>
       <slide *ngFor="let img of item.img" class="text-center">
         <img [src]="getImage(img.idimg, item._id)" />
       </slide>
@@ -62,20 +59,19 @@
           <div
             class="btn-group btn-group-sm"
             role="group "
-            aria-label="Basic example "
-          >
+            aria-label="Basic example ">
             <button
               class="btn btn-sm"
               type="button "
               aria-controls="collapseThree "
-              (click)="likePost(item._id)"
-            >
+              (click)="likePost(item._id)">
               <i
                 [class]="
                   reaction(item.reaction) ? 'fas fa-heart' : 'far fa-heart'
                 "
-                [style.color]="reaction(item.reaction) ? 'text-danger' : 'gray'"
-              ></i>
+                [style.color]="
+                  reaction(item.reaction) ? 'text-danger' : 'gray'
+                "></i>
 
               {{ reactioncount(item.reaction) }}
             </button>
@@ -85,12 +81,10 @@
               type="button "
               [id]="item._id"
               [attr.aria-expanded]="!isCollapsed[item._id]"
-              (click)="isCollapsed[item._id] = !isCollapsed[item._id]"
-            >
+              (click)="isCollapsed[item._id] = !isCollapsed[item._id]">
               <i
                 class="tim-icons icon-single-copy-04"
-                [class.icon-rotate]="!isCollapsed[item._id]"
-              ></i>
+                [class.icon-rotate]="!isCollapsed[item._id]"></i>
               {{ reactioncount(item.commentaires) }}
             </button>
           </div>
@@ -101,8 +95,7 @@
                 <div>
                   <app-add-comment
                     [idPub]="item._id"
-                    [listComm]="item.commentaires"
-                  ></app-add-comment>
+                    [listComm]="item.commentaires"></app-add-comment>
                 </div>
               </div>
             </div>

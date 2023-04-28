@@ -8,7 +8,7 @@ import { ActivatedRoute } from "@angular/router";
   templateUrl: "./profile.component.html",
   styleUrls: ["./profile.component.scss"],
 })
-export class ProfileComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnInit {
   isCollapsed = true;
   loggedInUser: any;
   user: any;
@@ -40,10 +40,5 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.user = res;
       console.log("username load", this.user);
     });
-  }
-
-  ngOnDestroy() {
-    var body = document.getElementsByTagName("body")[0];
-    body.classList.remove("profile-page");
   }
 }

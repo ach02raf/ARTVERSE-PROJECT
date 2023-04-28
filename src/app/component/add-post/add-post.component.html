@@ -7,15 +7,13 @@
             <img
               alt="64x64"
               class="media-object img-raised"
-              src="assets/img/james.jpg"
-            />
+              src="assets/img/james.jpg" />
           </div>
 
           <input
             placeholder="Add new post..."
             (click)="myModal.show()"
-            class="form-control mx-2"
-          />
+            class="form-control mx-2" />
         </div>
       </div>
     </div>
@@ -37,8 +35,7 @@
     #myModal="bs-modal"
     id="myModal"
     role="dialog"
-    tabindex="-1"
-  >
+    tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header justify-content-center">
@@ -47,8 +44,7 @@
             class="close"
             data-dismiss="modal"
             type="button"
-            (click)="myModal.hide()"
-          >
+            (click)="myModal.hide()">
             <i class="tim-icons icon-simple-remove"> </i>
           </button>
           <h4 class="title title-up">Créer une publication</h4>
@@ -59,8 +55,7 @@
             alt="Circle image"
             class="img-fluid rounded-circle"
             src="assets/img/james.jpg"
-            style="width: 40px; height: 40px; margin: 5px"
-          />
+            style="width: 40px; height: 40px; margin: 5px" />
           <p>{{ loggedInUser["firstname"] }} {{ loggedInUser["lastname"] }}</p>
         </div>
 
@@ -79,161 +74,79 @@
           placeholder="ecrire qlq chose"
         ></textarea> -->
 
-          <form (ngSubmit)="onSubmit()">
-            <div class="alert alert-danger" role="alert" *ngIf="invalide">
-              Please enter some text to post your publication!
-            </div>
-            <div style="position: relative" class="post-text">
-              <div
-                contenteditable="true"
-                class="form-control inputtag"
-                name="postText"
-                placeholder="Écrivez quelque chose ici..."
-                (input)="onInputChange($event.target.textContent)"
-              >
-                <ul class="list-group" *ngIf="filteredHashtags.length">
-                  <li
-                    class="list-group-item d-flex justify-content-between align-items-center"
-                    *ngFor="let hashtag of filteredHashtags"
-                    (click)="insertHashtag(hashtag.tag_name)"
-                  >
-                    #{{ hashtag.tag_name }}
-                    <span class="badge badge-primary badge-pill">
-                      {{ hashtag.followers?.toString() || "0" }}</span
-                    >
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="custom-file">
-              <label for="customFile" class="form-label"
-                >Choose one or more images</label
-              >
-              <input
-                type="file"
-                multiple
-                class="custom-file-input"
-                id="customFile"
-                (change)="onFileSelected($event)"
-              />
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="exampleCheck1"
-                  [(ngModel)]="isCopyrightChecked"
-                />
-                ajouter les droits d'auteur ?
-                <span class="form-check-sign">
-                  <span class="check"></span>
-                </span>
-              </label>
-            </div>
-
-            <carousel *ngIf="images.length != 0" [showIndicators]="false" pause>
-              <slide
-                *ngFor="let image of images; let i = index"
-                class="text-center"
-              >
-                <img
-                  *ngIf="image"
-                  class="d-block w-100"
-                  [src]="image.url"
-                  [alt]="image.name"
-                />
-                <button
-                  class="btn btn-primary btn-fab btn-icon btn-round"
-                  (click)="clearSelectedImage(index)"
-                >
-                  <i class="tim-icons icon-simple-remove"></i>
-                </button>
-              </slide>
-            </carousel>
-            <!-- <div
-          *ngIf="images.length != 0"
-          id="carouselExampleControls"
-          class="carousel slide"
-          data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <ng-container *ngFor="let image of images; let i = index">
-              <div class="carousel-item" [ngClass]="{ active: i == 0 }">
-                <img
-                  *ngIf="image"
-                  class="d-block w-100"
-                  [src]="image.url"
-                  [alt]="image.name" />
-              </div>
-            </ng-container>
+          <div class="alert alert-danger" role="alert" *ngIf="invalide">
+            Please enter some text to post your publication!
           </div>
-          <button
-            class="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExampleControls"
-            data-bs-slide="prev">
-            <span
-              class="carousel-control-prev-icon"
-              aria-hidden="true"></span>
-                                        <span class="visually-hidden">Previous</span>
-                                        </button>
-                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-            <span
-              class="carousel-control-next-icon"
-              aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-                            </div> -->
+          <div style="position: relative" class="post-text">
+            <div
+              contenteditable="true"
+              class="form-control inputtag"
+              name="postText"
+              placeholder="Écrivez quelque chose ici..."
+              (input)="onInputChange($event.target.textContent)">
+              <ul class="list-group" *ngIf="filteredHashtags.length">
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center"
+                  *ngFor="let hashtag of filteredHashtags"
+                  (click)="insertHashtag(hashtag.tag_name)">
+                  #{{ hashtag.tag_name }}
+                  <span class="badge badge-primary badge-pill">
+                    {{ hashtag.followers?.toString() || "0" }}</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
 
-            <!-- <div
-          *ngIf="images.length != 0"
-          id="carouselExampleControls"
-          class="carousel slide"
-          data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div *ngFor="let image of images" class="carousel-item active">
+          <div class="custom-file">
+            <label for="customFile" class="form-label"
+              >Choose one or more images</label
+            >
+            <input
+              type="file"
+              multiple
+              class="custom-file-input"
+              id="customFile"
+              (change)="onFileSelected($event)" />
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="exampleCheck1"
+                [(ngModel)]="isCopyrightChecked" />
+              ajouter les droits d'auteur ?
+              <span class="form-check-sign">
+                <span class="check"></span>
+              </span>
+            </label>
+          </div>
+
+          <carousel *ngIf="images.length != 0" [showIndicators]="false" pause>
+            <slide
+              *ngFor="let image of images; let i = index"
+              class="text-center">
               <img
                 *ngIf="image"
                 class="d-block w-100"
                 [src]="image.url"
                 [alt]="image.name" />
-            </div>
-          </div>
-          <button
-            class="carousel-control-prev dark"
-            type="button"
-            data-bs-target="#carouselExampleControls"
-            data-bs-slide="prev">
-            <span
-              class="carousel-control-prev-icon dark"
-              aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button
-            class="carousel-control-next dark"
-            type="button"
-            data-bs-target="#carouselExampleControls"
-            data-bs-slide="next">
-            <span
-              class="carousel-control-next-icon dark"
-              aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div> -->
+              <button
+                class="btn btn-primary btn-fab btn-icon btn-round"
+                (click)="clearSelectedImage(index)">
+                <i class="tim-icons icon-gift-2"></i>
+              </button>
+            </slide>
+          </carousel>
 
-            <!-- <button *ngIf="images.length != 0" (click)="clearSelectedImage()">
-          Clear Selected Image
-        </button> -->
-
-            <button
-              class="btn btn-success"
-              style="width: 100%; margin-top: 30px"
-            >
-              Publier
-            </button>
-          </form>
+          <button
+            (click)="onSubmit($event)"
+            class="btn btn-success"
+            style="width: 100%; margin-top: 30px">
+            Publier
+          </button>
         </div>
       </div>
     </div>
@@ -247,8 +160,7 @@
     #myModal2="bs-modal"
     id="myModal2"
     role="dialog"
-    tabindex="-1"
-  >
+    tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header justify-content-center">
@@ -257,8 +169,7 @@
             class="close"
             data-dismiss="modal"
             type="button"
-            (click)="myModal2.hide()"
-          >
+            (click)="myModal2.hide()">
             <i class="tim-icons icon-simple-remove"> </i>
           </button>
         </div>
@@ -271,8 +182,7 @@
           <button
             class="btn btn-success"
             style="width: 100%; margin-top: 30px"
-            (click)="myModal2.hide()"
-          >
+            (click)="myModal2.hide()">
             ok
           </button>
         </div>
