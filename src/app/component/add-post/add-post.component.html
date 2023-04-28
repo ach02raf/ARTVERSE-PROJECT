@@ -79,7 +79,7 @@
           placeholder="ecrire qlq chose"
         ></textarea> -->
 
-          <form (ngSubmit)="onSubmit()">
+          <form (ngSubmit)="onSubmit()" >
             <div class="alert alert-danger" role="alert" *ngIf="invalide">
               Please enter some text to post your publication!
             </div>
@@ -264,17 +264,22 @@
         </div>
         <hr style="border-color: rgb(44, 44, 44); width: 100%; opacity: 0.2" />
         <div style="display: flex; align-items: center">
-          <p>
-            Merci de partager votre travail avec nous, il faudra quelques
-            instants pour le publier.
-          </p>
+          <div class="row">
+            <p>
+              Merci de partager votre travail avec nous, il faudra quelques
+              instants pour le publier.
+            </p>
+          </div>
+         <div class="row">
           <button
-            class="btn btn-success"
-            style="width: 100%; margin-top: 30px"
-            (click)="myModal2.hide()"
-          >
-            ok
-          </button>
+          class="btn btn-success"
+          style="width: 100%; margin-top: 30px"
+          (click)="myModal2.hide()"
+        >
+          ok
+        </button>
+         </div>
+        
         </div>
       </div>
     </div>
