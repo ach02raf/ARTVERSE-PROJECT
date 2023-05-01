@@ -33,7 +33,7 @@ export class ProjectComponent implements OnInit {
     {
       img: "sign.jpeg",
       Id_user: 1,
-      title: "project name",
+      title: "Illustration NFT",
       date: "22-09-1954",
       reaction: [{ idUser: 1 }, { idUser: 1 }],
       commentaire: [{ idUser: 1 }],
@@ -44,7 +44,7 @@ export class ProjectComponent implements OnInit {
     {
       img: "lora.jpg",
       Id_user: 1,
-      title: "project name",
+      title: "VFX Photography editing",
       date: "22-09-1954",
       reaction: [{ idUser: 1 }, { idUser: 1 }],
       commentaire: [{ idUser: 1 }],
@@ -53,9 +53,9 @@ export class ProjectComponent implements OnInit {
       catg: ["photographie"],
     },
     {
-      img: "sign.jpeg",
+      img: "download.jpg",
       Id_user: 1,
-      title: "project name",
+      title: "Diving man",
       date: "22-09-1954",
       reaction: [{ idUser: 1 }, { idUser: 1 }],
       commentaire: [{ idUser: 1 }],
@@ -64,9 +64,9 @@ export class ProjectComponent implements OnInit {
       catg: ["photographie"],
     },
     {
-      img: "julie.jpeg",
+      img: "3dimg.png",
       Id_user: 1,
-      title: "project name",
+      title: "3D Modelisation",
       date: "22-09-1954",
       reaction: [{ idUser: 1 }, { idUser: 1 }],
       commentaire: [{ idUser: 1 }],
