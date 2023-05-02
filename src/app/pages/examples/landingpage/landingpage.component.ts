@@ -3,7 +3,7 @@ import Chart from "chart.js";
 
 @Component({
   selector: "app-landingpage",
-  templateUrl: "landingpage.component.html"
+  templateUrl: "landingpage.component.html",
 })
 export class LandingpageComponent implements OnInit, OnDestroy {
   isCollapsed = true;
@@ -34,7 +34,7 @@ export class LandingpageComponent implements OnInit, OnDestroy {
           "SEP",
           "OCT",
           "NOV",
-          "DEC"
+          "DEC",
         ],
         datasets: [
           {
@@ -53,14 +53,14 @@ export class LandingpageComponent implements OnInit, OnDestroy {
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
             pointRadius: 4,
-            data: [80, 160, 200, 160, 250, 280, 220, 190, 200, 250, 290, 320]
-          }
-        ]
+            data: [80, 160, 200, 160, 250, 280, 220, 190, 200, 250, 290, 320],
+          },
+        ],
       },
       options: {
         maintainAspectRatio: false,
         legend: {
-          display: false
+          display: false,
         },
 
         tooltips: {
@@ -71,7 +71,7 @@ export class LandingpageComponent implements OnInit, OnDestroy {
           xPadding: 12,
           mode: "nearest",
           intersect: 0,
-          position: "nearest"
+          position: "nearest",
         },
         responsive: true,
         scales: {
@@ -81,16 +81,16 @@ export class LandingpageComponent implements OnInit, OnDestroy {
               gridLines: {
                 drawBorder: false,
                 color: "rgba(0,0,0,0.0)",
-                zeroLineColor: "transparent"
+                zeroLineColor: "transparent",
               },
               ticks: {
                 display: false,
                 suggestedMin: 0,
                 suggestedMax: 350,
                 padding: 20,
-                fontColor: "#9a9a9a"
-              }
-            }
+                fontColor: "#9a9a9a",
+              },
+            },
           ],
 
           xAxes: [
@@ -99,16 +99,16 @@ export class LandingpageComponent implements OnInit, OnDestroy {
               gridLines: {
                 drawBorder: false,
                 color: "rgba(0,0,0,0)",
-                zeroLineColor: "transparent"
+                zeroLineColor: "transparent",
               },
               ticks: {
                 padding: 20,
-                fontColor: "#9a9a9a"
-              }
-            }
-          ]
-        }
-      }
+                fontColor: "#9a9a9a",
+              },
+            },
+          ],
+        },
+      },
     });
   }
   ngOnDestroy() {

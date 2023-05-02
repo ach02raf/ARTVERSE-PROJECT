@@ -4,8 +4,9 @@ import {
   HttpHeaders,
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, throwError } from "rxjs";
+import {  throwError } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
+import { Observable } from "rxjs/internal/Observable";
 
 @Injectable({
   providedIn: "root",

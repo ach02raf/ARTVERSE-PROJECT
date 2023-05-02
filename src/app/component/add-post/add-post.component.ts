@@ -83,7 +83,8 @@ export class AddPostComponent implements OnInit {
   clearSelectedImage(index: any) {
     this.images.splice(index, 1);
   }
-  onSubmit() {
+  onSubmit(event: Event) {
+    event.preventDefault();
     const postText = this.postTextElement.textContent || "";
     if (postText.trim() === "") {
       this.invalide = true;
@@ -123,6 +124,7 @@ export class AddPostComponent implements OnInit {
         this.myModal2.show();
       },
       (error) => {
+        this.invalide = true;
         console.error("err", error);
         // handle error from the API
         alert("you trying to use image ");

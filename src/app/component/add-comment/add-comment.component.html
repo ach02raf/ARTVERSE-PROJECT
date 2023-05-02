@@ -34,7 +34,7 @@
   </div>
 
   <div class="media-area ml-3">
-    <div class="media" *ngFor="let comm of listComm; let i = index">
+    <div class="media" *ngFor="let comm of listCommentaire; let i = index">
       <a class="pull-left" href="javascript:void(0)">
         <div class="avatar">
           <img
@@ -48,7 +48,7 @@
         <h5 class="media-heading mx-2">
           <!-- {{ findUser(comm[0]["idUser"]) }} -->
           <!-- {{ user["firstname"] }} -->
-          yosra wanene
+          {{ comm["userData"]["firstname"] }} {{ comm["userData"]["lastname"] }}
           <small class="text-muted"> · 7 minutes ago </small>
         </h5>
         <p class="mx-2">{{ comm.comment }}</p>

@@ -1,85 +1,160 @@
 <div style="display: flex; align-items: center">
-  <img
-    alt="Circle image"
-    class="img-fluid rounded-circle"
-    src="assets/img/james.jpg"
-    style="width: 40px; height: 40px; margin: 5px"
-  />
-  <p>{{ loggedInUser["firstname"] }} {{ loggedInUser["lastname"] }}</p>
-</div>
-
-<div class="form-group">
-  <form (ngSubmit)="onSubmit()">
-    <div class="alert alert-danger" role="alert" *ngIf="invalide">
-      This is a danger alert—check it out!
-    </div>
-
-    <div>
+  <div class="form-group">
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      <div class="alert alert-danger" role="alert" *ngIf="invalide">
+        This is a danger alert—check it out!
+      </div>
+      <h4 class="title title-up">Add Project</h4>
+      <label class="mt-4" for="">Title</label>
       <input
+        class="form-control"
         type="text"
-        [(ngModel)]="inputValue"
-        #inp
-        (keydown.enter)="addHashtagg(inp.value)"
-        placeholder="Enter hashtags..."
+        [(ngModel)]="inputValueHashtag"
+        #titre
+        placeholder="Enter Title..."
       />
-      <!-- <input
-        type="text"
-        [(ngModel)]="inputValue"
-        #inp
-        (keyup)="test(inputValue)"
-        placeholder="Enter hashtags..."
-      /> -->
+
+      <label class="mt-2" for="">Category</label>
+      <select
+        class="form-control" 
+      (change)="changecategory($event)"
+      formControlName="categoryName"
+    >
+      <option value="" class="text-dark">Choose category</option>
+      <option *ngFor="let category of category" class="text-dark" [ngValue]="category">
+        {{ category }}
+      </option>
+
+   
+    </select>
+
+
+
+
+      <label class="mt-2" for="">Hashtag</label>
+      <input
+      class="form-control"
+      type="text"
+      [(ngModel)]="inputValueHashtag"
+      #inputHashtags
+      (keydown.space)="addHashtagg(inputHashtags.value)"
+      placeholder="Enter Hashtags..."
+    />
       <div class="hashtag-list">
-        <div class="hashtag" *ngFor="let hash of tabbleau">
-          <span class="hashtag-text">{{ hash }}</span>
-          <span class="remove-icon" (click)="removeHashtag(hash)">x</span>
+        <div class="hashtag" *ngFor="let hash of tabbleauHashtag">
+          <span class="hashtag-text badge badge-pill badge-info"
+            >{{ hash }}
+            <span class="remove-icon" (click)="removeHashtag(hash)"
+              >x</span
+            ></span
+          >
         </div>
       </div>
-    </div>
 
-    <div class="custom-file">
-      <label for="customFile" class="form-label"
-        >Choose one or more images</label
-      >
+      <label class="mt-2" for="">Tools</label>
       <input
-        type="file"
-        multiple
-        class="custom-file-input"
-        id="customFile"
-        (change)="onFileSelected($event)"
+        class="form-control"
+        type="text"
+        [(ngModel)]="inputValueTools"
+        #inpTools
+        (keydown.enter)="addTools(inpTools.value)"
+        placeholder="Enter tools..."
       />
-    </div>
-    <div class="form-check">
-      <label class="form-check-label">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="exampleCheck1"
-          [(ngModel)]="isCopyrightChecked"
-        />
-        ajouter les droits d'auteur ?
-        <span class="form-check-sign">
-          <span class="check"></span>
-        </span>
-      </label>
-    </div>
 
-    <carousel *ngIf="images.length != 0" [showIndicators]="false" pause>
-      <slide *ngFor="let image of images; let i = index" class="text-center">
-        <img
-          *ngIf="image"
-          class="d-block w-100"
-          [src]="image.url"
-          [alt]="image.name"
-        />
-        <button
-          class="btn btn-primary btn-fab btn-icon btn-round"
-          (click)="clearSelectedImage(index)"
+      <div class="hashtag-list">
+        <div class="hashtag" *ngFor="let tool of tabbleauTools">
+          <span class="hashtag-text badge badge-pill badge-warning"
+            >{{ tool }}
+            <span class="remove-icon" (click)="removeTools(tool)">x</span></span
+          >
+        </div>
+      </div>
+
+      <div class="mt-2" class="custom-file">
+        <label for="customFile" class="form-label"
+          >Choose one or more images</label
         >
-          <i class="tim-icons icon-gift-2"></i>
+        <input
+          type="file"
+          multiple
+          class="custom-file-input"
+          id="customFile"
+          (change)="onFileSelected($event)"
+        />
+      </div>
+      <br /><br />
+
+      <carousel *ngIf="images.length != 0" [showIndicators]="false" pause>
+        <slide *ngFor="let image of images; let i = index" class="text-center">
+          <img
+            *ngIf="image"
+            class="d-block w-100"
+            [src]="image.url"
+            [alt]="image.name"
+          />
+          <button
+            class="btn btn-primary btn-fab btn-icon btn-round"
+            (click)="clearSelectedImage(index)"
+          >
+            <i class="tim-icons icon-simple-remove"></i>
+          </button>
+        </slide>
+      </carousel>
+
+      <button
+        class="btn btn-success sbmuit"
+        style="
+          width: 100%;
+          margin-top: 3000px;
+          position: unset;
+          margin: auto;
+          margin-bottom: 15px;
+        "
+      >
+        Publier
+      </button>
+    </form>
+  </div>
+  <div
+  aria-hidden="true"
+  aria-labelledby="myModalLabel"
+  bsModal
+  class="modal fade modal-black"
+  #myModal2="bs-modal"
+  id="myModal2"
+  role="dialog"
+  tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center">
+        <button
+          aria-hidden="true"
+          class="close"
+          data-dismiss="modal"
+          type="button"
+          (click)="myModal2.hide()">
+          <i class="tim-icons icon-simple-remove"> </i>
         </button>
-      </slide>
-    </carousel>
-  </form>
+      </div>
+      <hr style="border-color: rgb(44, 44, 44); width: 100%; opacity: 0.2" />
+      <div style="display: flex; align-items: center">
+        <div class="row">
+          <p>
+            Merci de partager votre travail avec nous, il faudra quelques
+            instants pour le publier.
+          </p>
+        </div>
+       <div class="row">
+        <button
+          class="btn btn-success"
+          style="width: 100%; margin-top: 30px"
+          (click)="myModal2.hide()">
+          ok
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- your modal content here -->
+</div>
+  <!-- <p>{{ loggedInUser["firstname"] }} {{ loggedInUser["lastname"] }}</p> -->
 </div>
