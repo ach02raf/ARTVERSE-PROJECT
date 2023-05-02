@@ -6,6 +6,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit {
+  source: any = "home";
   constructor() {}
 
   hashtags = ["digitalart", "digitaldrawing", "artists", "portrait"];

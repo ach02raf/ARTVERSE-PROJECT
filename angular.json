@@ -24,15 +24,7 @@
             "tsConfig": "src/tsconfig.app.json",
 
             "allowedCommonJsDependencies": ["chart.js", "nouislider"],
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "**/*",
-                "input": "../Dmwm-2-Backend/uploads",
-                "output": "/assets/uploads/"
-              }
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "src/styles.scss",
               "src/assets/css/nucleo-icons.css",
