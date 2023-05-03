@@ -23,8 +23,9 @@
               <button
                 *ngIf="loggedInUser !== user['_id']"
                 type="button"
-                class="btn btn-primary btn-block">
-                <i class="tim-icons icon-simple-add mx-2"></i>Suivre
+                class="btn btn-primary btn-block"
+                (click)="followUser( user['_id'])">
+                <i class="tim-icons icon-simple-add mx-2"></i>Follow
               </button>
               <button
                 *ngIf="loggedInUser !== user['_id']"
@@ -55,17 +56,17 @@
                     </li>
                     <li
                       class="list-group-item d-flex justify-content-between align-items-center">
-                      Abonnés
+                      followers
                       <span class="badge badge-info badge-pill">{{
-                        Abonnes
+                        followers
                       }}</span>
                     </li>
 
                     <li
                       class="list-group-item d-flex justify-content-between align-items-center">
-                      Abonnements
+                      following
                       <span class="badge badge-info badge-pill">{{
-                        Abonnements
+                        following
                       }}</span>
                     </li>
                   </ul>
@@ -183,7 +184,9 @@
                   <i class="tim-icons icon-settings-gear-63"> </i>
                   Publications
                 </ng-template>
-                <app-for-you-list [source]="source"></app-for-you-list>
+                <app-for-you-list
+                  [source]="source"
+                  [idprofile]="this.user['_id']"></app-for-you-list>
               </tab>
             </tabset>
           </div>

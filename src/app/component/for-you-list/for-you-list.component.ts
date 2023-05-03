@@ -2,11 +2,9 @@ import { Component, Input, OnInit } from "@angular/core";
 import { PublicationService } from "../../services/publication.service";
 import { LoggedInUserService } from "src/app/services/logged-in-user.service";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
-//import { DatePipe } from '@angular/common';
 
 import * as buffer from "buffer";
 import { AuthentificationService } from "src/app/services/authentification.service";
-import { element } from "protractor";
 @Component({
   selector: "app-for-you-list",
   templateUrl: "./for-you-list.component.html",
@@ -14,9 +12,9 @@ import { element } from "protractor";
 })
 export class ForYouListComponent implements OnInit {
   @Input() source: string;
+  @Input() idprofile: string;
 
   constructor(
-    // private datePipe: DatePipe ,
     private publicationService: PublicationService,
     private loggedUserServ: LoggedInUserService,
     private sanitizer: DomSanitizer,
@@ -36,29 +34,21 @@ export class ForYouListComponent implements OnInit {
   ngOnInit(): void {
     this.loggedUserServ.findUserById(this.idUser).subscribe((res) => {
       this.loggedInUser = res;
-      // console.log("foryoulist", this.loggedInUser);
     });
 
     this.getPubliction(this.source);
   }
-
   findUser(id: any) {
-    this.authserv.findUserById(id).subscribe((data) => {
-      console.log("winner winner", data);
-    });
-  }
-  filterData(element: any) {
-    return element["Id_user"] === this.idUser;
+    this.authserv.findUserById(id).subscribe((data) => {});
   }
   async getPubliction(source: string) {
     this.publicationService.getPost().subscribe(async (data) => {
       this.List = await data;
-      console.log("achraf test ", this.List);
 
       for (let item of this.List) {
         let shouldAddItem = true;
 
-        if (source === "profile" && item["Id_user"] !== this.idUser) {
+        if (source === "profile" && item["Id_user"] !== this.idprofile) {
           shouldAddItem = false;
         }
 

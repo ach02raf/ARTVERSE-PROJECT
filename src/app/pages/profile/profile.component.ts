@@ -15,8 +15,8 @@ export class ProfileComponent implements OnInit {
   id: any;
   source: any = "profile";
   username: any;
-  Abonnes: any;
-  Abonnements: any;
+  followers: any;
+  following: any;
   constructor(
     private authServ: AuthentificationService,
     private userServ: UserService,
@@ -32,12 +32,14 @@ export class ProfileComponent implements OnInit {
     var body = document.getElementsByTagName("body")[0];
     body.classList.add("profile-page");
 
-    console.log(this.loggedInUser);
-
     this.userServ.findUserByUsername(this.username).subscribe((res) => {
       this.user = res;
-      this.Abonnements = this.user["followers"].length;
-      console.log("username load", this.user);
+      this.following = this.user["followers"].length;
     });
+  }
+
+  followUser(id: any) {
+    console.log(id);
+    console.log(this.loggedInUser);
   }
 }
