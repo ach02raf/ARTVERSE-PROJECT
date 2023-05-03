@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
   username: any;
   followers: any;
   following: any;
+  showfollow: boolean = true;
   constructor(
     private authServ: AuthentificationService,
     private userServ: UserService,
@@ -34,12 +35,25 @@ export class ProfileComponent implements OnInit {
 
     this.userServ.findUserByUsername(this.username).subscribe((res) => {
       this.user = res;
-      this.following = this.user["followers"].length;
+      this.following = this.user["following"].length;
+      this.followers = this.user["followers"].length;
+      for (let element of this.user["followers"]) {
+        if (element["id"] === this.loggedInUser) {
+          this.showfollow = false;
+        }
+      }
     });
   }
 
   followUser(id: any) {
-    console.log(id);
-    console.log(this.loggedInUser);
+    this.userServ
+      .updatefollow({ id: this.loggedInUser, idprofile: id })
+      .subscribe((res) => {
+        console.log(res);
+        this.showfollow = !this.showfollow;
+      });
+  }
+  unfollowUser(id: any) {
+    console.log("hello unfollow !", id);
   }
 }

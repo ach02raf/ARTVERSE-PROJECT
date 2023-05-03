@@ -24,8 +24,15 @@
                 *ngIf="loggedInUser !== user['_id']"
                 type="button"
                 class="btn btn-primary btn-block"
-                (click)="followUser( user['_id'])">
-                <i class="tim-icons icon-simple-add mx-2"></i>Follow
+                (click)="
+                  showfollow
+                    ? followUser(user['_id'])
+                    : unfollowUser(user['_id'])
+                ">
+                <i
+                  class="tim-icons icon-simple-add mx-2"
+                  *ngIf="showfollow"></i>
+                {{ showfollow ? "Follow" : "Following" }}
               </button>
               <button
                 *ngIf="loggedInUser !== user['_id']"
