@@ -7,6 +7,7 @@ import { Component, OnInit } from "@angular/core";
 })
 export class HomeComponent implements OnInit {
   source: any = "home";
+
   constructor() {}
 
   hashtags = ["digitalart", "digitaldrawing", "artists", "portrait"];

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { AuthentificationService } from "src/app/services/authentification.service";
 import { UserService } from "src/app/services/user.service";
 import { ActivatedRoute } from "@angular/router";
@@ -14,15 +14,15 @@ export class ProfileComponent implements OnInit {
   user: any;
   id: any;
   source: any = "profile";
-  idUser: any;
   username: any;
-
+  Abonnes: any;
+  Abonnements: any;
   constructor(
     private authServ: AuthentificationService,
     private userServ: UserService,
     private route: ActivatedRoute
   ) {
-    this.idUser = this.authServ.getUserID();
+    this.loggedInUser = this.authServ.getUserID();
   }
 
   ngOnInit(): void {
@@ -31,13 +31,12 @@ export class ProfileComponent implements OnInit {
     });
     var body = document.getElementsByTagName("body")[0];
     body.classList.add("profile-page");
-    this.authServ.findUserById(this.idUser).subscribe((res) => {
-      this.loggedInUser = res;
-      console.log(this.loggedInUser);
-    });
+
+    console.log(this.loggedInUser);
 
     this.userServ.findUserByUsername(this.username).subscribe((res) => {
       this.user = res;
+      this.Abonnements = this.user["followers"].length;
       console.log("username load", this.user);
     });
   }

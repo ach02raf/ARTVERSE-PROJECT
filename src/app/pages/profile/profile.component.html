@@ -21,19 +21,19 @@
             </div>
             <div class="card-body">
               <button
-                *ngIf="loggedInUser._id != user._id"
+                *ngIf="loggedInUser !== user['_id']"
                 type="button"
                 class="btn btn-primary btn-block">
                 <i class="tim-icons icon-simple-add mx-2"></i>Suivre
               </button>
               <button
-                *ngIf="loggedInUser._id != user._id"
+                *ngIf="loggedInUser !== user['_id']"
                 type="button"
                 class="btn btn-block">
                 <i class="tim-icons icon-email-85 mx-2"></i>Message
               </button>
               <button
-                *ngIf="loggedInUser._id === user._id"
+                *ngIf="loggedInUser === user['_id']"
                 type="button"
                 class="btn btn-block"
                 (click)="myModal.show()">
@@ -56,13 +56,17 @@
                     <li
                       class="list-group-item d-flex justify-content-between align-items-center">
                       Abonnés
-                      <span class="badge badge-info badge-pill">1</span>
+                      <span class="badge badge-info badge-pill">{{
+                        Abonnes
+                      }}</span>
                     </li>
 
                     <li
                       class="list-group-item d-flex justify-content-between align-items-center">
                       Abonnements
-                      <span class="badge badge-info badge-pill">1</span>
+                      <span class="badge badge-info badge-pill">{{
+                        Abonnements
+                      }}</span>
                     </li>
                   </ul>
 
@@ -90,7 +94,7 @@
                 </tab>
 
                 <tab
-                  *ngIf="loggedInUser._id === user._id"
+                  *ngIf="loggedInUser === user['_id']"
                   heading="Edit Profile">
                   <div class="">
                     <div class="card card-plain">
