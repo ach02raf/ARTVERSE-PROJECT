@@ -26,12 +26,7 @@
             "allowedCommonJsDependencies": ["chart.js", "nouislider"],
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "**/*",
-                "input": "../Dmwm-2-Backend/uploads",
-                "output": "/assets/uploads/"
-              }
+              "src/assets"              
             ],
             "styles": [
               "src/styles.scss",

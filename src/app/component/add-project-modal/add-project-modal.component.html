@@ -1,129 +1,17 @@
-<div style="display: flex; align-items: center">
-  <div class="form-group">
-    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-      <div class="alert alert-danger" role="alert" *ngIf="invalide">
-        This is a danger alert—check it out!
-      </div>
-      <h4 class="title title-up">Add Project</h4>
-      <label class="mt-4" for="">Title</label>
-      <input
-        class="form-control"
-        type="text"
-        [(ngModel)]="inputValueHashtag"
-        #titre
-        placeholder="Enter Title..."
-      />
+<button type="button" class="btn btn-block" (click)="myModal.show()">
+  <i class="tim-icons icon-spaceship"> </i> Ajouter Projet
+</button>
 
-      <label class="mt-2" for="">Category</label>
-      <select
-        class="form-control" 
-      (change)="changecategory($event)"
-      formControlName="categoryName"
-    >
-      <option value="" class="text-dark">Choose category</option>
-      <option *ngFor="let category of category" class="text-dark" [ngValue]="category">
-        {{ category }}
-      </option>
-
-   
-    </select>
-
-
-
-
-      <label class="mt-2" for="">Hashtag</label>
-      <input
-      class="form-control"
-      type="text"
-      [(ngModel)]="inputValueHashtag"
-      #inputHashtags
-      (keydown.space)="addHashtagg(inputHashtags.value)"
-      placeholder="Enter Hashtags..."
-    />
-      <div class="hashtag-list">
-        <div class="hashtag" *ngFor="let hash of tabbleauHashtag">
-          <span class="hashtag-text badge badge-pill badge-info"
-            >{{ hash }}
-            <span class="remove-icon" (click)="removeHashtag(hash)"
-              >x</span
-            ></span
-          >
-        </div>
-      </div>
-
-      <label class="mt-2" for="">Tools</label>
-      <input
-        class="form-control"
-        type="text"
-        [(ngModel)]="inputValueTools"
-        #inpTools
-        (keydown.enter)="addTools(inpTools.value)"
-        placeholder="Enter tools..."
-      />
-
-      <div class="hashtag-list">
-        <div class="hashtag" *ngFor="let tool of tabbleauTools">
-          <span class="hashtag-text badge badge-pill badge-warning"
-            >{{ tool }}
-            <span class="remove-icon" (click)="removeTools(tool)">x</span></span
-          >
-        </div>
-      </div>
-
-      <div class="mt-2" class="custom-file">
-        <label for="customFile" class="form-label"
-          >Choose one or more images</label
-        >
-        <input
-          type="file"
-          multiple
-          class="custom-file-input"
-          id="customFile"
-          (change)="onFileSelected($event)"
-        />
-      </div>
-      <br /><br />
-
-      <carousel *ngIf="images.length != 0" [showIndicators]="false" pause>
-        <slide *ngFor="let image of images; let i = index" class="text-center">
-          <img
-            *ngIf="image"
-            class="d-block w-100"
-            [src]="image.url"
-            [alt]="image.name"
-          />
-          <button
-            class="btn btn-primary btn-fab btn-icon btn-round"
-            (click)="clearSelectedImage(index)"
-          >
-            <i class="tim-icons icon-simple-remove"></i>
-          </button>
-        </slide>
-      </carousel>
-
-      <button
-        class="btn btn-success sbmuit"
-        style="
-          width: 100%;
-          margin-top: 3000px;
-          position: unset;
-          margin: auto;
-          margin-bottom: 15px;
-        "
-      >
-        Publier
-      </button>
-    </form>
-  </div>
-  <div
+<div
   aria-hidden="true"
   aria-labelledby="myModalLabel"
   bsModal
   class="modal fade modal-black"
-  #myModal2="bs-modal"
-  id="myModal2"
+  #myModal="bs-modal"
+  id="myModal"
   role="dialog"
-  tabindex="-1">
+  tabindex="-1"
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header justify-content-center">
@@ -132,29 +20,301 @@
           class="close"
           data-dismiss="modal"
           type="button"
-          (click)="myModal2.hide()">
+          (click)="myModal.hide()"
+        >
+          <i class="tim-icons icon-simple-remove"> </i>
+        </button>
+
+        <div style="display: flex; align-items: center">
+          <div class="form-group">
+            <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+              <h4 class="title title-up">Add Project</h4>
+              <div
+                class="alert alert-danger"
+                role="alert"
+                *ngIf="Message.length > 1"
+              >
+                {{ Message }}
+              </div>
+              <label class="mt-4" for="">Title</label>
+              <input
+                class="form-control"
+                type="text"
+                [(ngModel)]="inputValueHashtag"
+                #titre
+                (ngModelChange)="onInputChange()"
+                placeholder="Enter Title..."
+              />
+
+              <label class="mt-2" for="">Category</label>
+              <select
+                (ngModelChange)="onInputChange()"
+                class="form-control"
+                (change)="changecategory($event)"
+                formControlName="categoryName"
+              >
+                <option value="" class="text-dark">Choose category</option>
+                <option
+                  *ngFor="let category of category"
+                  class="text-dark"
+                  [ngValue]="category"
+                >
+                  {{ category }}
+                </option>
+              </select>
+
+              <label class="mt-2" for="">Hashtag</label>
+              <input
+                class="form-control"
+                type="text"
+                [(ngModel)]="inputValueHashtag"
+                #inputHashtags
+                (ngModelChange)="onInputChange()"
+                (keydown.space)="addHashtagg(inputHashtags.value)"
+                placeholder="Enter Hashtags..."
+              />
+              <div class="hashtag-list">
+                <div class="hashtag" *ngFor="let hash of tabbleauHashtag">
+                  <span class="hashtag-text badge badge-pill badge-info"
+                    >{{ hash }}
+                    <span class="remove-icon" (click)="removeHashtag(hash)"
+                      >x</span
+                    ></span
+                  >
+                </div>
+              </div>
+
+              <label class="mt-2" for="">Tools</label>
+              <input
+                class="form-control"
+                type="text"
+                [(ngModel)]="inputValueTools"
+                #inpTools
+                (ngModelChange)="onInputChange()"
+                (keydown.space)="addTools(inpTools.value)"
+                placeholder="Enter tools..."
+              />
+
+              <div class="hashtag-list">
+                <div class="hashtag" *ngFor="let tool of tabbleauTools">
+                  <span class="hashtag-text badge badge-pill badge-warning"
+                    >{{ tool }}
+                    <span class="remove-icon" (click)="removeTools(tool)"
+                      >x</span
+                    ></span
+                  >
+                </div>
+              </div>
+
+              <div class="mt-2" class="custom-file">
+                <label for="customFile" class="form-label"
+                  >Choose one or more images</label
+                >
+                <input
+                  type="file"
+                  multiple
+                  class="custom-file-input"
+                  id="customFile"
+                  (change)="onFileSelected($event)"
+                />
+              </div>
+              <br /><br />
+
+              <carousel
+                *ngIf="images.length != 0"
+                [showIndicators]="false"
+                pause
+              >
+                <slide
+                  *ngFor="let image of images; let i = index"
+                  class="text-center"
+                >
+                  <img
+                    *ngIf="image"
+                    class="d-block w-100"
+                    [src]="image.url"
+                    [alt]="image.name"
+                  />
+                  <button
+                    class="btn btn-primary btn-fab btn-icon btn-round"
+                    (click)="clearSelectedImage(index)"
+                  >
+                    <i class="tim-icons icon-simple-remove"></i>
+                  </button>
+                </slide>
+              </carousel>
+
+              <button
+                class="btn btn-success sbmuit"
+                style="
+                  width: 100%;
+                  margin-top: 3000px;
+                  position: unset;
+                  margin: auto;
+                  margin-bottom: 15px;
+                "
+              >
+                Publier
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  aria-hidden="true"
+  aria-labelledby="myModalLabel"
+  bsModal
+  class="modal fade modal-black"
+  #myModal2="bs-modal"
+  id="myModal2"
+  role="dialog"
+  tabindex="-1"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center">
+        <button
+          aria-hidden="true"
+          class="close"
+          data-dismiss="modal"
+          type="button"
+          (click)="myModal2.hide()"
+        >
           <i class="tim-icons icon-simple-remove"> </i>
         </button>
       </div>
       <hr style="border-color: rgb(44, 44, 44); width: 100%; opacity: 0.2" />
       <div style="display: flex; align-items: center">
-        <div class="row">
-          <p>
-            Merci de partager votre travail avec nous, il faudra quelques
-            instants pour le publier.
-          </p>
-        </div>
-       <div class="row">
+        <p>
+          Merci de partager votre travail avec nous, il faudra quelques instants
+          pour le publier.
+        </p>
+        <br />
         <button
           class="btn btn-success"
           style="width: 100%; margin-top: 30px"
-          (click)="myModal2.hide()">
+          (click)="myModal2.hide()"
+        >
           ok
         </button>
       </div>
     </div>
+    <!-- your modal content here -->
   </div>
-  <!-- your modal content here -->
 </div>
-  <!-- <p>{{ loggedInUser["firstname"] }} {{ loggedInUser["lastname"] }}</p> -->
+
+<!-- alert worng -->
+
+<div
+  aria-hidden="true"
+  aria-labelledby="myModalLabel"
+  bsModal
+  class="modal fade modal-black"
+  #myModal3="bs-modal"
+  id="myModal3"
+  role="dialog"
+  tabindex="-1"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center">
+        <button
+          aria-hidden="true"
+          class="close"
+          data-dismiss="modal"
+          type="button"
+          (click)="myModal3.hide()"
+        >
+          <i class="tim-icons icon-simple-remove"> </i>
+        </button>
+      </div>
+      <hr style="border-color: rgb(44, 44, 44); width: 100%; opacity: 0.2" />
+      <div>
+        <img src="../../../assets/img/no.png" />
+        <br />
+
+        <p>Il y a quelque chose qui ne va pas.</p>
+
+        <button
+          class="btn btn-debug"
+          style="width: 30%; margin: 20px"
+          (click)="openSinaler()"
+        >
+          Signaler
+        </button>
+
+        <button
+          class="btn btn-success"
+          style="width: 30%; margin: 20px"
+          (click)="myModal3.hide()"
+        >
+          ok
+        </button>
+      </div>
+    </div>
+    <!-- your modal content here -->
+  </div>
+</div>
+
+<div
+  aria-hidden="true"
+  aria-labelledby="myModalLabel"
+  bsModal
+  class="modal fade modal-black"
+  #myModal4="bs-modal"
+  id="myModal4"
+  role="dialog"
+  tabindex="-1"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header justify-content">
+        <button
+          aria-hidden="true"
+          class="close"
+          data-dismiss="modal"
+          type="button"
+          (click)="myModal4.hide()"
+        >
+          <i class="tim-icons icon-simple-remove"> </i>
+        </button>
+      </div>
+      
+      <hr style="border-color: rgb(44, 44, 44); width: 100%; opacity: 0.2" />
+      <div>
+        <p  style="margin : 15px ; text-align: justify;"  >Voici une version encore plus courte:
+
+          Pour obtenir de l'aide, remplissez le formulaire ci-dessous ou contactez-nous par e-mail / téléphone :  contact@ARTVERSE.tn / +216 22 333 000 . Merci !</p>
+     <!--    <p>Si vous rencontrez un problème, veuillez remplir le formulaire ci-dessous. Nous examinerons attentivement votre rapport et vous contacterons pour vous aider. <br />
+           Vous pouvez également nous contacter directement par e-mail ou par téléphone aux coordonnées suivantes : 
+          [contact@ARTVERSE.tn] / [+216 22 333 000]. Merci !</p> -->
+
+          <textarea   
+          class="form-control"
+          type="text"
+          [(ngModel)]="inputValueSingle"
+          #single 
+          style="margin : 15px"
+          placeholder="Enter your problème ..."></textarea>
+        <button
+          class="btn btn-success"
+          style="width: 30%; margin: 20px"
+          (click)="onSubmit_Single()"
+        >
+          submit
+        </button>
+        <button
+        class="btn btn-debug"
+        style="width: 30%; margin: 20px"
+        (click)="myModal4.hide()"
+      >
+        cancel
+      </button>
+      </div>
+    </div>
+    <!-- your modal content here -->
+  </div>
 </div>
