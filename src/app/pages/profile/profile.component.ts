@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit {
   followers: any;
   following: any;
   showfollow: boolean = true;
+  followBtn: any = "Follow";
   constructor(
     private authServ: AuthentificationService,
     private userServ: UserService,
@@ -40,13 +41,14 @@ export class ProfileComponent implements OnInit {
     var body = document.getElementsByTagName("body")[0];
     body.classList.add("profile-page");
 
-    this.userServ.findUserByUsername(this.username).subscribe((res) => {
+    this.userServ.findUserByUsername(this.username).subscribe(async (res) => {
       this.user = res;
-      this.following = this.user["following"].length;
-      this.followers = this.user["followers"].length;
+      this.following = await res["following"].length;
+      this.followers = await res["followers"].length;
       for (let element of this.user["followers"]) {
         if (element["id"] === this.loggedInUser) {
           this.showfollow = false;
+          this.followBtn = "Following";
         }
       }
     });
@@ -55,16 +57,20 @@ export class ProfileComponent implements OnInit {
   followUser(id: any) {
     this.userServ
       .updatefollow({ id: this.loggedInUser, idprofile: id })
-      .subscribe((res) => {
+      .subscribe(() => {
         this.showfollow = !this.showfollow;
+        this.followBtn = "Following";
+        this.followers++;
         this.ref.detectChanges();
       });
   }
   unfollowUser(id: any) {
     this.userServ
       .removefollow({ id: this.loggedInUser, idprofile: id })
-      .subscribe((res) => {
+      .subscribe(() => {
         this.showfollow = !this.showfollow;
+        this.followBtn = "Follow";
+        this.followers--;
         this.ref.detectChanges();
       });
   }
