@@ -24,4 +24,8 @@ export class UserService {
   updatefollow(body: any) {
     return this.http.post(`http://localhost:5000/user/ajouterAbonnes`, body);
   }
+
+  removefollow(body: any) {
+    return this.http.post(`http://localhost:5000/user/supprimerAbonnes`, body);
+  }
 }

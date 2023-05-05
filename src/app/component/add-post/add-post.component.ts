@@ -46,8 +46,6 @@ export class AddPostComponent implements OnInit {
       this.loggedInUser = res;
     });
 
-    console.log("test maha 2", this.idUser);
-
     this.getHashtag();
     this.postTextElement = document.querySelector(".form-control.inputtag");
   }
@@ -77,7 +75,6 @@ export class AddPostComponent implements OnInit {
       };
       this.images.push(image);
     }
-    console.log(this.images);
   }
 
   clearSelectedImage(index: any) {
@@ -116,7 +113,6 @@ export class AddPostComponent implements OnInit {
     // send API request to create the new post
     this.publicationService.createPost(formData).subscribe(
       (response) => {
-        console.log("ok", response);
         // handle response from the API
         this.postTextElement.innerHTML = "";
         this.images = [];

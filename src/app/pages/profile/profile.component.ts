@@ -1,4 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from "@angular/core";
 import { AuthentificationService } from "src/app/services/authentification.service";
 import { UserService } from "src/app/services/user.service";
 import { ActivatedRoute } from "@angular/router";
@@ -7,6 +12,7 @@ import { ActivatedRoute } from "@angular/router";
   selector: "app-profile",
   templateUrl: "./profile.component.html",
   styleUrls: ["./profile.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileComponent implements OnInit {
   isCollapsed = true;
@@ -21,6 +27,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private authServ: AuthentificationService,
     private userServ: UserService,
+    private ref: ChangeDetectorRef,
     private route: ActivatedRoute
   ) {
     this.loggedInUser = this.authServ.getUserID();
@@ -49,11 +56,16 @@ export class ProfileComponent implements OnInit {
     this.userServ
       .updatefollow({ id: this.loggedInUser, idprofile: id })
       .subscribe((res) => {
-        console.log(res);
         this.showfollow = !this.showfollow;
+        this.ref.detectChanges();
       });
   }
   unfollowUser(id: any) {
-    console.log("hello unfollow !", id);
+    this.userServ
+      .removefollow({ id: this.loggedInUser, idprofile: id })
+      .subscribe((res) => {
+        this.showfollow = !this.showfollow;
+        this.ref.detectChanges();
+      });
   }
 }

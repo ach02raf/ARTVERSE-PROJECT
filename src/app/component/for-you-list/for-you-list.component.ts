@@ -115,10 +115,6 @@ export class ForYouListComponent implements OnInit {
   reactioncount(list: any) {
     return list.length;
   }
-  achraf() {
-    return "hello";
-  }
-
   // to change the date  from 2023-04-18T00:29:38.643Z to 1h up to 23h and from 1week up to 10 week then in formt dd/mm/yyyy
   format(date: string): string {
     const now = new Date();
