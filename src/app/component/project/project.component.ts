@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { ProjectService } from "../../services/project.service";
 
 @Component({
   selector: "app-project",
@@ -7,77 +8,26 @@ import { Router } from "@angular/router";
   styleUrls: ["./project.component.scss"],
 })
 export class ProjectComponent implements OnInit {
-  projects = [
-    {
-      img: "julie.jpeg",
-      Id_user: 1,
-      title: "DU EXHIBITION",
-      date: "22-09-1954",
-      reaction: [{ idUser: 1 }, { idUser: 1 }],
-      commentaire: [{ idUser: 1 }],
-      hashtag: [{}],
-      tools: "Ps",
-      catg: ["photographie"],
-    },
-    {
-      img: "project.jpg",
-      Id_user: 1,
-      title: "TENT - To concern",
-      date: "22-09-1954",
-      reaction: [{ idUser: 1 }, { idUser: 1 }],
-      commentaire: [{ idUser: 1 }],
-      hashtag: [{}],
-      tools: "Ps",
-      catg: ["photographie"],
-    },
-    {
-      img: "sign.jpeg",
-      Id_user: 1,
-      title: "Illustration NFT",
-      date: "22-09-1954",
-      reaction: [{ idUser: 1 }, { idUser: 1 }],
-      commentaire: [{ idUser: 1 }],
-      hashtag: [{}],
-      tools: "Ps",
-      catg: ["photographie"],
-    },
-    {
-      img: "lora.jpg",
-      Id_user: 1,
-      title: "VFX Photography editing",
-      date: "22-09-1954",
-      reaction: [{ idUser: 1 }, { idUser: 1 }],
-      commentaire: [{ idUser: 1 }],
-      hashtag: [{}],
-      tools: "Ps",
-      catg: ["photographie"],
-    },
-    {
-      img: "download.jpg",
-      Id_user: 1,
-      title: "Diving man",
-      date: "22-09-1954",
-      reaction: [{ idUser: 1 }, { idUser: 1 }],
-      commentaire: [{ idUser: 1 }],
-      hashtag: [{}],
-      tools: "Ps",
-      catg: ["photographie"],
-    },
-    {
-      img: "3dimg.png",
-      Id_user: 1,
-      title: "3D Modelisation",
-      date: "22-09-1954",
-      reaction: [{ idUser: 1 }, { idUser: 1 }],
-      commentaire: [{ idUser: 1 }],
-      hashtag: [{}],
-      tools: "Ps",
-      catg: ["photographie"],
-    },
+  projects = [  
   ];
-  constructor(private router: Router) {}
+  constructor(private router: Router , 
+    private projectService: ProjectService,
+    ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+    this.projectService.getAllProject().subscribe(async (data) => {
+      console.log("data project " , data);
+      this.projects = data ;
+    });
+  }
+
+
+  
+  
+  
+
+
 
   isHomePage(): boolean {
     return this.router.url === "/home";
