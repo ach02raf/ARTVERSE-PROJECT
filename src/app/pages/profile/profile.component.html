@@ -1,5 +1,7 @@
 <div class="">
-  <div class="page-header">
+  <div>
+    <br /><br /><br /><br /><br /><br /><br />
+    <br /><br /><br /><br /><br /><br /><br />
     <div class="container align-items-center text-center">
       <div class="row">
         <div class="col-lg-4 col-md-6 ml-auto mr-auto">
@@ -7,8 +9,7 @@
             <div class="card-header">
               <img
                 class="img-center img-fluid rounded-circle"
-                src="assets/img/mike.jpg"
-              />
+                src="assets/img/mike.jpg" />
 
               <h3 class="card-title mt-3">
                 {{ user["firstname"] }} {{ user["lastname"] }}
@@ -20,52 +21,61 @@
             </div>
             <div class="card-body">
               <button
-                *ngIf="loggedInUser._id != user._id"
+                *ngIf="loggedInUser !== user['_id']"
                 type="button"
                 class="btn btn-primary btn-block"
-              >
-                <i class="tim-icons icon-simple-add mx-2"></i>Suivre
+                (click)="
+                  showfollow
+                    ? followUser(user['_id'])
+                    : unfollowUser(user['_id'])
+                ">
+                <i
+                  class="tim-icons icon-simple-add mx-2"
+                  *ngIf="showfollow"></i>
+                {{ showfollow ? "Follow" : "Following" }}
               </button>
               <button
-                *ngIf="loggedInUser._id != user._id"
+                *ngIf="loggedInUser !== user['_id']"
                 type="button"
-                class="btn btn-block"
-              >
+                class="btn btn-block">
                 <i class="tim-icons icon-email-85 mx-2"></i>Message
               </button>
-             <!-- hiii  -->
-             
-<app-add-project-modal *ngIf="loggedInUser._id === user._id" ></app-add-project-modal>
-
-              <tabset
-                class="nav-tabs-danger justify-content-center tab-subcategories"
+              <button
+                *ngIf="loggedInUser._id === user._id"
+                type="button"
+                class="btn btn-block"
+                (click)="myModal.show()"
               >
+                <i class="tim-icons icon-spaceship"> </i> Ajouter Projet
+              </button>
+              <tabset
+                class="nav-tabs-danger justify-content-center tab-subcategories">
                 <tab heading="News">
                   <ul class="list-group">
                     <li
-                      class="list-group-item d-flex justify-content-between align-items-center"
-                    >
+                      class="list-group-item d-flex justify-content-between align-items-center">
                       Nombre de vues des projets
                       <span class="badge badge-info badge-pill">14</span>
                     </li>
                     <li
-                      class="list-group-item d-flex justify-content-between align-items-center"
-                    >
+                      class="list-group-item d-flex justify-content-between align-items-center">
                       Appréciations
                       <span class="badge badge-info badge-pill">2</span>
                     </li>
                     <li
-                      class="list-group-item d-flex justify-content-between align-items-center"
-                    >
-                      Abonnés
-                      <span class="badge badge-info badge-pill">1</span>
+                      class="list-group-item d-flex justify-content-between align-items-center">
+                      followers
+                      <span class="badge badge-info badge-pill">{{
+                        followers
+                      }}</span>
                     </li>
 
                     <li
-                      class="list-group-item d-flex justify-content-between align-items-center"
-                    >
-                      Abonnements
-                      <span class="badge badge-info badge-pill">1</span>
+                      class="list-group-item d-flex justify-content-between align-items-center">
+                      following
+                      <span class="badge badge-info badge-pill">{{
+                        following
+                      }}</span>
                     </li>
                   </ul>
 
@@ -74,31 +84,27 @@
                     <a
                       class="btn btn-icon btn-default btn-round mr-1"
                       href="https://twitter.com/creativetim"
-                      target="_blank"
-                    >
+                      target="_blank">
                       <i class="fab fa-twitter"> </i>
                     </a>
                     <a
                       class="btn btn-icon btn-default btn-round mr-1"
                       href="https://www.facebook.com/creativetim"
-                      target="_blank"
-                    >
+                      target="_blank">
                       <i class="fab fa-facebook-square"> </i>
                     </a>
                     <a
                       class="btn btn-icon btn-default btn-round"
                       href="https://dribbble.com/creativetim"
-                      target="_blank"
-                    >
+                      target="_blank">
                       <i class="fab fa-dribbble"> </i>
                     </a>
                   </div>
                 </tab>
 
                 <tab
-                  *ngIf="loggedInUser._id === user._id"
-                  heading="Edit Profile"
-                >
+                  *ngIf="loggedInUser === user['_id']"
+                  heading="Edit Profile">
                   <div class="">
                     <div class="card card-plain">
                       <div class="card-body">
@@ -110,8 +116,7 @@
                                 <input
                                   class="form-control text-uppercase"
                                   type="text"
-                                  [value]="user['firstname']"
-                                />
+                                  [value]="user['firstname']" />
                               </div>
                             </div>
                             <div class="col-md-6">
@@ -120,8 +125,7 @@
                                 <input
                                   class="form-control text-uppercase"
                                   type="text"
-                                  [value]="user['lastname']"
-                                />
+                                  [value]="user['lastname']" />
                               </div>
                             </div>
                           </div>
@@ -133,8 +137,7 @@
                                   class="form-control"
                                   placeholder="mike@email.com"
                                   type="email"
-                                  [value]="user['email']"
-                                />
+                                  [value]="user['email']" />
                               </div>
                             </div>
                             <div class="col-md-6">
@@ -143,8 +146,7 @@
                                 <input
                                   class="form-control"
                                   type="text"
-                                  value="CreativeTim"
-                                />
+                                  value="CreativeTim" />
                               </div>
                             </div>
                           </div>
@@ -156,16 +158,14 @@
                                   class="form-control"
                                   placeholder="Hello there!"
                                   type="text"
-                                  [value]="user['bio']"
-                                />
+                                  [value]="user['bio']" />
                               </div>
                             </div>
                           </div>
                           <button
                             class="btn btn-danger btn-round float-right"
                             placement="right"
-                            type="submit"
-                          >
+                            type="submit">
                             Update
                           </button>
                         </form>
@@ -195,7 +195,6 @@
                       Publications
                     </ng-template>
                     <app-for-you-list></app-for-you-list>
-                    
                   </tab>
                 </tabset>
               </div>
@@ -205,6 +204,34 @@
       </div>
     </div>
   </div>
-  
+</div>
+
+<div
+  aria-hidden="true"
+  aria-labelledby="myModalLabel"
+  bsModal
+  class="modal fade modal-black"
+  #myModal="bs-modal"
+  id="myModal"
+  role="dialog"
+  tabindex="-1"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center">
+        <button
+          aria-hidden="true"
+          class="close"
+          data-dismiss="modal"
+          type="button"
+          (click)="myModal.hide()"
+        >
+          <i class="tim-icons icon-simple-remove"> </i>
+        </button>
+
+        <app-add-project-modal></app-add-project-modal>
+      </div>
+    </div>
+  </div>
 </div>
 

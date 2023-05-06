@@ -24,10 +24,7 @@
             "tsConfig": "src/tsconfig.app.json",
 
             "allowedCommonJsDependencies": ["chart.js", "nouislider"],
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"              
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "src/styles.scss",
               "src/assets/css/nucleo-icons.css",

@@ -70,7 +70,7 @@
           class="description mt-2 d-flex justify-content-between"
           *ngIf="isHomePage()"
         >
-          <p class="mx-3">Project Name</p>
+          <p class="mx-3">{{ project["title"] }}</p>
           <p>
             <i class="fas fa-heart"></i> {{ project.reaction.length }}
             <span class=""

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { AuthentificationService } from "src/app/services/authentification.service";
 import { UserService } from "src/app/services/user.service";
 import { ActivatedRoute } from "@angular/router";
@@ -13,16 +13,17 @@ export class ProfileComponent implements OnInit {
   loggedInUser: any;
   user: any;
   id: any;
-
-  idUser: any;
+  source: any = "profile";
   username: any;
-
+  followers: any;
+  following: any;
+  showfollow: boolean = true;
   constructor(
     private authServ: AuthentificationService,
     private userServ: UserService,
     private route: ActivatedRoute
   ) {
-    this.idUser = this.authServ.getUserID();
+    this.loggedInUser = this.authServ.getUserID();
   }
 
   ngOnInit(): void {
@@ -31,14 +32,28 @@ export class ProfileComponent implements OnInit {
     });
     var body = document.getElementsByTagName("body")[0];
     body.classList.add("profile-page");
-    this.authServ.findUserById(this.idUser).subscribe((res) => {
-      this.loggedInUser = res;
-      console.log(this.loggedInUser);
-    });
 
     this.userServ.findUserByUsername(this.username).subscribe((res) => {
       this.user = res;
-      console.log("username load", this.user);
+      this.following = this.user["following"].length;
+      this.followers = this.user["followers"].length;
+      for (let element of this.user["followers"]) {
+        if (element["id"] === this.loggedInUser) {
+          this.showfollow = false;
+        }
+      }
     });
+  }
+
+  followUser(id: any) {
+    this.userServ
+      .updatefollow({ id: this.loggedInUser, idprofile: id })
+      .subscribe((res) => {
+        console.log(res);
+        this.showfollow = !this.showfollow;
+      });
+  }
+  unfollowUser(id: any) {
+    console.log("hello unfollow !", id);
   }
 }

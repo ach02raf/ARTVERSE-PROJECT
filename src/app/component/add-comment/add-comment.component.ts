@@ -36,19 +36,25 @@ export class AddCommentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  
+    console.log("test maha", this.idUser);
     // this.user = this.authserv.findUserById(this.listComm[0].idUser);
     this.listComm.forEach((com) => {
       // com["idUser"].forEach((id) => {
       //   // this.user = this.authserv.findUserById(id);
       //   console.log("yoyoyo", id);
       // });
-   
+      this.authserv.findUserById(com["idUser"]).subscribe((data) => {
+        console.log("user winner", data);
+
+        this.listCommentaire.push({ ...com, userData: data });
+        console.log("list with users", this.listCommentaire);
+      });
+      console.log("comyosb5", com["idUser"]);
       this.authserv.findUserById(com["idUser"]).subscribe((data) => {
         console.log("uss data", data);
       });
 
-     
+      console.log("usss", this.authserv.findUserById(com["idUser"]));
     });
   }
 

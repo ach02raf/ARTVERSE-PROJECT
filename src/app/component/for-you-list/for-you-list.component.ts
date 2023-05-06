@@ -1,8 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { PublicationService } from "../../services/publication.service";
 import { LoggedInUserService } from "src/app/services/logged-in-user.service";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
-//import { DatePipe } from '@angular/common';
 
 import * as buffer from "buffer";
 import { AuthentificationService } from "src/app/services/authentification.service";
@@ -12,8 +11,10 @@ import { AuthentificationService } from "src/app/services/authentification.servi
   styleUrls: ["./for-you-list.component.scss"],
 })
 export class ForYouListComponent implements OnInit {
+  @Input() source: string;
+  @Input() idprofile: string;
+
   constructor(
-    // private datePipe: DatePipe ,
     private publicationService: PublicationService,
     private loggedUserServ: LoggedInUserService,
     private sanitizer: DomSanitizer,
@@ -33,54 +34,52 @@ export class ForYouListComponent implements OnInit {
   ngOnInit(): void {
     this.loggedUserServ.findUserById(this.idUser).subscribe((res) => {
       this.loggedInUser = res;
-      // console.log("foryoulist", this.loggedInUser);
     });
 
-    this.getPubliction();
+    this.getPubliction(this.source);
   }
-
   findUser(id: any) {
-    this.authserv.findUserById(id).subscribe((data) => {
-      console.log("winner winner", data);
-    });
+    this.authserv.findUserById(id).subscribe((data) => {});
   }
-
-  async getPubliction() {
+  async getPubliction(source: string) {
     this.publicationService.getPost().subscribe(async (data) => {
       this.List = await data;
-      this.List.forEach((item) => {
-        this.isCollapsed[item._id] = true;
-      });
-      console.log("for you list post : ", this.List);
-      this.List.forEach((item) => {
-        this.authserv.findUserById(item.Id_user).subscribe((data) => {
-          console.log("user winner", data);
 
-          this.ListCopy.push({ ...item, userData: data });
-          console.log("list with users", this.ListCopy);
-        });
-      });
       for (let item of this.List) {
-        let imageforpub = [];
-        for (let itam of item.img) {
-          // console.log("image :", itam);
-          this.publicationService
-            .getImage(itam.idimg)
-            .subscribe(async (data) => {
-              // console.log("image itam  : ", data);
-              const imageDataUrl = buffer.Buffer.from(
-                data["img"]["data"]["data"]
-              ).toString("base64");
-              const safeUrl: SafeUrl = this.sanitizer.bypassSecurityTrustUrl(
-                `data:data:image/png;base64,${imageDataUrl}`
-              );
-              imageforpub.push({ _id: data["_id"], safeUrl: safeUrl });
-            });
+        let shouldAddItem = true;
+
+        if (source === "profile" && item["Id_user"] !== this.idprofile) {
+          shouldAddItem = false;
         }
-        // console.log("imageforpub : ", imageforpub);
-        this.Listimage.push({ idpub: item._id, listimage: imageforpub });
+
+        if (shouldAddItem) {
+          this.isCollapsed[item._id] = true;
+          this.authserv.findUserById(item.Id_user).subscribe((userData) => {
+            let itemCopy = { ...item, userData };
+            this.ListCopy.push(itemCopy);
+
+            let imageforpub = [];
+            for (let itam of itemCopy.img) {
+              this.publicationService
+                .getImage(itam.idimg)
+                .subscribe(async (data) => {
+                  const imageDataUrl = buffer.Buffer.from(
+                    data["img"]["data"]["data"]
+                  ).toString("base64");
+                  const safeUrl: SafeUrl =
+                    this.sanitizer.bypassSecurityTrustUrl(
+                      `data:data:image/png;base64,${imageDataUrl}`
+                    );
+                  imageforpub.push({ _id: data["_id"], safeUrl: safeUrl });
+                });
+            }
+            this.Listimage.push({
+              idpub: itemCopy._id,
+              listimage: imageforpub,
+            });
+          });
+        }
       }
-      // console.log("listimagefor toute pub : ", this.Listimage);
     });
   }
 

@@ -4,9 +4,8 @@ import {
   HttpHeaders,
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import {  throwError } from "rxjs";
+import {  Observable, throwError } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
-import { Observable } from "rxjs/internal/Observable";
 
 @Injectable({
   providedIn: "root",
@@ -56,7 +55,7 @@ export class AuthentificationService {
     return this.http
       .post("http://localhost:5000/user/forgotPassword", { email: email })
       .pipe(
-        tap((response: any) => {
+        tap((response) => {
           console.log("sucess", response);
         }),
 
@@ -125,8 +124,9 @@ export class AuthentificationService {
       msg = error.error.message;
     } else {
       // server-side error
-      msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      msg = `Error Code : ${error.status}\nMessage: ${error.message}`;
     }
+
     return throwError(msg);
   }
 }

@@ -3,7 +3,9 @@
     <div class="p-3 d-flex align-items-center">
       <img alt="... " class="avatar img-raised" src="assets/img/james.jpg " />
       <div class="pl-3">
-        <span class="text-white">
+        <span
+          class="text-white"
+          [routerLink]="['/profile', item['userData']['username']]">
           {{ item["userData"]["firstname"] }} {{ item["userData"]["lastname"] }}
         </span>
         <div class="text-muted">

@@ -20,4 +20,8 @@ export class UserService {
   getAllUsers() {
     return this.http.get(`http://localhost:5000/user/UserList`);
   }
+
+  updatefollow(body: any) {
+    return this.http.post(`http://localhost:5000/user/ajouterAbonnes`, body);
+  }
 }
