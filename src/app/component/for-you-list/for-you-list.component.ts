@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
+  ViewChild ,
   OnInit,
 } from "@angular/core";
 import { PublicationService } from "../../services/publication.service";
@@ -11,6 +12,8 @@ import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 
 import * as buffer from "buffer";
 import { AuthentificationService } from "src/app/services/authentification.service";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SinglesService } from "src/app/services/singles.service";
 @Component({
   selector: "app-for-you-list",
   templateUrl: "./for-you-list.component.html",
@@ -21,13 +24,15 @@ export class ForYouListComponent implements OnInit {
   @Input() source: string;
   @Input() idprofile: string;
   @Input() refresh: boolean;
-
+  @ViewChild('modalContent', { static: true }) modalContent: any;
   constructor(
     private publicationService: PublicationService,
     private loggedUserServ: LoggedInUserService,
     private sanitizer: DomSanitizer,
     private ref: ChangeDetectorRef,
-    private authserv: AuthentificationService
+    private authserv: AuthentificationService,
+    private singlesService : SinglesService ,
+    private modalService: NgbModal
   ) {
     this.idUser = this.loggedUserServ.getUserID();
   }
@@ -39,7 +44,10 @@ export class ForYouListComponent implements OnInit {
   public isCollapsed: boolean[] = [];
   Listimage = [];
   idUser: any;
-
+  repostReason: string;
+  repostComments: string;
+  text : String ;
+  itemId: string
   ngOnInit(): void {
     this.loggedUserServ.findUserById(this.idUser).subscribe((res) => {
       this.loggedInUser = res;
@@ -88,6 +96,7 @@ export class ForYouListComponent implements OnInit {
             });
           });
         }
+
       }
       this.ListCopy.reverse();
       this.ref.detectChanges();
@@ -144,4 +153,43 @@ export class ForYouListComponent implements OnInit {
       return this.datePipe.transform(Date.parse(date), 'dd/MM/yyyy');
     } */
   }
+
+   
+  openModal(itemId: string) {
+    this.itemId = itemId;
+    const modalRef = this.modalService.open(this.modalContent);
+     
+  }
+
+
+  
+
+  onSubmit(event) {
+    event.preventDefault();
+    if (this.repostReason !== 'Other') {
+      console.log('Repost reason:', this.repostReason);
+     this.text = this.repostReason ;
+    } else {
+      console.log('Repost reason:', this.repostReason, 'Repost comments:', this.repostComments);
+     this.text = this.repostComments ;
+    }
+
+    this.singlesService.send_single({Id_user : this.idUser , text : this.text , idpubliction :  this.itemId  }).subscribe(
+      (response) => {
+        console.log("ok", response);
+        
+        const modalRef = this.modalService.dismissAll ;
+        alert("your alert has been send ");
+        return ;
+      },
+      (error) => {
+        const modalRef = this.modalService.dismissAll;
+        alert("try agine ");
+        return ;
+      }
+    );
+
+  }
+
+
 }

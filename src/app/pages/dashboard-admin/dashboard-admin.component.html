@@ -14,13 +14,68 @@
               <app-all-users></app-all-users>
             </tab>
             <tab heading="Reported Posts">
-              <p>
-                I will be the leader of a company that ends up being worth
-                billions of dollars, because I got the answers. I understand
-                culture. I am the nucleus. I think thatâ€™s a responsibility
-                that I have, to push possibilities, to show people, this is the
-                level that things could be at.
-              </p>
+              <div class="row justify-content-center">
+                <table class="table table-hover col-lg-9 mr-4">
+                  <thead>
+                    <tr>
+                     <th></th>
+                      <th>username</th>
+                      <th>email</th>
+                      <th>text</th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let sng of ListCopy" >
+                      <td>
+                        <img alt="... " class="avatar img-raised" src="assets/img/james.jpg " /></td>
+                      <td>{{ sng["userData"]["username"] }}</td>
+                      <td>{{ sng["userData"]["email"] }}</td>
+                      <td>{{ sng["text"] }}</td>
+                      <td *ngIf="sng['state']">
+                          <button type="button"  class="btn btn-info btn-sm ml-3"  (click)="handleClick(sng['_id'])"  >
+                        waiting
+                      </button> </td>
+                      <td *ngIf="!sng['state']"> 
+                        Donne
+                     </td>
+              
+                      
+                    </tr>
+                  </tbody>
+                </table>
+                
+
+                <table class="table table-hover col-lg-9 mr-4">
+                  <thead>
+                    <tr>
+                     <th></th>
+                      <th>username</th>
+                      <th>email</th>
+                      <th>text</th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let sng of ListCopy" >
+                      <td>
+                        <img alt="... " class="avatar img-raised" src="assets/img/james.jpg " /></td>
+                      <td>{{ sng["userData"]["username"] }}</td>
+                      <td>{{ sng["userData"]["email"] }}</td>
+                      <td>{{ sng["text"] }}</td>
+                      <td *ngIf="sng['state']">
+                          <button type="button"  class="btn btn-info btn-sm ml-3"  (click)="handleClick(sng['_id'])"  >
+                        waiting
+                      </button> </td>
+                      <td *ngIf="!sng['state']"> 
+                        Donne
+                     </td>
+              
+                      
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </tab>
             <tab heading="Options">
               <p>
