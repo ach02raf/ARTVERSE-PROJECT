@@ -7,10 +7,7 @@ import {
 } from "@angular/core";
 import { PublicationService } from "../../services/publication.service";
 import { LoggedInUserService } from "src/app/services/logged-in-user.service";
-import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 
-import * as buffer from "buffer";
-import { AuthentificationService } from "src/app/services/authentification.service";
 @Component({
   selector: "app-for-you-list",
   templateUrl: "./for-you-list.component.html",
@@ -18,82 +15,23 @@ import { AuthentificationService } from "src/app/services/authentification.servi
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ForYouListComponent implements OnInit {
-  @Input() source: string;
-  @Input() idprofile: string;
-  @Input() refresh: boolean;
-
+  @Input() ListCopy: any;
+  @Input() Listimage: any;
+  @Input() isCollapsed: boolean[] = [];
   constructor(
     private publicationService: PublicationService,
     private loggedUserServ: LoggedInUserService,
-    private sanitizer: DomSanitizer,
-    private ref: ChangeDetectorRef,
-    private authserv: AuthentificationService
+    private ref: ChangeDetectorRef
   ) {
     this.idUser = this.loggedUserServ.getUserID();
   }
-  imageData: any;
-  List = [];
-  ListCopy = [];
+
   public commentText: string;
-  loggedInUser: any;
-  public isCollapsed: boolean[] = [];
-  Listimage = [];
   idUser: any;
 
   ngOnInit(): void {
-    this.loggedUserServ.findUserById(this.idUser).subscribe((res) => {
-      this.loggedInUser = res;
-    });
-
-    this.getPubliction(this.source);
+    this.ref.detectChanges();
   }
-  findUser(id: any) {
-    this.authserv.findUserById(id).subscribe((data) => {});
-  }
-  async getPubliction(source: string) {
-    this.publicationService.getPost().subscribe(async (data) => {
-      this.List = await data;
-
-      for (let item of this.List) {
-        let shouldAddItem = true;
-
-        if (source === "profile" && item["Id_user"] !== this.idprofile) {
-          shouldAddItem = false;
-        }
-
-        if (shouldAddItem) {
-          this.isCollapsed[item._id] = true;
-          this.authserv.findUserById(item.Id_user).subscribe((userData) => {
-            let itemCopy = { ...item, userData };
-            this.ListCopy.push(itemCopy);
-
-            let imageforpub = [];
-            for (let itam of itemCopy.img) {
-              this.publicationService
-                .getImage(itam.idimg)
-                .subscribe(async (data) => {
-                  const imageDataUrl = buffer.Buffer.from(
-                    data["img"]["data"]["data"]
-                  ).toString("base64");
-                  const safeUrl: SafeUrl =
-                    this.sanitizer.bypassSecurityTrustUrl(
-                      `data:data:image/png;base64,${imageDataUrl}`
-                    );
-                  imageforpub.push({ _id: data["_id"], safeUrl: safeUrl });
-                });
-            }
-            this.Listimage.push({
-              idpub: itemCopy._id,
-              listimage: imageforpub,
-            });
-          });
-        }
-      }
-      this.ListCopy.reverse();
-      this.ref.detectChanges();
-    });
-  }
-
   getImage(idimage: any, idpub: any) {
     for (let item of this.Listimage) {
       if (item.idpub === idpub) {
@@ -107,7 +45,7 @@ export class ForYouListComponent implements OnInit {
   }
 
   likePost(id: number) {
-    const data = { publicationId: id, UserId: this.loggedInUser._id };
+    const data = { publicationId: id, UserId: this.idUser };
     this.publicationService.Reaction(data).subscribe((data) => {
       alert(id);
     });

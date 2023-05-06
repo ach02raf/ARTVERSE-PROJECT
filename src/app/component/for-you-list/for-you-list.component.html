@@ -35,16 +35,16 @@
 
     <carousel
       class="card-image"
-      *ngIf="item.img.length != 0"
+      *ngIf="item.img"
       [showIndicators]="false"
       pause>
-      <slide *ngFor="let img of item.img" class="text-center">
-        <img [src]="getImage(img.idimg, item._id)" />
+      <slide *ngFor="let img of item['img']" class="text-center">
+        <img [src]="getImage(img['idimg'], item['_id'])" />
       </slide>
     </carousel>
     <div class="card-body">
       <h5 class="card-title">
-        {{ item.text }}
+        {{ item["text"] }}
       </h5>
       <!-- <carousel
         class="card-image "

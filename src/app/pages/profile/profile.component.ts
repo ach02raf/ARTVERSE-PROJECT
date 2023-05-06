@@ -7,6 +7,9 @@ import {
 import { AuthentificationService } from "src/app/services/authentification.service";
 import { UserService } from "src/app/services/user.service";
 import { ActivatedRoute } from "@angular/router";
+import { PublicationService } from "src/app/services/publication.service";
+import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
+import * as buffer from "buffer";
 
 @Component({
   selector: "app-profile",
@@ -25,11 +28,17 @@ export class ProfileComponent implements OnInit {
   following: any;
   showfollow: boolean = true;
   followBtn: any = "Follow";
+  List = [];
+  ListCopy = [];
+  Listimage = [];
+  isCollapsedProfile: boolean[] = [];
   constructor(
     private authServ: AuthentificationService,
     private userServ: UserService,
     private ref: ChangeDetectorRef,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private publicationService: PublicationService,
+    private sanitizer: DomSanitizer
   ) {
     this.loggedInUser = this.authServ.getUserID();
   }
@@ -51,9 +60,50 @@ export class ProfileComponent implements OnInit {
           this.followBtn = "Following";
         }
       }
+      await this.getPubliction();
+      console.log(this.ListCopy);
     });
   }
+  async getPubliction() {
+    this.publicationService.getPost().subscribe(async (data) => {
+      this.List = await data;
+      for (let item of data) {
+        let shouldAddItem = true;
 
+        if (item["Id_user"] !== this.user["_id"]) {
+          shouldAddItem = false;
+        }
+
+        if (shouldAddItem) {
+          this.isCollapsedProfile[item._id] = true;
+          this.authServ.findUserById(item.Id_user).subscribe((userData) => {
+            let itemCopy = { ...item, userData };
+            this.ListCopy.push(itemCopy);
+            let imageforpub = [];
+            for (let itam of itemCopy.img) {
+              this.publicationService
+                .getImage(itam.idimg)
+                .subscribe(async (data) => {
+                  const imageDataUrl = buffer.Buffer.from(
+                    data["img"]["data"]["data"]
+                  ).toString("base64");
+                  const safeUrl: SafeUrl =
+                    this.sanitizer.bypassSecurityTrustUrl(
+                      `data:data:image/png;base64,${imageDataUrl}`
+                    );
+                  imageforpub.push({ _id: data["_id"], safeUrl: safeUrl });
+                });
+            }
+            this.Listimage.push({
+              idpub: itemCopy._id,
+              listimage: imageforpub,
+            });
+          });
+        }
+      }
+      this.ref.detectChanges();
+    });
+  }
   followUser(id: any) {
     this.userServ
       .updatefollow({ id: this.loggedInUser, idprofile: id })

@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from "@angular/core";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import { ModalDirective } from "ngx-bootstrap/modal";
 import { AuthentificationService } from "src/app/services/authentification.service";
@@ -21,6 +27,8 @@ interface Image {
 export class AddPostComponent implements OnInit {
   @ViewChild("myModal") myModal: ModalDirective;
   @ViewChild("myModal2") myModal2: ModalDirective;
+  @Output() newItemEvent = new EventEmitter<boolean>();
+
   images: Image[] = [];
   postText: any;
   hashtags = [];
@@ -42,14 +50,17 @@ export class AddPostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loggedUserServ.findUserById(this.idUser).subscribe((res) => {
-      this.loggedInUser = res;
+    this.loggedUserServ.findUserById(this.idUser).subscribe(async (res) => {
+      this.loggedInUser = await res;
     });
 
     this.getHashtag();
     this.postTextElement = document.querySelector(".form-control.inputtag");
   }
 
+  addNewItem(value: boolean) {
+    this.newItemEvent.emit(value);
+  }
   getHashtag() {
     this.publicationService.getMyHashtag().subscribe((data) => {
       this.hashtags = data;
@@ -116,6 +127,7 @@ export class AddPostComponent implements OnInit {
         // handle response from the API
         this.postTextElement.innerHTML = "";
         this.images = [];
+        this.addNewItem(true);
         this.myModal.hide();
         this.myModal2.show();
       },
@@ -124,7 +136,7 @@ export class AddPostComponent implements OnInit {
         console.error("err", error);
         // handle error from the API
         alert("you trying to use image ");
-        return ;
+        return;
       }
     );
   }
