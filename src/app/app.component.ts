@@ -8,8 +8,6 @@ import {
 import { Location } from "@angular/common";
 import { DOCUMENT } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
 
 @Component({
   selector: "app-root",
@@ -43,36 +41,4 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.onWindowScroll(event);
   }
-
-  // findUserById(id) {
-  //   return this.http.get(`http://localhost:5000/user/getUserById/${id}`).pipe(
-  //     map((response) => {
-  //       console.log("res user", response);
-
-  //       return response;
-  //     })
-  //   );
-  // }
-
-  // getLoggedInUser() {
-  //   const token = localStorage.getItem("token");
-
-  //   if (token) {
-  //     const payload = JSON.parse(atob(token.split(".")[1]));
-  //     console.log(payload.userId);
-
-  //     this.findUserById(payload.userId).subscribe(
-  //       (user) => {
-  //         console.log("Logged in user:", user);
-  //         this.loggedInUser = user;
-  //       },
-  //       (error) => {
-  //         console.error("Error retrieving user:", error);
-  //         this.loggedInUser = null;
-  //       }
-  //     );
-  //   } else {
-  //     this.loggedInUser = null;
-  //   }
-  // }
 }

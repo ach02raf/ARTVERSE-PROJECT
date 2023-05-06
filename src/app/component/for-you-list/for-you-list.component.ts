@@ -15,11 +15,12 @@ import { AuthentificationService } from "src/app/services/authentification.servi
   selector: "app-for-you-list",
   templateUrl: "./for-you-list.component.html",
   styleUrls: ["./for-you-list.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ForYouListComponent implements OnInit {
   @Input() source: string;
   @Input() idprofile: string;
+  @Input() refresh: boolean;
 
   constructor(
     private publicationService: PublicationService,
@@ -42,8 +43,9 @@ export class ForYouListComponent implements OnInit {
   ngOnInit(): void {
     this.loggedUserServ.findUserById(this.idUser).subscribe((res) => {
       this.loggedInUser = res;
-      this.getPubliction(this.source);
     });
+
+    this.getPubliction(this.source);
   }
   findUser(id: any) {
     this.authserv.findUserById(id).subscribe((data) => {});

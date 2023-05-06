@@ -1,81 +1,32 @@
-<!-- <div class="gallery-item col-lg-6 col-md-6">
-  <img src="../../../assets/img/julie.jpeg" class="gallery-image" alt="" />
-
-  <div class="gallery-item-info col-lg-11">
-    <ul class="">
-      <li class="d-flex justify-content-between align-items-center">
-        Nom du Projet
-        <span class="gallery-item-likes">
-          <i class="fas fa-heart" aria-hidden="true"></i>
-          56</span
-        >
-        <span class="gallery-item-comments">
-          <i class="fas fa-comment" aria-hidden="true"></i>
-          2</span
-        >
-      </li>
-    </ul>
-  </div>
-</div>
-
-<div class="gallery-item col-lg-6 col-md-6">
-  <img src="../../../assets/img/img_3115.jpg" class="gallery-image" alt="" />
-
-  <div class="gallery-item-info col-lg-11">
-    <ul class="">
-      <li class="d-flex justify-content-between align-items-center">
-        Nom du Projet
-        <span class="gallery-item-likes">
-          <i class="fas fa-heart" aria-hidden="true"></i>
-          56</span
-        >
-        <span class="gallery-item-comments">
-          <i class="fas fa-comment" aria-hidden="true"></i>
-          2</span
-        >
-      </li>
-    </ul>
-  </div>
-</div> -->
-
-<div class="grid-container">
+<div class="grid-container" *ngIf="projectsCopy">
   <div class="row">
-    <div *ngFor="let project of projects">
+    <div *ngFor="let project of projectsCopy">
       <div>
         <div class="grid-item mx-3" data-project="Project 2">
-          <img src="../../../assets/img/{{ project.img }}" alt="Project 2" />
+          <!-- <img src="../../../assets/img/{{ project.img }}" alt="Project 2" /> -->
+
           <div class="overlaytools">
             <p class="mx-2">
-              {{ project.tools }}
+              {{ project["tools"] }}
             </p>
           </div>
 
           <div class="overlay">
             <h3>
-              {{ project.title }}
+              {{ project["title"] }}
             </h3>
-            <p class="mx-2" *ngFor="let categorie of project.catg">
+            <p class="mx-2" *ngFor="let categorie of project['catg']">
               {{ categorie }}
             </p>
-            <!-- <p>
-              <i class="fas fa-heart"></i> {{ project.reaction.length }}
-              <span class="text-muted mx-4"
-                ><i class="fas fa-comment"></i>
-                {{ project.commentaire.length }}</span
-              >
-            </p> -->
           </div>
         </div>
-        <div
-          class="description mt-2 d-flex justify-content-between"
-          *ngIf="isHomePage()"
-        >
+        <div class="description mt-2 d-flex justify-content-between">
           <p class="mx-3">{{ project["title"] }}</p>
           <p>
-            <i class="fas fa-heart"></i> {{ project.reaction.length }}
+            <i class="fas fa-heart"></i> {{ project["countReaction"] }}
             <span class=""
               ><i class="fas fa-comment" style="margin-left: 5px"></i>
-              {{ project.commentaire.length }}</span
+              {{ project["coutCommentaire"] }}</span
             >
           </p>
         </div>

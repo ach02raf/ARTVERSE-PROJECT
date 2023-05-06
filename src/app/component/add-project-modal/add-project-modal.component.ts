@@ -173,9 +173,8 @@ export class AddProjectModalComponent implements OnInit {
     if(this.titre.nativeElement.value == ""){
       this.Message = "choisissez un titre";
 
-      this.myModal.hide();
-      this.myModal3.show();
-  /*   }else if ( this.registrationForm.value.categoryName === ""){
+    
+      }else if ( this.registrationForm.value.categoryName === ""){
       this.Message = "choisissez un category";
     }else if (this.tabbleauHashtag.length < 1){
       this.Message = "choisissez au moins un hashtag";
@@ -183,7 +182,7 @@ export class AddProjectModalComponent implements OnInit {
       this.Message = "choisissez au moins un Tools";
     }  else  if (this.images.length < 1 ){
     this.Message = "choisissez au moins une image";
-     }else { */
+     }else { 
 
     const formData = new FormData();
  
@@ -191,7 +190,7 @@ export class AddProjectModalComponent implements OnInit {
     formData.append("titre", this.titre.nativeElement.value);
     formData.append("catg", this.registrationForm.value.categoryName);
 
-/* 
+
     if (this.tabbleauHashtag.length === 1) {
       formData.append("hashtags", this.tabbleauHashtag[0]);
     } else {
@@ -209,10 +208,10 @@ export class AddProjectModalComponent implements OnInit {
       });
     }
 
-    this.images.forEach((image) => formData.append("images", image.file)); */
+    this.images.forEach((image) => formData.append("images", image.file)); 
 
 
-   /*  this.projectService.createProject(formData).subscribe(
+     this.projectService.createProject(formData).subscribe(
       (response) => {
         console.log("ok", response);
         
@@ -223,12 +222,13 @@ export class AddProjectModalComponent implements OnInit {
         this.invalide = true;
         console.error("err", error);
         // handle error from the API
+        this.myModal.hide();
         this.myModal3.show();
 
         alert("you trying to use image ");
         return ;
       }
-    ); */
+    ); 
 
 
   }

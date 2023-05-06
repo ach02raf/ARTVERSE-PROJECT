@@ -55,7 +55,7 @@ export class AuthentificationService {
     return this.http
       .post("http://localhost:5000/user/forgotPassword", { email: email })
       .pipe(
-        tap((response: any) => {
+        tap((response) => {
           console.log("sucess", response);
         }),
 
@@ -90,33 +90,6 @@ export class AuthentificationService {
   findUserById(id: any) {
     return this.http.get(`http://localhost:5000/user/getUserById/${id}`);
   }
-
-  // async getLoggedInUser() {
-  //   console.log("id user", this.getUserID());
-
-  //   const token = localStorage.getItem("token");
-
-  //   if (token) {
-  //     const payload = await JSON.parse(atob(token.split(".")[1]));
-  //     this.findUserById(payload.userId).subscribe(
-  //       (user) => {
-  //         this.loggedInUser = user;
-  //         console.log("log get user", this.loggedInUser);
-  //       },
-  //       (error) => {
-  //         console.error("Error retrieving user:", error);
-  //         this.loggedInUser = null;
-  //       }
-  //     );
-  //     console.log("log get user fin", this.loggedInUser);
-  //   } else {
-  //     this.loggedInUser = null;
-  //   }
-
-  //   return this.loggedInUser;
-  // }
-
-  // Error
   handleError(error: HttpErrorResponse) {
     let msg = "";
     if (error.error instanceof ErrorEvent) {
@@ -124,8 +97,9 @@ export class AuthentificationService {
       msg = error.error.message;
     } else {
       // server-side error
-      msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      msg = `Error Code : ${error.status}\nMessage: ${error.message}`;
     }
+
     return throwError(msg);
   }
 }
