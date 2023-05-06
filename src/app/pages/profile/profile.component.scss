@@ -60,3 +60,15 @@
   height: 100%;
   object-fit: cover;
 }
+
+
+.page-header {
+  /* min-height: 100vh; */
+  max-height: none; 
+  padding: 0;
+  color: #ffffff;
+  position: relative;
+   overflow :visible ;
+  /* overflow-x: hidden; */
+  /* overflow-y: hidden; */
+}

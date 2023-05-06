@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+} from "@angular/core";
 import { PublicationService } from "../../services/publication.service";
 import { LoggedInUserService } from "src/app/services/logged-in-user.service";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
@@ -9,6 +15,7 @@ import { AuthentificationService } from "src/app/services/authentification.servi
   selector: "app-for-you-list",
   templateUrl: "./for-you-list.component.html",
   styleUrls: ["./for-you-list.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ForYouListComponent implements OnInit {
   @Input() source: string;
@@ -18,6 +25,7 @@ export class ForYouListComponent implements OnInit {
     private publicationService: PublicationService,
     private loggedUserServ: LoggedInUserService,
     private sanitizer: DomSanitizer,
+    private ref: ChangeDetectorRef,
     private authserv: AuthentificationService
   ) {
     this.idUser = this.loggedUserServ.getUserID();
@@ -34,9 +42,8 @@ export class ForYouListComponent implements OnInit {
   ngOnInit(): void {
     this.loggedUserServ.findUserById(this.idUser).subscribe((res) => {
       this.loggedInUser = res;
+      this.getPubliction(this.source);
     });
-
-    this.getPubliction(this.source);
   }
   findUser(id: any) {
     this.authserv.findUserById(id).subscribe((data) => {});
@@ -80,6 +87,8 @@ export class ForYouListComponent implements OnInit {
           });
         }
       }
+      this.ListCopy.reverse();
+      this.ref.detectChanges();
     });
   }
 

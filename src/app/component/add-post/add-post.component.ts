@@ -123,6 +123,8 @@ export class AddPostComponent implements OnInit {
         this.invalide = true;
         console.error("err", error);
         // handle error from the API
+        alert("you trying to use image ");
+        return ;
       }
     );
   }
