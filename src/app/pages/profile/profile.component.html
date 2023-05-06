@@ -32,7 +32,7 @@
                 <i
                   class="tim-icons icon-simple-add mx-2"
                   *ngIf="showfollow"></i>
-                {{ showfollow ? "Follow" : "Following" }}
+                {{ followBtn }}
               </button>
               <button
                 *ngIf="loggedInUser !== user['_id']"

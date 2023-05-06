@@ -1,4 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from "@angular/core";
 import { AuthentificationService } from "src/app/services/authentification.service";
 import { UserService } from "src/app/services/user.service";
 import { ActivatedRoute } from "@angular/router";
@@ -7,6 +12,7 @@ import { ActivatedRoute } from "@angular/router";
   selector: "app-profile",
   templateUrl: "./profile.component.html",
   styleUrls: ["./profile.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileComponent implements OnInit {
   isCollapsed = true;
@@ -18,9 +24,11 @@ export class ProfileComponent implements OnInit {
   followers: any;
   following: any;
   showfollow: boolean = true;
+  followBtn: any = "Follow";
   constructor(
     private authServ: AuthentificationService,
     private userServ: UserService,
+    private ref: ChangeDetectorRef,
     private route: ActivatedRoute
   ) {
     this.loggedInUser = this.authServ.getUserID();
@@ -33,13 +41,14 @@ export class ProfileComponent implements OnInit {
     var body = document.getElementsByTagName("body")[0];
     body.classList.add("profile-page");
 
-    this.userServ.findUserByUsername(this.username).subscribe((res) => {
+    this.userServ.findUserByUsername(this.username).subscribe(async (res) => {
       this.user = res;
-      this.following = this.user["following"].length;
-      this.followers = this.user["followers"].length;
+      this.following = await res["following"].length;
+      this.followers = await res["followers"].length;
       for (let element of this.user["followers"]) {
         if (element["id"] === this.loggedInUser) {
           this.showfollow = false;
+          this.followBtn = "Following";
         }
       }
     });
@@ -48,12 +57,21 @@ export class ProfileComponent implements OnInit {
   followUser(id: any) {
     this.userServ
       .updatefollow({ id: this.loggedInUser, idprofile: id })
-      .subscribe((res) => {
-        console.log(res);
+      .subscribe(() => {
         this.showfollow = !this.showfollow;
+        this.followBtn = "Following";
+        this.followers++;
+        this.ref.detectChanges();
       });
   }
   unfollowUser(id: any) {
-    console.log("hello unfollow !", id);
+    this.userServ
+      .removefollow({ id: this.loggedInUser, idprofile: id })
+      .subscribe(() => {
+        this.showfollow = !this.showfollow;
+        this.followBtn = "Follow";
+        this.followers--;
+        this.ref.detectChanges();
+      });
   }
 }
