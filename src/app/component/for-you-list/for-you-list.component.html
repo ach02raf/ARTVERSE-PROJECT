@@ -37,27 +37,17 @@
 
     <carousel
       class="card-image"
-      *ngIf="item.img.length != 0"
+      *ngIf="item.img"
       [showIndicators]="false"
       pause>
-      <slide *ngFor="let img of item.img" class="text-center">
+      <slide *ngFor="let img of item['img']" class="text-center">
         <img [src]="getImage(img['idimg'], item['_id'])" />
       </slide>
     </carousel>
     <div class="card-body">
       <h5 class="card-title">
-        {{ item['text'] }}
+        {{ item["text"] }}
       </h5>
-      <!-- <carousel
-        class="card-image "
-        *ngIf="item.img.length !=0 "
-        [showIndicators]="false "
-        pause
-      >
-        <slide *ngFor="let img of item.img; let i=i ndex " class="text-center ">
-          <img class="img rounded " src="assets/img/{{ img.imgName }} " />
-        </slide>
-      </carousel> -->
       <div class="card-footer">
         <div class="stats stats-right">
           <div
@@ -93,13 +83,13 @@
             </button>
           </div>
 
-          <div [collapse]="isCollapsed[item._id]" [id]="item._id">
+          <div [collapse]="isCollapsed[item['_id']]" [id]="item['_id']">
             <div class="card">
               <div>
                 <div>
                   <app-add-comment
-                    [idPub]="item._id"
-                    [listComm]="item.commentaires"></app-add-comment>
+                    [idPub]="item['_id']"
+                    [listComm]="item['commentaires']"></app-add-comment>
                 </div>
               </div>
             </div>

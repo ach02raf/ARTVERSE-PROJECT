@@ -35,7 +35,8 @@
               class="btn btn-block">
               <i class="tim-icons icon-email-85 mx-2"></i>Message
             </button>
-          <app-add-project-modal  *ngIf="loggedInUser === user['_id']" ></app-add-project-modal>
+            <app-add-project-modal
+              *ngIf="loggedInUser === user['_id']"></app-add-project-modal>
             <tabset
               class="nav-tabs-danger justify-content-center tab-subcategories">
               <tab heading="News">
@@ -171,7 +172,9 @@
               <ng-template tabHeading>
                 <i class="tim-icons icon-spaceship"> </i> Projects
               </ng-template>
-              <app-project></app-project>
+              <app-project
+                [source]="source"
+                [idprofile]="this.user['_id']"></app-project>
             </tab>
             <tab>
               <ng-template tabHeading>
@@ -179,8 +182,9 @@
                 Publications
               </ng-template>
               <app-for-you-list
-                [source]="source"
-                [idprofile]="this.user['_id']"></app-for-you-list>
+                [Listimage]="Listimage"
+                [ListCopy]="ListCopy"
+                [isCollapsed]="isCollapsedProfile"></app-for-you-list>
             </tab>
           </tabset>
         </div>

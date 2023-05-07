@@ -8,11 +8,8 @@ import {
 } from "@angular/core";
 import { PublicationService } from "../../services/publication.service";
 import { LoggedInUserService } from "src/app/services/logged-in-user.service";
-import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
-
-import * as buffer from "buffer";
-import { AuthentificationService } from "src/app/services/authentification.service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { SinglesService } from "src/app/services/singles.service";
 @Component({
   selector: "app-for-you-list",
@@ -21,88 +18,29 @@ import { SinglesService } from "src/app/services/singles.service";
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ForYouListComponent implements OnInit {
-  @Input() source: string;
-  @Input() idprofile: string;
-  @Input() refresh: boolean;
+  @Input() ListCopy: any;
+  @Input() Listimage: any;
+  @Input() isCollapsed: boolean[] = [];
   @ViewChild('modalContent', { static: true }) modalContent: any;
   constructor(
     private publicationService: PublicationService,
     private loggedUserServ: LoggedInUserService,
-    private sanitizer: DomSanitizer,
     private ref: ChangeDetectorRef,
-    private authserv: AuthentificationService,
+    private modalService: NgbModal,
     private singlesService : SinglesService ,
-    private modalService: NgbModal
   ) {
     this.idUser = this.loggedUserServ.getUserID();
   }
-  imageData: any;
-  List = [];
-  ListCopy = [];
+
   public commentText: string;
-  loggedInUser: any;
-  public isCollapsed: boolean[] = [];
-  Listimage = [];
   idUser: any;
   repostReason: string;
   repostComments: string;
   text : String ;
   itemId: string
   ngOnInit(): void {
-    this.loggedUserServ.findUserById(this.idUser).subscribe((res) => {
-      this.loggedInUser = res;
-    });
-
-    this.getPubliction(this.source);
+    this.ref.detectChanges();
   }
-  findUser(id: any) {
-    this.authserv.findUserById(id).subscribe((data) => {});
-  }
-  async getPubliction(source: string) {
-    this.publicationService.getPost().subscribe(async (data) => {
-      this.List = await data;
-
-      for (let item of this.List) {
-        let shouldAddItem = true;
-
-        if (source === "profile" && item["Id_user"] !== this.idprofile) {
-          shouldAddItem = false;
-        }
-
-        if (shouldAddItem) {
-          this.isCollapsed[item._id] = true;
-          this.authserv.findUserById(item.Id_user).subscribe((userData) => {
-            let itemCopy = { ...item, userData };
-            this.ListCopy.push(itemCopy);
-
-            let imageforpub = [];
-            for (let itam of itemCopy.img) {
-              this.publicationService
-                .getImage(itam.idimg)
-                .subscribe(async (data) => {
-                  const imageDataUrl = buffer.Buffer.from(
-                    data["img"]["data"]["data"]
-                  ).toString("base64");
-                  const safeUrl: SafeUrl =
-                    this.sanitizer.bypassSecurityTrustUrl(
-                      `data:data:image/png;base64,${imageDataUrl}`
-                    );
-                  imageforpub.push({ _id: data["_id"], safeUrl: safeUrl });
-                });
-            }
-            this.Listimage.push({
-              idpub: itemCopy._id,
-              listimage: imageforpub,
-            });
-          });
-        }
-
-      }
-      this.ListCopy.reverse();
-      this.ref.detectChanges();
-    });
-  }
-
   getImage(idimage: any, idpub: any) {
     for (let item of this.Listimage) {
       if (item.idpub === idpub) {
@@ -115,16 +53,50 @@ export class ForYouListComponent implements OnInit {
     }
   }
 
-  likePost(id: number) {
-    const data = { publicationId: id, UserId: this.loggedInUser._id };
-    this.publicationService.Reaction(data).subscribe((data) => {
-      alert(id);
+  async likePost(id: number) {
+    const data = { publicationId: id, UserId: this.idUser };
+    this.publicationService.Reaction(data).subscribe(() => {
+      this.ref.detectChanges();
     });
+    for (let element of this.ListCopy) {
+      if (element["_id"] === id) {
+        if (element["reaction"].length === 0) {
+          await element["reaction"].push({ idUser: this.idUser });
+          this.ref.detectChanges();
+        } else {
+          let exist: boolean = false;
+          for (let item of element["reaction"]) {
+            if (item["idUser"] === this.idUser) {
+              console.log("exxist haha ");
+
+              exist = true;
+            }
+          }
+          if (exist) {
+            const index = await element["reaction"].findIndex(
+              (itam) => itam["idUser"] === this.idUser
+            );
+            console.log("tab reaction origine  : ", element["reaction"]);
+            await element["reaction"].splice(index, 1);
+            console.log("tab reaction supprimer  index : ", index);
+            console.log("tab reaction supprimer  : ", element["reaction"]);
+
+            this.ref.detectChanges();
+          } else {
+            await element["reaction"].push({ idUser: this.idUser });
+            console.log("tab reaction ajouter : ", element["reaction"]);
+            this.ref.detectChanges();
+          }
+        }
+      }
+    }
   }
 
   // Dislike a post
   reaction(list: any) {
-    const reactionIndex = list.findIndex((reaction) => reaction.idUser === 0);
+    const reactionIndex = list.findIndex(
+      (reaction) => reaction.idUser === this.idUser
+    );
 
     if (reactionIndex > -1) {
       return true;

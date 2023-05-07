@@ -3,8 +3,15 @@
     <div *ngFor="let project of projectsCopy">
       <div>
         <div class="grid-item mx-3" data-project="Project 2">
-          <!-- <img src="../../../assets/img/{{ project.img }}" alt="Project 2" /> -->
-
+          <carousel
+            class="card-image"
+            *ngIf="project['img']"
+            [showIndicators]="false"
+            pause>
+            <slide *ngFor="let img of project['img']" class="text-center">
+              <img [src]="getImage(img['idimg'], project['_id'])" />
+            </slide>
+          </carousel>
           <div class="overlaytools">
             <p class="mx-2">
               {{ project["tools"] }}
