@@ -28,6 +28,7 @@ export class ProjectComponent implements OnInit {
   ngOnInit(): void {
     this.projectService.getAllProject().subscribe(async (data) => {
       console.log("data project ", data);
+      console.log("hello yosra");
       this.projects = await data;
 
       for (let item of data) {

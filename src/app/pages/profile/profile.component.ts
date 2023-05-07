@@ -61,7 +61,6 @@ export class ProfileComponent implements OnInit {
         }
       }
       await this.getPubliction();
-      console.log(this.ListCopy);
     });
   }
   async getPubliction() {

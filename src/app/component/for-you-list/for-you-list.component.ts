@@ -44,16 +44,50 @@ export class ForYouListComponent implements OnInit {
     }
   }
 
-  likePost(id: number) {
+  async likePost(id: number) {
     const data = { publicationId: id, UserId: this.idUser };
-    this.publicationService.Reaction(data).subscribe((data) => {
-      alert(id);
+    this.publicationService.Reaction(data).subscribe(() => {
+      this.ref.detectChanges();
     });
+    for (let element of this.ListCopy) {
+      if (element["_id"] === id) {
+        if (element["reaction"].length === 0) {
+          await element["reaction"].push({ idUser: this.idUser });
+          this.ref.detectChanges();
+        } else {
+          let exist: boolean = false;
+          for (let item of element["reaction"]) {
+            if (item["idUser"] === this.idUser) {
+              console.log("exxist haha ");
+
+              exist = true;
+            }
+          }
+          if (exist) {
+            const index = await element["reaction"].findIndex(
+              (itam) => itam["idUser"] === this.idUser
+            );
+            console.log("tab reaction origine  : ", element["reaction"]);
+            await element["reaction"].splice(index, 1);
+            console.log("tab reaction supprimer  index : ", index);
+            console.log("tab reaction supprimer  : ", element["reaction"]);
+
+            this.ref.detectChanges();
+          } else {
+            await element["reaction"].push({ idUser: this.idUser });
+            console.log("tab reaction ajouter : ", element["reaction"]);
+            this.ref.detectChanges();
+          }
+        }
+      }
+    }
   }
 
   // Dislike a post
   reaction(list: any) {
-    const reactionIndex = list.findIndex((reaction) => reaction.idUser === 0);
+    const reactionIndex = list.findIndex(
+      (reaction) => reaction.idUser === this.idUser
+    );
 
     if (reactionIndex > -1) {
       return true;
