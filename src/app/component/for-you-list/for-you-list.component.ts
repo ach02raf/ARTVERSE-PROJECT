@@ -174,7 +174,7 @@ export class ForYouListComponent implements OnInit {
      this.text = this.repostComments ;
     }
 
-    this.singlesService.send_single({Id_user : this.idUser , text : this.text , idpubliction :  this.itemId  }).subscribe(
+    this.singlesService.send_single_pub({iduser : this.idUser , text : this.text , idpubliction :  this.itemId  }).subscribe(
       (response) => {
         console.log("ok", response);
         
