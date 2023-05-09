@@ -35,7 +35,6 @@ export class AllUsersComponent implements OnInit {
     this.pubService.getPostsByUserId(id).subscribe((data) => {
       this.pub.push(data);
       this.pub = data;
-      console.log("nos lil data", data);
     });
     return this.pub;
   }
@@ -45,7 +44,6 @@ export class AllUsersComponent implements OnInit {
     this.getPublications(this.hoveredUser["_id"]).forEach((element) => {
       console.log("commen commen commouni", element["commentaires"].length);
       this.nbComment += element["commentaires"].length;
-      console.log(this.nbComment);
     });
     return this.nbComment;
   }
@@ -55,7 +53,6 @@ export class AllUsersComponent implements OnInit {
     this.getPublications(this.hoveredUser["_id"]).forEach((element) => {
       console.log("commen commen commouni likes", element["reaction"].length);
       this.nbLikes += element["reaction"].length;
-      console.log(this.nbLikes);
     });
     return this.nbLikes;
   }
@@ -64,7 +61,6 @@ export class AllUsersComponent implements OnInit {
     this.pubService.getPost().subscribe((data) => {
       this.Allpub.push(data);
       this.Allpub = data;
-      console.log("nos lil posts", data);
     });
 
     return this.pub;
@@ -72,7 +68,6 @@ export class AllUsersComponent implements OnInit {
 
   displayUsers() {
     this.userServ.getAllUsers().subscribe((data) => {
-      console.log("all users", data);
       this.users = data;
     });
   }
