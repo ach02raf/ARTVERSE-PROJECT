@@ -177,6 +177,23 @@
                 </slide>
               </carousel>
             </div>
+            <carousel *ngIf="images.length != 0" [showIndicators]="false" pause>
+              <slide
+                *ngFor="let image of images; let i = index"
+                class="text-center">
+                <button
+                  class="btn btn-primary btn-fab btn-icon btn-round"
+                  (click)="clearSelectedImage(i)">
+                  <i class="tim-icons icon-gift-2"></i>
+                </button>
+                <img
+                  *ngIf="image"
+                  class="d-block w-100"
+                  [src]="image['url']"
+                  [alt]="image['name']" />
+              </slide>
+            </carousel>
+
             <div class="row">
               <div class="col">
                 <button type="submit" class="btn btn-primary mt-4">
@@ -193,6 +210,6 @@
         </form>
       </div>
     </div>
-    <!-- your modal content here -->
   </div>
+  <!-- your modal content here -->
 </div>
