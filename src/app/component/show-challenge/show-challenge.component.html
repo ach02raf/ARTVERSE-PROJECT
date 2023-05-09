@@ -1,0 +1,36 @@
+<table class="table table-hover col-lg-9 mr-4">
+     <thead>
+       <tr>
+        <th>challenge title </th>
+         <th>Category</th>
+         <th>deadline </th>
+         <th>partenaire</th>
+         <th>winner</th>
+         <th>number of participants</th>
+         <th></th>
+         <th></th>
+         <th></th>
+       </tr>
+     </thead>
+     <tbody>
+       <tr  *ngFor="let sng of challengesData"  >
+     
+          <th>{{sng['title']}}</th>
+          <th>{{sng['Category']}}</th>
+          <th>{{sng['deadline']}}</th>
+          <th>{{sng['partenaire']}}</th>
+          <th>{{sng['winner'] ? sng['winner'] : 'waiting'}}</th>
+
+          <th>{{count(sng['participants'])}}</th>
+          <th>edit</th>
+          <th>delete</th>
+          <th><button [routerLink]="['/Challange', sng['_id']]">Show</button>
+
+          </th>
+          
+ 
+         
+       </tr>
+     </tbody>
+   </table>
+   

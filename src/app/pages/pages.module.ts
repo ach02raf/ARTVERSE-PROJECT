@@ -38,6 +38,12 @@ import { NgbCollapseModule } from "@ng-bootstrap/ng-bootstrap";
 import { AddCommentComponent } from "../component/add-comment/add-comment.component";
 import { AddProjectModalComponent } from "../component/add-project-modal/add-project-modal.component";
 import { AllUsersComponent } from "../component/all-users/all-users.component";
+import { ChallengesComponent } from '../component/challenges/challenges.component';
+
+import { AddChallengeComponent } from '../component/add-challenge/add-challenge.component';
+import { EditChallengeComponent } from '../component/edit-challenge/edit-challenge.component';
+import { ShowChallengeComponent } from '../component/show-challenge/show-challenge.component';
+import { ChallangeDetilesComponent } from './challange-detiles/challange-detiles.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -79,6 +85,16 @@ import { AllUsersComponent } from "../component/all-users/all-users.component";
     AddCommentComponent,
     AddProjectModalComponent,
     AllUsersComponent,
+    ChallengesComponent,
+
+    AddChallengeComponent,
+
+    EditChallengeComponent,
+
+    ShowChallengeComponent,
+
+    ChallangeDetilesComponent,
+
   ],
   exports: [
     IndexComponent,

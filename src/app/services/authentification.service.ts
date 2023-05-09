@@ -77,7 +77,7 @@ export class AuthentificationService {
         map((response) => {
           // Extract token from response and save to localStorage
           const token = response["token"];
-          console.log("toooken", token);
+          console.log("toooken", token); 
 
           localStorage.setItem("token", token);
           console.log("reeeesss", response["token"]);

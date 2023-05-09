@@ -47,6 +47,7 @@ import { SignalerComponent } from "./component/signaler/signaler.component";
     SignalerComponent,
 
 
+
     // AddProjectModalComponent,
 
     // IndexComponent,

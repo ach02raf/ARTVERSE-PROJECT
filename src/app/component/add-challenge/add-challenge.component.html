@@ -1,0 +1,41 @@
+<form (submit)="onSubmit()">
+     <div class="form-row">
+       <div class="form-group col-md-6">
+         <label for="inputTitle">Title</label>
+         <input type="text" class="form-control" id="inputTitle" [(ngModel)]="inputTitle" name="inputTitle" placeholder="Title">
+       </div>
+       <div class="form-group col-md-6">
+         <label for="inputCategory">Category</label>
+         <input type="text" class="form-control" id="inputCategory" [(ngModel)]="inputCategory" name="inputCategory" placeholder="Category">
+       </div>
+     </div>
+     <div class="form-row">
+       <div class="form-group col-md-6">
+         <label for="inputPartenaire">Partenaire</label>
+         <input type="text" class="form-control" id="inputPartenaire"  [(ngModel)]="inputpartenaire" name="inputPartenaire" placeholder="Apartment, studio, or floor">
+       </div>
+       <div class="form-group col-md-6">
+         <label for="inputDeadline">Deadline</label>
+         <input type="text" class="form-control" id="inputDeadline" [(ngModel)]="inputdeadline" name="inputDeadline" bsDatepicker [bsConfig]="{ isAnimated: true, containerClass: 'theme-red' }" placeholder="Datepicker">
+       </div>
+     </div>
+   
+     <div class="form-group  ">
+          <label for="inputDescription">Description</label>
+          <input type="text" class="form-control" id="inputDescription"  [(ngModel)]="inputdescription" name="inputDescription" placeholder="Apartment, studio, or floor">
+        </div>
+     <div class="form-group">
+       <label for="inputImage" class="form-label-image">Choose an image</label>
+       <input type="file" class="custom-file-input" id="inputImage" (change)="onFileSelected($event)" multiple>
+     </div>
+     <carousel *ngIf="images.length != 0" [showIndicators]="false" pause>
+       <slide *ngFor="let image of images; let i = index" class="text-center">
+         <button class="btn btn-primary btn-fab btn-icon btn-round" (click)="clearSelectedImage(i)">
+           <i class="tim-icons icon-gift-2"></i>
+         </button>
+         <img *ngIf="image" class="d-block w-50" [src]="image['url']" [alt]="image['name']">
+       </slide>
+     </carousel>
+     <button type="submit" class="btn btn-primary">Submit</button>
+   </form>
+   
