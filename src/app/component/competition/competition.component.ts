@@ -35,105 +35,13 @@ export class CompetitionComponent implements OnInit {
   Listimage = [];
   @ViewChild("myModal") myModal: ModalDirective;
   images: Image[] = [];
-  chlCopy: any;
   challengesData = [];
-  currentChallengeSource = [
-    {
-      title: "  Ink Color ",
-      Category: "Illustration",
-      deadline: "12-16-2022",
-      description:
-        "Black Design comes with three pre-built pages to help you getstarted faster. You can change the text and images and you're goodto go.",
-      partenaire: {
-        _id: 1,
-        name: "Adobe",
-        Logo: "adobe.png",
-      },
-      participants: [{ _id: 1 }, { _id: 2 }, { _id: 3 }],
-      image: "challenge3.png",
-      winner: "64260d644d6a3f8054474d48",
-    },
-    {
-      title: "  3D Characters ",
-      Category: "3D",
-      deadline: "12-16-2022",
-      partenaire: {
-        _id: 2,
-        name: "3DS MAX",
-        Logo: "3dsmax.png",
-      },
-      description:
-        "Black Design comes with three pre-built pages to help you getstarted faster. You can change the text and images and you're goodto go.",
-      participants: [
-        { _id: 1 },
-        { _id: 2 },
-        { _id: 3 },
-        { _id: 2 },
-        { _id: 3 },
-        { _id: 2 },
-        { _id: 3 },
-      ],
-      image: "3dchallenge.jpg",
-      winner: "64260d644d6a3f8054474d48",
-    },
-  ];
-  finishedChallengeSource = [
-    {
-      title: "  Ink Color ",
-      Category: "Illustration",
-      deadline: "12-16-2022",
-      description:
-        "Black Design comes with three pre-built pages to help you getstarted faster. You can change the text and images and you're goodto go.",
-      partenaire: {
-        _id: 1,
-        name: "Adobe",
-        Logo: "adobe.png",
-      },
-      participants: [{ _id: 1 }, { _id: 2 }, { _id: 3 }],
-      image: "challenge3.png",
-      winner: "645a5404b470ba89a9addbec",
-    },
-    {
-      title: "  3D Characters ",
-      Category: "3D",
-      deadline: "12-16-2022",
-      partenaire: {
-        _id: 2,
-        name: "3DS MAX",
-        Logo: "3dsmax.png",
-      },
-      description:
-        "Black Design comes with three pre-built pages to help you getstarted faster. You can change the text and images and you're goodto go.",
-      participants: [
-        { _id: 1 },
-        { _id: 2 },
-        { _id: 3 },
-        { _id: 2 },
-        { _id: 3 },
-        { _id: 2 },
-        { _id: 3 },
-      ],
-      image: "3dchallenge.jpg",
-      winner: "645a5404b470ba89a9addbec",
-    },
-  ];
 
-  findUser(id: any) {
-    this.authserv.findUserById(id).subscribe((data) => {
-      console.log("winner winner", data);
-    });
-  }
+  challengeWithWinner = [];
+  challengeWithOutWinner = [];
 
   ngOnInit(): void {
     this.getchanlleng();
-    this.finishedChallengeSource.forEach((challenge) => {
-      this.authserv.findUserById(challenge.winner).subscribe((data) => {
-        console.log("winner winner", data);
-
-        this.challenges.push({ ...challenge, winnersData: data });
-        console.log("challenge with winners", this.challenges);
-      });
-    });
   }
 
   getImage(idimage: any, idpub: any) {
@@ -150,8 +58,15 @@ export class CompetitionComponent implements OnInit {
   getchanlleng() {
     this.singlesService.get_chanllenge().subscribe(async (data) => {
       this.challengesData = await data;
-      console.log("achraf data images hello ", data);
-
+      for (let item of this.challengesData) {
+        if (item["winner"]) {
+          this.authserv.findUserById(item["winner"]).subscribe((data) => {
+            this.challenges.push({ ...item, winnersData: data });
+          });
+        } else {
+          this.challengeWithOutWinner.push(item);
+        }
+      }
       for (let item of this.challengesData) {
         let imageforpub = [];
         for (let itam of item["image"]) {
@@ -165,7 +80,6 @@ export class CompetitionComponent implements OnInit {
                 `data:data:image/png;base64,${imageDataUrl}`
               );
               imageforpub.push({ _id: data["_id"], safeUrl: safeUrl });
-              console.log("maha maha maha maha ", imageforpub);
             });
         }
 
@@ -174,7 +88,6 @@ export class CompetitionComponent implements OnInit {
           listimage: imageforpub,
         });
       }
-      console.log("hello achraf images !!! ", this.Listimage);
     });
   }
 

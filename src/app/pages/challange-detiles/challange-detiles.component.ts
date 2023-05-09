@@ -23,8 +23,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ChallangeDetilesComponent implements OnInit {
  
- 
-  @Input() Listimage: any; 
+  
    id : string ;
   constructor(
     private publicationService: PublicationService,
@@ -45,7 +44,8 @@ export class ChallangeDetilesComponent implements OnInit {
   idUser: any; 
   List :any ;
   itemCopy : any ;
-  ListCopy : any ;
+  challangeCopy = [] ;
+  challange : any ;
 
   ngOnInit(): void {
     this.ref.detectChanges(); 
@@ -59,36 +59,32 @@ export class ChallangeDetilesComponent implements OnInit {
 
   this.singlesService.winner({id : this.id , id_user : id }).subscribe((next)=>{alert("ok")} );
   }
+/* 
+data { id : gh , patic : [{}]}
 
+*/
 
   async getchallenge() {
     this.singlesService.get_chanllengeByID({id : this.id }).subscribe(async (data) => {
-      this.title = await data['title'];
-      this.List = await data['participants']; 
 
-            for (let item of data['participants'] ) { 
+      this.challange = await data ;  
 
-            this.authserv.findUserById(item.id_user).subscribe( async (userData) => { 
-              let itemCopy = await { ...item, userData };
- 
-            });}
+            for (let item of this.challange['participants'] ) { 
+
+              this.authserv.findUserById(item['id_user']).subscribe( async (userData) => { 
+           
+                this.challangeCopy.push(  { ...item, userData });
+            });
+            console.log(this.challangeCopy);
+          
+          }
        
 
     });   
   }
 
 
-  getImage(idimage: any, idpub: any) {
-    for (let item of this.Listimage) {
-      if (item.idpub === idpub) {
-        for (let itam of item.listimage) {
-          if (itam._id === idimage) {
-            return itam.safeUrl;
-          }
-        }
-      }
-    }
-  }
+  
 
  
  
