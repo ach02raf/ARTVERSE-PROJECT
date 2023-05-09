@@ -30,6 +30,13 @@ export class HomeComponent implements OnInit {
 
   hashtags = ["digitalart", "digitaldrawing", "artists", "portrait"];
 
+  connectedUser() {
+    if (localStorage.getItem("token")) {
+      return true;
+    }
+    return false;
+  }
+
   ngOnInit() {
     var body = document.getElementsByTagName("body")[0];
     body.classList.add("index-page");
