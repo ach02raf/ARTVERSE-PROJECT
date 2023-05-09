@@ -3,13 +3,13 @@ import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import { ModalDirective } from "ngx-bootstrap/modal";
 import { PublicationService } from "../../services/publication.service";
 import { LoggedInUserService } from "src/app/services/logged-in-user.service";
-import {  ElementRef } from '@angular/core';
-import {ProjectService}from '../../services/project.service';
-import {SinglesService}from '../../services/singles.service';
-// selector 
+import { ElementRef } from "@angular/core";
+import { ProjectService } from "../../services/project.service";
+import { SinglesService } from "../../services/singles.service";
+// selector
 
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { FormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { FormBuilder, Validators } from "@angular/forms";
 import { Message } from "@angular/compiler/src/i18n/i18n_ast";
 interface Image {
   name: string;
@@ -34,34 +34,30 @@ export class AddProjectModalComponent implements OnInit {
   isCopyrightChecked: boolean = false;
   postTextElement: HTMLElement | null;
   idUser: any;
-  Message : String = "" ;
+  Message: String = "";
   loggedInUser: any;
-  tabbleauHashtag = []; 
+  tabbleauHashtag = [];
   tabbleauTools = [];
-  inputValueSingle : String ;
+  inputValueSingle: String;
 
   inputValueHashtag: string;
   inputValueTools: string;
   selectedCategory: string;
-  @ViewChild('titre') titre: ElementRef;
+  @ViewChild("titre") titre: ElementRef;
   category = ["VFX", "3D", "Illustration", "Photography"];
   constructor(
-    public fb: FormBuilder ,
+    public fb: FormBuilder,
     private sanitizer: DomSanitizer,
-   private elementRef: ElementRef,
+    private elementRef: ElementRef,
     private loggedUserServ: LoggedInUserService,
-    private publicationService: PublicationService ,
+    private publicationService: PublicationService,
     private projectService: ProjectService,
-    private singlesService: SinglesService ,
-
+    private singlesService: SinglesService
   ) {
     this.idUser = this.loggedUserServ.getUserID();
   }
 
-
-
-  isSubmitted = false; 
- 
+  isSubmitted = false;
 
   ngOnInit(): void {
     this.loggedUserServ.findUserById(this.idUser).subscribe((res) => {
@@ -107,15 +103,18 @@ export class AddProjectModalComponent implements OnInit {
   // hashtag manuplation
 
   addHashtagg(inpu: string) {
-    const hashtags = inpu.split(' ');
-  
+    const hashtags = inpu.split(" ");
+
     hashtags.forEach((hashtag) => {
-      if (hashtag.trim() !== '' && this.tabbleauHashtag.indexOf(hashtag.trim()) === -1) {
+      if (
+        hashtag.trim() !== "" &&
+        this.tabbleauHashtag.indexOf(hashtag.trim()) === -1
+      ) {
         this.tabbleauHashtag.push(hashtag.trim());
       }
     });
-  
-    this.inputValueHashtag = '';
+
+    this.inputValueHashtag = "";
   }
   removeHashtag(hash: string) {
     const index = this.tabbleauHashtag.indexOf(hash);
@@ -149,9 +148,8 @@ export class AddProjectModalComponent implements OnInit {
     console.log("value 2", value);
   }
 
- 
   registrationForm = this.fb.group({
-    categoryName: ['', [Validators.required]],
+    categoryName: ["", [Validators.required]],
   });
   changecategory(e: any) {
     this.categoryName?.setValue(e.target.value, {
@@ -160,101 +158,89 @@ export class AddProjectModalComponent implements OnInit {
   }
   // Access formcontrols getter
   get categoryName() {
-    return this.registrationForm.get('categoryName');
+    return this.registrationForm.get("categoryName");
   }
-  onSubmit(): void {  
-    
-    if(this.titre.nativeElement.value == ""){
+  onSubmit(): void {
+    if (this.titre.nativeElement.value == "") {
       this.Message = "choisissez un titre";
-
-    
-      }else if ( this.registrationForm.value.categoryName === ""){
+    } else if (this.registrationForm.value.categoryName === "") {
       this.Message = "choisissez un category";
-    }else if (this.tabbleauHashtag.length < 1){
+    } else if (this.tabbleauHashtag.length < 1) {
       this.Message = "choisissez au moins un hashtag";
-    }else if (this.tabbleauTools.length < 1){
+    } else if (this.tabbleauTools.length < 1) {
       this.Message = "choisissez au moins un Tools";
-    }  else  if (this.images.length < 1 ){
-    this.Message = "choisissez au moins une image";
-     }else { 
-
-    const formData = new FormData();
- 
-    formData.append("Id_user", this.idUser);
-    formData.append("titre", this.titre.nativeElement.value);
-    formData.append("catg", this.registrationForm.value.categoryName);
-
-
-    if (this.tabbleauHashtag.length === 1) {
-      formData.append("hashtags", this.tabbleauHashtag[0]);
+    } else if (this.images.length < 1) {
+      this.Message = "choisissez au moins une image";
     } else {
-      this.tabbleauHashtag.forEach((tag) => {
-        formData.append("hashtags", tag);
-      });
-    }
+      const formData = new FormData();
 
+      formData.append("Id_user", this.idUser);
+      formData.append("titre", this.titre.nativeElement.value);
+      formData.append("catg", this.registrationForm.value.categoryName);
 
-    if (this.tabbleauTools.length === 1) {
-      formData.append("tools", this.tabbleauTools[0]);
-    } else {
-      this.tabbleauTools.forEach((tag) => {
-        formData.append("tools", tag);
-      });
-    }
-
-    this.images.forEach((image) => formData.append("images", image.file)); 
-
-
-     this.projectService.createProject(formData).subscribe(
-      (response) => {
-        console.log("ok", response);
-        
-        this.myModal.hide() ;
-        this.myModal2.show();
-      },
-      (error) => {
-        this.invalide = true;
-        console.error("err", error);
-        // handle error from the API
-        this.myModal.hide();
-        this.myModal3.show();
-
-        alert("you trying to use image ");
-        return ;
+      if (this.tabbleauHashtag.length === 1) {
+        formData.append("hashtags", this.tabbleauHashtag[0]);
+      } else {
+        this.tabbleauHashtag.forEach((tag) => {
+          formData.append("hashtags", tag);
+        });
       }
-    ); 
 
+      if (this.tabbleauTools.length === 1) {
+        formData.append("tools", this.tabbleauTools[0]);
+      } else {
+        this.tabbleauTools.forEach((tag) => {
+          formData.append("tools", tag);
+        });
+      }
 
-  }  
+      this.images.forEach((image) => formData.append("images", image.file));
+
+      this.projectService.createProject(formData).subscribe(
+        (response) => {
+          console.log("ok", response);
+
+          this.myModal.hide();
+          this.myModal2.show();
+        },
+        (error) => {
+          this.invalide = true;
+          console.error("err", error);
+          // handle error from the API
+          this.myModal.hide();
+          this.myModal3.show();
+
+          alert("you trying to use image ");
+          return;
+        }
+      );
+    }
   }
-
 
   onInputChange() {
     this.Message = "hi";
   }
 
-  openSinaler(){
+  openSinaler() {
     this.myModal3.hide();
     this.myModal4.show();
   }
 
-  onSubmit_Single(){
+  onSubmit_Single() {
     console.log(this.inputValueSingle);
 
-    this.singlesService.send_single({Id_user : this.idUser , text : this.inputValueSingle}).subscribe(
-      (response) => {
-        console.log("ok", response);
-        
-        this.myModal4.hide() ;
-      
-      },
-      (error) => {
-        
-        alert("try agine ");
-        return ;
-      }
-    );
+    this.singlesService
+      .send_single({ Id_user: this.idUser, text: this.inputValueSingle })
+      .subscribe(
+        (response) => {
+          console.log("ok", response);
 
+          this.myModal4.hide();
+        },
+        (error) => {
+          alert("try agine ");
+          return;
+        }
+      );
   }
-
- }
+}

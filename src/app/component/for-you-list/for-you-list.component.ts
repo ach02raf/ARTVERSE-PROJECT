@@ -3,12 +3,12 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
-  ViewChild ,
+  ViewChild,
   OnInit,
 } from "@angular/core";
 import { PublicationService } from "../../services/publication.service";
 import { LoggedInUserService } from "src/app/services/logged-in-user.service";
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 import { SinglesService } from "src/app/services/singles.service";
 @Component({
@@ -21,13 +21,13 @@ export class ForYouListComponent implements OnInit {
   @Input() ListCopy: any;
   @Input() Listimage: any;
   @Input() isCollapsed: boolean[] = [];
-  @ViewChild('modalContent', { static: true }) modalContent: any;
+  @ViewChild("modalContent", { static: true }) modalContent: any;
   constructor(
     private publicationService: PublicationService,
     private loggedUserServ: LoggedInUserService,
     private ref: ChangeDetectorRef,
     private modalService: NgbModal,
-    private singlesService : SinglesService ,
+    private singlesService: SinglesService
   ) {
     this.idUser = this.loggedUserServ.getUserID();
   }
@@ -36,8 +36,8 @@ export class ForYouListComponent implements OnInit {
   idUser: any;
   repostReason: string;
   repostComments: string;
-  text : String ;
-  itemId: string
+  text: String;
+  itemId: string;
   ngOnInit(): void {
     this.ref.detectChanges();
   }
@@ -120,42 +120,36 @@ export class ForYouListComponent implements OnInit {
     } */
   }
 
-   
   openModal(itemId: string) {
     this.itemId = itemId;
     const modalRef = this.modalService.open(this.modalContent);
-     
   }
-
-
-  
 
   onSubmit(event) {
     event.preventDefault();
-    if (this.repostReason !== 'Other') {
-      console.log('Repost reason:', this.repostReason);
-     this.text = this.repostReason ;
+    if (this.repostReason !== "Other") {
+      this.text = this.repostReason;
     } else {
-      console.log('Repost reason:', this.repostReason, 'Repost comments:', this.repostComments);
-     this.text = this.repostComments ;
+      this.text = this.repostComments;
     }
 
-    this.singlesService.send_single_pub({iduser : this.idUser , text : this.text , idpubliction :  this.itemId  }).subscribe(
-      (response) => {
-        console.log("ok", response);
-         
-        this.modalService.dismissAll(this.modalContent);
-        alert("your alert has been send ");
-        return ;
-      },
-      (error) => {
-        const modalRef = this.modalService.dismissAll;
-        alert("try agine ");
-        return ;
-      }
-    );
-
+    this.singlesService
+      .send_single_pub({
+        iduser: this.idUser,
+        text: this.text,
+        idpubliction: this.itemId,
+      })
+      .subscribe(
+        (response) => {
+          this.modalService.dismissAll(this.modalContent);
+          alert("your alert has been send ");
+          return;
+        },
+        (error) => {
+          const modalRef = this.modalService.dismissAll;
+          alert("try agine ");
+          return;
+        }
+      );
   }
-
-
 }

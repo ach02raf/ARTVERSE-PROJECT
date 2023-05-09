@@ -5,7 +5,6 @@ import { PublicationService } from "src/app/services/publication.service";
 import { ModalDirective } from "ngx-bootstrap/modal";
 import { LoggedInUserService } from "src/app/services/logged-in-user.service";
 
-
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import * as buffer from "buffer";
 
@@ -39,7 +38,7 @@ export class CompetitionComponent implements OnInit {
   chlCopy: any;
   challengesData = [];
   currentChallengeSource = [
-    /*   {
+    {
       title: "  Ink Color ",
       Category: "Illustration",
       deadline: "12-16-2022",
@@ -76,10 +75,10 @@ export class CompetitionComponent implements OnInit {
       ],
       image: "3dchallenge.jpg",
       winner: "64260d644d6a3f8054474d48",
-    }, */
+    },
   ];
   finishedChallengeSource = [
-    /*   {
+    {
       title: "  Ink Color ",
       Category: "Illustration",
       deadline: "12-16-2022",
@@ -92,7 +91,7 @@ export class CompetitionComponent implements OnInit {
       },
       participants: [{ _id: 1 }, { _id: 2 }, { _id: 3 }],
       image: "challenge3.png",
-      winner: "64260d644d6a3f8054474d48",
+      winner: "645a5404b470ba89a9addbec",
     },
     {
       title: "  3D Characters ",
@@ -115,8 +114,8 @@ export class CompetitionComponent implements OnInit {
         { _id: 3 },
       ],
       image: "3dchallenge.jpg",
-      winner: "64260d644d6a3f8054474d48",
-    }, */
+      winner: "645a5404b470ba89a9addbec",
+    },
   ];
 
   findUser(id: any) {
