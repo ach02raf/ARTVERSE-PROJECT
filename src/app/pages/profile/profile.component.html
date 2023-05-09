@@ -1,239 +1,193 @@
-<div class="">
-  <div class="page-header">
-    <div class="container align-items-center text-center">
-      <div class="row">
-        <div class="col-lg-4 col-md-6 ml-auto mr-auto">
-          <div *ngIf="user" class="card card-coin card-plain">
-            <div class="card-header">
-              <img
-                class="img-center img-fluid rounded-circle"
-                src="assets/img/mike.jpg"
-              />
+<div>
+  <br /><br /><br /><br /><br /><br /><br />
+  <br /><br /><br /><br /><br /><br /><br />
+  <div class="container align-items-center text-center">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+        <div *ngIf="user" class="card card-coin card-plain">
+          <div class="card-header">
+            <img
+              class="img-center img-fluid rounded-circle"
+              src="assets/img/mike.jpg" />
 
-              <h3 class="card-title mt-3">
-                {{ user["firstname"] }} {{ user["lastname"] }}
-              </h3>
-              <h6 class="text-primary">Photographer</h6>
-              <h5 class="text-muted">
-                {{ user["bio"] }}
-              </h5>
-            </div>
-            <div class="card-body">
-              <button
-                *ngIf="loggedInUser._id != user._id"
-                type="button"
-                class="btn btn-primary btn-block"
-              >
-                <i class="tim-icons icon-simple-add mx-2"></i>Suivre
-              </button>
-              <button
-                *ngIf="loggedInUser._id != user._id"
-                type="button"
-                class="btn btn-block"
-              >
-                <i class="tim-icons icon-email-85 mx-2"></i>Message
-              </button>
-              <button
-                *ngIf="loggedInUser._id === user._id"
-                type="button"
-                class="btn btn-block"
-                (click)="myModal.show()"
-              >
-                <i class="tim-icons icon-spaceship"> </i> Ajouter Projet
-              </button>
-              <tabset
-                class="nav-tabs-danger justify-content-center tab-subcategories"
-              >
-                <tab heading="News">
-                  <ul class="list-group">
-                    <li
-                      class="list-group-item d-flex justify-content-between align-items-center"
-                    >
-                      Nombre de vues des projets
-                      <span class="badge badge-info badge-pill">14</span>
-                    </li>
-                    <li
-                      class="list-group-item d-flex justify-content-between align-items-center"
-                    >
-                      Appréciations
-                      <span class="badge badge-info badge-pill">2</span>
-                    </li>
-                    <li
-                      class="list-group-item d-flex justify-content-between align-items-center"
-                    >
-                      Abonnés
-                      <span class="badge badge-info badge-pill">1</span>
-                    </li>
+            <h3 class="card-title mt-3">
+              {{ user["firstname"] }} {{ user["lastname"] }}
+            </h3>
+            <h6 class="text-primary">Photographer</h6>
+            <h5 class="text-muted">
+              {{ user["bio"] }}
+            </h5>
+          </div>
+          <div class="card-body">
+            <button
+              *ngIf="loggedInUser !== user['_id']"
+              type="button"
+              class="btn btn-primary btn-block"
+              (click)="
+                showfollow ? followUser(user['_id']) : unfollowUser(user['_id'])
+              ">
+              <i class="tim-icons icon-simple-add mx-2" *ngIf="showfollow"></i>
+              {{ followBtn }}
+            </button>
+            <button
+              *ngIf="loggedInUser !== user['_id']"
+              type="button"
+              class="btn btn-block">
+              <i class="tim-icons icon-email-85 mx-2"></i>Message
+            </button>
+            <app-add-project-modal
+              *ngIf="loggedInUser === user['_id']"></app-add-project-modal>
+            <tabset
+              class="nav-tabs-danger justify-content-center tab-subcategories">
+              <tab heading="News">
+                <ul class="list-group">
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center">
+                    Nombre de vues des projets
+                    <span class="badge badge-info badge-pill">14</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center">
+                    Appréciations
+                    <span class="badge badge-info badge-pill">2</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center">
+                    followers
+                    <span class="badge badge-info badge-pill">{{
+                      followers
+                    }}</span>
+                  </li>
 
-                    <li
-                      class="list-group-item d-flex justify-content-between align-items-center"
-                    >
-                      Abonnements
-                      <span class="badge badge-info badge-pill">1</span>
-                    </li>
-                  </ul>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center">
+                    following
+                    <span class="badge badge-info badge-pill">{{
+                      following
+                    }}</span>
+                  </li>
+                </ul>
 
-                  <div class="btn-wrapper profile pt-3">
-                    <h6 class="mt-4">sur le web</h6>
-                    <a
-                      class="btn btn-icon btn-default btn-round mr-1"
-                      href="https://twitter.com/creativetim"
-                      target="_blank"
-                    >
-                      <i class="fab fa-twitter"> </i>
-                    </a>
-                    <a
-                      class="btn btn-icon btn-default btn-round mr-1"
-                      href="https://www.facebook.com/creativetim"
-                      target="_blank"
-                    >
-                      <i class="fab fa-facebook-square"> </i>
-                    </a>
-                    <a
-                      class="btn btn-icon btn-default btn-round"
-                      href="https://dribbble.com/creativetim"
-                      target="_blank"
-                    >
-                      <i class="fab fa-dribbble"> </i>
-                    </a>
-                  </div>
-                </tab>
+                <div class="btn-wrapper profile pt-3">
+                  <h6 class="mt-4">sur le web</h6>
+                  <a
+                    class="btn btn-icon btn-default btn-round mr-1"
+                    href="https://twitter.com/creativetim"
+                    target="_blank">
+                    <i class="fab fa-twitter"> </i>
+                  </a>
+                  <a
+                    class="btn btn-icon btn-default btn-round mr-1"
+                    href="https://www.facebook.com/creativetim"
+                    target="_blank">
+                    <i class="fab fa-facebook-square"> </i>
+                  </a>
+                  <a
+                    class="btn btn-icon btn-default btn-round"
+                    href="https://dribbble.com/creativetim"
+                    target="_blank">
+                    <i class="fab fa-dribbble"> </i>
+                  </a>
+                </div>
+              </tab>
 
-                <tab
-                  *ngIf="loggedInUser._id === user._id"
-                  heading="Edit Profile"
-                >
-                  <div class="">
-                    <div class="card card-plain">
-                      <div class="card-body">
-                        <form>
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <label> Your Name </label>
-                                <input
-                                  class="form-control text-uppercase"
-                                  type="text"
-                                  [value]="user['firstname']"
-                                />
-                              </div>
-                            </div>
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <label> Your Lastname </label>
-                                <input
-                                  class="form-control text-uppercase"
-                                  type="text"
-                                  [value]="user['lastname']"
-                                />
-                              </div>
+              <tab *ngIf="loggedInUser === user['_id']" heading="Edit Profile">
+                <div class="">
+                  <div class="card card-plain">
+                    <div class="card-body">
+                      <form>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label> Your Name </label>
+                              <input
+                                class="form-control text-uppercase"
+                                type="text"
+                                [value]="user['firstname']" />
                             </div>
                           </div>
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <label> Email address </label>
-                                <input
-                                  class="form-control"
-                                  placeholder="mike@email.com"
-                                  type="email"
-                                  [value]="user['email']"
-                                />
-                              </div>
-                            </div>
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <label> Company </label>
-                                <input
-                                  class="form-control"
-                                  type="text"
-                                  value="CreativeTim"
-                                />
-                              </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label> Your Lastname </label>
+                              <input
+                                class="form-control text-uppercase"
+                                type="text"
+                                [value]="user['lastname']" />
                             </div>
                           </div>
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <label> Bio </label>
-                                <input
-                                  class="form-control"
-                                  placeholder="Hello there!"
-                                  type="text"
-                                  [value]="user['bio']"
-                                />
-                              </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label> Email address </label>
+                              <input
+                                class="form-control"
+                                placeholder="mike@email.com"
+                                type="email"
+                                [value]="user['email']" />
                             </div>
                           </div>
-                          <button
-                            class="btn btn-danger btn-round float-right"
-                            placement="right"
-                            type="submit"
-                          >
-                            Update
-                          </button>
-                        </form>
-                      </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label> Company </label>
+                              <input
+                                class="form-control"
+                                type="text"
+                                value="CreativeTim" />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label> Bio </label>
+                              <input
+                                class="form-control"
+                                placeholder="Hello there!"
+                                type="text"
+                                [value]="user['bio']" />
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          class="btn btn-danger btn-round float-right"
+                          placement="right"
+                          type="submit">
+                          Update
+                        </button>
+                      </form>
                     </div>
                   </div>
-                </tab>
-              </tabset>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-8 col-md-6 gallery mt-1">
-          <div class="row">
-            <div class="">
-              <div class="">
-                <tabset class="nav-tabs-primary">
-                  <tab>
-                    <ng-template tabHeading>
-                      <i class="tim-icons icon-spaceship"> </i> Projects
-                    </ng-template>
-                    <app-project></app-project>
-                  </tab>
-                  <tab>
-                    <ng-template tabHeading>
-                      <i class="tim-icons icon-settings-gear-63"> </i>
-                      Publications
-                    </ng-template>
-                    <app-for-you-list></app-for-you-list>
-                  </tab>
-                </tabset>
-              </div>
-            </div>
+                </div>
+              </tab>
+            </tabset>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
 
-<div
-  aria-hidden="true"
-  aria-labelledby="myModalLabel"
-  bsModal
-  class="modal fade modal-black"
-  #myModal="bs-modal"
-  id="myModal"
-  role="dialog"
-  tabindex="-1"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header justify-content-center">
-        <button
-          aria-hidden="true"
-          class="close"
-          data-dismiss="modal"
-          type="button"
-          (click)="myModal.hide()"
-        >
-          <i class="tim-icons icon-simple-remove"> </i>
-        </button>
-
-        <app-add-project-modal></app-add-project-modal>
+      <div class="col-lg-8 col-md-6 gallery mt-1">
+        <div class="row">
+          <tabset class="nav-tabs-primary">
+            <tab>
+              <ng-template tabHeading>
+                <i class="tim-icons icon-spaceship"> </i> Projects
+              </ng-template>
+              <app-project
+                [source]="source"
+                [idprofile]="this.user['_id']"></app-project>
+            </tab>
+            <tab>
+              <ng-template tabHeading>
+                <i class="tim-icons icon-settings-gear-63"> </i>
+                Publications
+              </ng-template>
+              <app-for-you-list
+                [Listimage]="Listimage"
+                [ListCopy]="ListCopy"
+                [isCollapsed]="isCollapsedProfile"></app-for-you-list>
+            </tab>
+          </tabset>
+        </div>
       </div>
     </div>
   </div>

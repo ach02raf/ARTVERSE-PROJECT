@@ -1,14 +1,16 @@
-<div *ngFor="let item of ListCopy.reverse()">
+<div *ngFor="let item of ListCopy">
   <div class="card card-blog">
     <div class="p-3 d-flex align-items-center">
       <img alt="... " class="avatar img-raised" src="assets/img/james.jpg " />
       <div class="pl-3">
-        <span class="text-white">
+        <span
+          class="text-white"
+          [routerLink]="['/profile', item['userData']['username']]">
           {{ item["userData"]["firstname"] }} {{ item["userData"]["lastname"] }}
         </span>
         <div class="text-muted">
           <small>
-            {{ format(item.date) }}
+            {{ format(item["date"]) }}
           </small>
         </div>
       </div>
@@ -25,7 +27,9 @@
             aria-labelledby="dropdownMenuButton "
             class="dropdown-menu"
             *dropdownMenu>
-            <a class="dropdown-item" href=" "> signaler </a>
+             
+            <a class="dropdown-item" (click)="openModal(item['_id'])">Signaler</a>
+
           </div>
         </div>
       </div>
@@ -33,27 +37,17 @@
 
     <carousel
       class="card-image"
-      *ngIf="item.img.length != 0"
+      *ngIf="item.img"
       [showIndicators]="false"
       pause>
-      <slide *ngFor="let img of item.img" class="text-center">
-        <img [src]="getImage(img.idimg, item._id)" />
+      <slide *ngFor="let img of item['img']" class="text-center">
+        <img [src]="getImage(img['idimg'], item['_id'])" />
       </slide>
     </carousel>
     <div class="card-body">
       <h5 class="card-title">
-        {{ item.text }}
+        {{ item["text"] }}
       </h5>
-      <!-- <carousel
-        class="card-image "
-        *ngIf="item.img.length !=0 "
-        [showIndicators]="false "
-        pause
-      >
-        <slide *ngFor="let img of item.img; let i=i ndex " class="text-center ">
-          <img class="img rounded " src="assets/img/{{ img.imgName }} " />
-        </slide>
-      </carousel> -->
       <div class="card-footer">
         <div class="stats stats-right">
           <div
@@ -64,38 +58,38 @@
               class="btn btn-sm"
               type="button "
               aria-controls="collapseThree "
-              (click)="likePost(item._id)">
+              (click)="likePost(item['_id'])">
               <i
                 [class]="
-                  reaction(item.reaction) ? 'fas fa-heart' : 'far fa-heart'
+                  reaction(item['reaction']) ? 'fas fa-heart' : 'far fa-heart'
                 "
                 [style.color]="
-                  reaction(item.reaction) ? 'text-danger' : 'gray'
+                  reaction(item['reaction']) ? 'text-danger' : 'gray'
                 "></i>
 
-              {{ reactioncount(item.reaction) }}
+              {{ reactioncount(item['reaction']) }}
             </button>
 
             <button
               class="btn btn-sm"
               type="button "
-              [id]="item._id"
-              [attr.aria-expanded]="!isCollapsed[item._id]"
-              (click)="isCollapsed[item._id] = !isCollapsed[item._id]">
+              [id]="item['_id']"
+              [attr.aria-expanded]="!isCollapsed[item['_id']]"
+              (click)="isCollapsed[item['_id']] = !isCollapsed[item['_id']]">
               <i
                 class="tim-icons icon-single-copy-04"
-                [class.icon-rotate]="!isCollapsed[item._id]"></i>
-              {{ reactioncount(item.commentaires) }}
+                [class.icon-rotate]="!isCollapsed[item['_id']]"></i>
+              {{ reactioncount(item['commentaires']) }}
             </button>
           </div>
 
-          <div [collapse]="isCollapsed[item._id]" [id]="item._id">
+          <div [collapse]="isCollapsed[item['_id']]" [id]="item['_id']">
             <div class="card">
               <div>
                 <div>
                   <app-add-comment
-                    [idPub]="item._id"
-                    [listComm]="item.commentaires"></app-add-comment>
+                    [idPub]="item['_id']"
+                    [listComm]="item['commentaires']"></app-add-comment>
                 </div>
               </div>
             </div>
@@ -105,3 +99,46 @@
     </div>
   </div>
 </div>
+
+
+<ng-template #modalContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Why are you reposting this post?</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+  
+    <form (submit)="onSubmit($event)">
+      <div>
+        <label>
+          <input  type="radio" name="repostReason" value="Spam" [(ngModel)]="repostReason"> Spam
+        </label>
+      </div>
+      <div>
+        <label>
+          <input  type="radio" name="repostReason" value="Inappropriate content" [(ngModel)]="repostReason"> Inappropriate content
+        </label>
+      </div>
+      <div>
+        <label>
+          <input  type="radio" name="repostReason" value="Duplicate" [(ngModel)]="repostReason"> Duplicate
+        </label>
+      </div>
+      <div>
+        <label>
+          <input  type="radio" name="repostReason" value="Other" [(ngModel)]="repostReason"> Other
+        </label>
+        </div>
+        <div>
+        <textarea  class="form-control mx-2" name="repostComments" [(ngModel)]="repostComments" *ngIf="repostReason === 'Other'"></textarea>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-secondary">Submit</button>
+      </div>
+    </form>
+    
+  </div>
+   
+</ng-template>

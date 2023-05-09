@@ -1,89 +1,46 @@
-import { Component, OnInit } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  ViewChild ,
+  OnInit,
+} from "@angular/core";
 import { PublicationService } from "../../services/publication.service";
 import { LoggedInUserService } from "src/app/services/logged-in-user.service";
-import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
-//import { DatePipe } from '@angular/common';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import * as buffer from "buffer";
-import { AuthentificationService } from "src/app/services/authentification.service";
+import { SinglesService } from "src/app/services/singles.service";
 @Component({
   selector: "app-for-you-list",
   templateUrl: "./for-you-list.component.html",
   styleUrls: ["./for-you-list.component.scss"],
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ForYouListComponent implements OnInit {
+  @Input() ListCopy: any;
+  @Input() Listimage: any;
+  @Input() isCollapsed: boolean[] = [];
+  @ViewChild('modalContent', { static: true }) modalContent: any;
   constructor(
-    // private datePipe: DatePipe ,
     private publicationService: PublicationService,
     private loggedUserServ: LoggedInUserService,
-    private sanitizer: DomSanitizer,
-    private authserv: AuthentificationService
+    private ref: ChangeDetectorRef,
+    private modalService: NgbModal,
+    private singlesService : SinglesService ,
   ) {
     this.idUser = this.loggedUserServ.getUserID();
   }
-  imageData: any;
-  List = [];
-  ListCopy = [];
+
   public commentText: string;
-  loggedInUser: any;
-  public isCollapsed: boolean[] = [];
-  Listimage = [];
   idUser: any;
-
+  repostReason: string;
+  repostComments: string;
+  text : String ;
+  itemId: string
   ngOnInit(): void {
-    this.loggedUserServ.findUserById(this.idUser).subscribe((res) => {
-      this.loggedInUser = res;
-      // console.log("foryoulist", this.loggedInUser);
-    });
-
-    this.getPubliction();
+    this.ref.detectChanges();
   }
-
-  findUser(id: any) {
-    this.authserv.findUserById(id).subscribe((data) => {
-      console.log("winner winner", data);
-    });
-  }
-
-  async getPubliction() {
-    this.publicationService.getPost().subscribe(async (data) => {
-      this.List = await data;
-      this.List.forEach((item) => {
-        this.isCollapsed[item._id] = true;
-      });
-      console.log("for you list post : ", this.List);
-      this.List.forEach((item) => {
-        this.authserv.findUserById(item.Id_user).subscribe((data) => {
-          console.log("user winner", data);
-
-          this.ListCopy.push({ ...item, userData: data });
-          console.log("list with users", this.ListCopy);
-        });
-      });
-      for (let item of this.List) {
-        let imageforpub = [];
-        for (let itam of item.img) {
-          // console.log("image :", itam);
-          this.publicationService
-            .getImage(itam.idimg)
-            .subscribe(async (data) => {
-              // console.log("image itam  : ", data);
-              const imageDataUrl = buffer.Buffer.from(
-                data["img"]["data"]["data"]
-              ).toString("base64");
-              const safeUrl: SafeUrl = this.sanitizer.bypassSecurityTrustUrl(
-                `data:data:image/png;base64,${imageDataUrl}`
-              );
-              imageforpub.push({ _id: data["_id"], safeUrl: safeUrl });
-            });
-        }
-        // console.log("imageforpub : ", imageforpub);
-        this.Listimage.push({ idpub: item._id, listimage: imageforpub });
-      }
-      // console.log("listimagefor toute pub : ", this.Listimage);
-    });
-  }
-
   getImage(idimage: any, idpub: any) {
     for (let item of this.Listimage) {
       if (item.idpub === idpub) {
@@ -96,16 +53,44 @@ export class ForYouListComponent implements OnInit {
     }
   }
 
-  likePost(id: number) {
-    const data = { publicationId: id, UserId: this.loggedInUser._id };
-    this.publicationService.Reaction(data).subscribe((data) => {
-      alert(id);
+  async likePost(id: number) {
+    const data = { publicationId: id, UserId: this.idUser };
+    this.publicationService.Reaction(data).subscribe(() => {
+      this.ref.detectChanges();
     });
+    for (let element of this.ListCopy) {
+      if (element["_id"] === id) {
+        if (element["reaction"].length === 0) {
+          await element["reaction"].push({ idUser: this.idUser });
+          this.ref.detectChanges();
+        } else {
+          let exist: boolean = false;
+          for (let item of element["reaction"]) {
+            if (item["idUser"] === this.idUser) {
+              exist = true;
+            }
+          }
+          if (exist) {
+            const index = await element["reaction"].findIndex(
+              (itam) => itam["idUser"] === this.idUser
+            );
+            await element["reaction"].splice(index, 1);
+
+            this.ref.detectChanges();
+          } else {
+            await element["reaction"].push({ idUser: this.idUser });
+            this.ref.detectChanges();
+          }
+        }
+      }
+    }
   }
 
   // Dislike a post
   reaction(list: any) {
-    const reactionIndex = list.findIndex((reaction) => reaction.idUser === 0);
+    const reactionIndex = list.findIndex(
+      (reaction) => reaction.idUser === this.idUser
+    );
 
     if (reactionIndex > -1) {
       return true;
@@ -116,10 +101,6 @@ export class ForYouListComponent implements OnInit {
   reactioncount(list: any) {
     return list.length;
   }
-  achraf() {
-    return "hello";
-  }
-
   // to change the date  from 2023-04-18T00:29:38.643Z to 1h up to 23h and from 1week up to 10 week then in formt dd/mm/yyyy
   format(date: string): string {
     const now = new Date();
@@ -138,4 +119,43 @@ export class ForYouListComponent implements OnInit {
       return this.datePipe.transform(Date.parse(date), 'dd/MM/yyyy');
     } */
   }
+
+   
+  openModal(itemId: string) {
+    this.itemId = itemId;
+    const modalRef = this.modalService.open(this.modalContent);
+     
+  }
+
+
+  
+
+  onSubmit(event) {
+    event.preventDefault();
+    if (this.repostReason !== 'Other') {
+      console.log('Repost reason:', this.repostReason);
+     this.text = this.repostReason ;
+    } else {
+      console.log('Repost reason:', this.repostReason, 'Repost comments:', this.repostComments);
+     this.text = this.repostComments ;
+    }
+
+    this.singlesService.send_single_pub({iduser : this.idUser , text : this.text , idpubliction :  this.itemId  }).subscribe(
+      (response) => {
+        console.log("ok", response);
+        
+        const modalRef = this.modalService.dismissAll ;
+        alert("your alert has been send ");
+        return ;
+      },
+      (error) => {
+        const modalRef = this.modalService.dismissAll;
+        alert("try agine ");
+        return ;
+      }
+    );
+
+  }
+
+
 }

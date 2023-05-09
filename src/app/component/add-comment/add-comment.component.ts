@@ -4,6 +4,8 @@ import {
   Input,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
+  ElementRef,
+  ViewChild,
 } from "@angular/core";
 import { PublicationService } from "../../services/publication.service";
 import { LoggedInUserService } from "src/app/services/logged-in-user.service";
@@ -18,12 +20,13 @@ import { AuthentificationService } from "src/app/services/authentification.servi
 export class AddCommentComponent implements OnInit {
   @Input() idPub: any;
   @Input() listComm: any;
+  @ViewChild("commentInput") input: ElementRef<HTMLInputElement>;
 
   loggedInUser: any;
   user: any;
   users: any;
 
-  listCommentaire: any = [];
+  listCommentaire = [];
 
   idUser: any;
   constructor(
@@ -36,31 +39,21 @@ export class AddCommentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  
-    // this.user = this.authserv.findUserById(this.listComm[0].idUser);
     this.listComm.forEach((com) => {
-      // com["idUser"].forEach((id) => {
-      //   // this.user = this.authserv.findUserById(id);
-      //   console.log("yoyoyo", id);
-      // });
-   
       this.authserv.findUserById(com["idUser"]).subscribe((data) => {
-        console.log("uss data", data);
+        this.listCommentaire.push({ ...com, userData: data });
       });
-
-     
     });
+    this.findUser(this.idUser);
   }
 
   findUser(id) {
     this.authserv.findUserById(id).subscribe((data) => {
-      console.log("uss data", data[0]);
+      this.user = data;
     });
   }
 
   postComment(comment: string) {
-    console.log(comment);
-    // or do something else with the comment value
     this.publicationService
       .addcomment({
         comm: comment,
@@ -68,12 +61,24 @@ export class AddCommentComponent implements OnInit {
         iduser: this.idUser,
       })
       .subscribe(
-        (response) => {
-          console.log("ok", response);
+        async (response) => {
+          await this.listCommentaire.push({
+            comment: comment,
+            idPub: this.idPub,
+            iduser: this.idUser,
+            reaction: 0,
+            comments: [],
+            userData: this.user,
+          });
+          await this.listComm.push({
+            comment: comment,
+            idPub: this.idPub,
+            iduser: this.idUser,
+            reaction: 0,
+            comments: [],
+          });
+          this.input.nativeElement.value = "";
           this.cdf.detectChanges();
-
-          // handle response from the API
-          comment = "";
         },
         (error) => {
           console.error("err", error);

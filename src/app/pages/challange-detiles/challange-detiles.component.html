@@ -1,0 +1,43 @@
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<div class="container">
+     <div *ngFor="let item of List">
+          <div class="card card-blog">
+            <div class="p-3 d-flex align-items-center">
+              <img alt="... " class="avatar img-raised" src="assets/img/james.jpg " />
+              <div class="pl-3">
+             <!--   <span
+                 class="text-white"
+                 [routerLink]="['/profile', item['userData']['username']]">
+                 {{ item["userData"]["firstname"] }} {{ item["userData"]["lastname"] }}
+               </span>
+                -->
+             </div><div class="pl-3">
+               <button (click)="winner(item['id_user'])" >winner ?</button>
+               
+             </div>
+            
+            </div>
+        
+            <carousel
+              class="card-image"
+              *ngIf="item.img"
+              [showIndicators]="false"
+              pause>
+              <slide *ngFor="let img of item['img']" class="text-center">
+                <img [src]="getImage(img['idimg'], item['_id'])" />
+              </slide>
+            </carousel>
+           
+          </div>
+        </div>
+</div>
+ 
+   
+  
+   

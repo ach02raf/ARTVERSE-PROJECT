@@ -56,7 +56,9 @@
             class="img-fluid rounded-circle"
             src="assets/img/james.jpg"
             style="width: 40px; height: 40px; margin: 5px" />
-          <p>{{ loggedInUser["firstname"] }} {{ loggedInUser["lastname"] }}</p>
+          <p *ngIf="loggedInUser">
+            {{ loggedInUser["firstname"] }} {{ loggedInUser["lastname"] }}
+          </p>
         </div>
 
         <div class="form-group">
@@ -175,19 +177,23 @@
         </div>
         <hr style="border-color: rgb(44, 44, 44); width: 100%; opacity: 0.2" />
         <div style="display: flex; align-items: center">
-          <p>
-            Merci de partager votre travail avec nous, il faudra quelques
-            instants pour le publier.
-          </p>
-          <button
-            class="btn btn-success"
-            style="width: 100%; margin-top: 30px"
-            (click)="myModal2.hide()">
-            ok
-          </button>
+          <div class="row">
+            <p>
+              Merci de partager votre travail avec nous, il faudra quelques
+              instants pour le publier.
+            </p>
+          </div>
+          <div class="row">
+            <button
+              class="btn btn-success"
+              style="width: 100%; margin-top: 30px"
+              (click)="myModal2.hide()">
+              ok
+            </button>
+          </div>
         </div>
       </div>
+      <!-- your modal content here -->
     </div>
-    <!-- your modal content here -->
   </div>
 </div>

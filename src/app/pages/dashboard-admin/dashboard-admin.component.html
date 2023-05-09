@@ -14,24 +14,46 @@
               <app-all-users></app-all-users>
             </tab>
             <tab heading="Reported Posts">
-              <p>
-                I will be the leader of a company that ends up being worth
-                billions of dollars, because I got the answers. I understand
-                culture. I am the nucleus. I think thatâ€™s a responsibility
-                that I have, to push possibilities, to show people, this is the
-                level that things could be at.
-              </p>
+              <div class="row justify-content-center">
+                <table class="table table-hover col-lg-9 mr-4">
+                  <thead>
+                    <tr>
+                     <th></th>
+                      <th>username</th>
+                      <th>email</th>
+                      <th>text</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let sng of ListCopy" >
+                      <td>
+                        <img alt="... " class="avatar img-raised" src="assets/img/james.jpg " /></td>
+                      <td>{{ sng["userData"]["username"] }}</td>
+                      <td>{{ sng["userData"]["email"] }}</td>
+                      <td>{{ sng["text"] }}</td>
+                      <td *ngIf="sng['state']">
+                          <button type="button"  class="btn btn-info btn-sm ml-3"  (click)="handleClick(sng['_id'])"  >
+                        waiting
+                      </button> </td>
+                      <td *ngIf="!sng['state']"> 
+                        Donne
+                     </td>
+                     <button type="button"  class="btn btn-info btn-sm ml-3"  (click)="showPub(sng['publiction_id'])"  >
+                      Show
+               </button>
+              
+                      
+                    </tr>
+                  </tbody>
+                </table>
+                
+
+                
+              </div>
             </tab>
-            <tab heading="Options">
-              <p>
-                I think thatâ€™s a responsibility that I have, to push
-                possibilities, to show people, this is the level that things
-                could be at. So when you get something that has the name Kanye
-                West on it, itâ€™s supposed to be pushing the furthest
-                possibilities. I will be the leader of a company that ends up
-                being worth billions of dollars, because I got the answers. I
-                understand culture. I am the nucleus.
-              </p>
+            <tab heading="Challenges">
+             <app-challenges></app-challenges>
             </tab>
           </tabset>
         </div>
@@ -39,3 +61,74 @@
     </div>
   </div>
 </div>
+
+
+
+<ng-template #modalContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Why are you reposting this post?</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+  
+    <div *ngFor="let item of ListCopy">
+      <div class="card card-blog">
+        <div class="p-3 d-flex align-items-center">
+          <img alt="... " class="avatar img-raised" src="assets/img/james.jpg " />
+          <div class="pl-3">
+            <span
+              class="text-white"
+              [routerLink]="['/profile', item['userData']['username']]">
+              {{ item["userData"]["firstname"] }} {{ item["userData"]["lastname"] }}
+            </span>
+            <div class="text-muted">
+              <small>
+                {{ item["date"] }}
+              </small>
+            </div>
+          </div>
+          
+        </div>
+    
+        <carousel
+          class="card-image"
+          *ngIf="item.img.length != 0"
+          [showIndicators]="false"
+          pause>
+          <slide *ngFor="let img of item.img" class="text-center">
+            <img [src]="getImage(img['idimg'], item['_id'])" />
+          </slide>
+        </carousel>
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ item['text'] }}
+          </h5>
+          
+          <div class="card-footer">
+            <div class="stats stats-right">
+              
+    
+              <div [collapse]="isCollapsed[item._id]" [id]="item._id">
+                <div class="card">
+                  <div>
+                    <div>
+                      <app-add-comment
+                        [idPub]="item._id"
+                        [listComm]="item.commentaires"></app-add-comment>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>   
+    
+ 
+    
+  </div>
+   
+</ng-template>

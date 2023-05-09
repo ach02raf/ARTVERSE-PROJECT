@@ -48,12 +48,6 @@
       <img class="path" src="assets/img/path1.png" />
 
       <div class="">
-        <!-- <div class="row">
-          <app-feed-identity class="col-4"></app-feed-identity>
-          <app-for-you-list class="col"></app-for-you-list>
-          <app-feed-identity class="col-3"></app-feed-identity>
-        </div> -->
-
         <div class="card">
           <div class="card-header">
             <tabset class="nav-tabs-danger">
@@ -68,47 +62,26 @@
                     </div>
                     <div class="col-lg-5 col-md-12 mx-md-4 mx-sm-1">
                       <div>
-                        <app-add-post></app-add-post>
-                        <app-for-you-list></app-for-you-list>
+                        <app-add-post
+                          (newItemEvent)="addItem($event)"></app-add-post>
+                        <app-for-you-list
+                          [Listimage]="Listimage"
+                          [ListCopy]="ListCopy"
+                          [isCollapsed]="isCollapsed"></app-for-you-list>
                       </div>
                     </div>
                     <div class="col col-lg-2">
                       <app-suggestion></app-suggestion>
                     </div>
                   </div>
-                  <!-- <div class="row">
-        <div class="col">
-        <span>1 of 3</span>
-        </div>
-        <div class="col-md-auto">
-        <span>Variable width content</span>
-        </div>
-        <div class="col col-lg-2">
-        <span>3 of 3</span>
-        </div>
-        </div> -->
                 </div>
-                <!-- <ng-template tabHeading>
-                  <i class="tim-icons icon-spaceship"> </i> Pour Vous
-                </ng-template>
-                <app-add-post></app-add-post> -->
-                <!-- <app-searsh></app-searsh> -->
-                <!-- <app-for-you-list></app-for-you-list> -->
               </tab>
               <tab>
                 <ng-template tabHeading>
                   <i class="tim-icons icon-compass-05"> </i> Projects
                 </ng-template>
-                <app-project></app-project>
+                <app-project [source]="source"></app-project>
               </tab>
-              <!-- <tab>
-                <ng-template tabHeading>
-                  <i class="tim-icons icon-single-02"></i> Vos abonnements
-                </ng-template>
-                <app-add-post></app-add-post>
-                <app-searsh></app-searsh>
-                <app-for-you-list></app-for-you-list>
-              </tab> -->
 
               <tab>
                 <ng-template tabHeading>
