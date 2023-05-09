@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SinglesService } from "src/app/services/singles.service";
+import { AuthentificationService } from "src/app/services/authentification.service";
 
 @Component({
   selector: 'app-show-challenge',
@@ -9,7 +10,8 @@ import { SinglesService } from "src/app/services/singles.service";
 export class ShowChallengeComponent implements OnInit {
 
   challengesData : any ;
-  constructor(private singlesService : SinglesService ) { }
+  constructor(private singlesService : SinglesService ,     private authserv: AuthentificationService,
+    ) { }
 
   ngOnInit(): void {
     this.getchanlleng();
@@ -20,8 +22,7 @@ export class ShowChallengeComponent implements OnInit {
     
   
     this.singlesService.get_chanllenge().subscribe(async (data) => { 
-        console.log("data project ", data);
-        
+         
         this.challengesData = await data;
    
           }
@@ -30,5 +31,11 @@ export class ShowChallengeComponent implements OnInit {
 
   count(list: any) {
     return list.length;
+  }
+
+  finduser(id : any){
+    this.authserv.findUserById(id).subscribe((data) => {
+     return data['username'];
+    });
   }
 }
