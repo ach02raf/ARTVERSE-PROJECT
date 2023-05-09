@@ -8,6 +8,7 @@ export class ProjectService {
   API_Creat_project = "http://localhost:5000/Project/PostPrpject";
   API_Get_project = "http://localhost:5000/Project/GetProjects";
   apiUrlGetOneImg = "http://localhost:5000/Posts/getImage";
+  apiUrlUpdateProject = "http://localhost:5000/Project/updateProject";
 
   constructor(private http: HttpClient) {}
 
@@ -20,5 +21,12 @@ export class ProjectService {
   }
   getImage(id: any) {
     return this.http.get(`${this.apiUrlGetOneImg}?id=${id}`);
+  }
+  updateVueProject(id: any, vueNumber: any, vueUsers: any) {
+    return this.http.patch(`${this.apiUrlUpdateProject}`, {
+      id,
+      vueNumber,
+      vueUsers,
+    });
   }
 }

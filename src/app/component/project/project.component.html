@@ -1,7 +1,7 @@
 <div class="grid-container" *ngIf="projectsCopy">
   <div class="row">
     <div *ngFor="let project of projectsCopy">
-      <div>
+      <div (click)="vueCompt(project)">
         <div class="grid-item mx-3" data-project="Project 2">
           <carousel
             class="card-image"
@@ -30,7 +30,7 @@
         <div class="description mt-2 d-flex justify-content-between">
           <p class="mx-3">{{ project["title"] }}</p>
           <p>
-            <i class="fas fa-heart"></i> {{ project["countReaction"] }}
+            <i class="fas fa-heart"></i> {{ project["vueNumber"] }}
             <span class=""
               ><i class="fas fa-comment" style="margin-left: 5px"></i>
               {{ project["coutCommentaire"] }}</span

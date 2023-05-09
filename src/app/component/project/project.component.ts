@@ -4,6 +4,7 @@ import { ProjectService } from "src/app/services/project.service";
 import { PublicationService } from "src/app/services/publication.service";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import * as buffer from "buffer";
+import { LoggedInUserService } from "src/app/services/logged-in-user.service";
 
 @Component({
   selector: "app-project",
@@ -15,6 +16,7 @@ export class ProjectComponent implements OnInit {
   projectsCopy = [];
   Listimage = [];
   ListCopy = [];
+  idUser: any;
   @Input() source: string;
   @Input() idprofile: string;
 
@@ -22,13 +24,14 @@ export class ProjectComponent implements OnInit {
     private projectService: ProjectService,
     private authserv: AuthentificationService,
     private sanitizer: DomSanitizer,
-    private publicationService: PublicationService
-  ) {}
+    private publicationService: PublicationService,
+    private loggedUserServ: LoggedInUserService
+  ) {
+    this.idUser = this.loggedUserServ.getUserID();
+  }
 
   ngOnInit(): void {
     this.projectService.getAllProject().subscribe(async (data) => {
-      console.log("data project ", data);
-      console.log("hello yosra");
       this.projects = await data;
 
       for (let item of data) {
@@ -74,7 +77,27 @@ export class ProjectComponent implements OnInit {
       }
     });
   }
-
+  async vueCompt(project: any) {
+    for (let item of this.projectsCopy) {
+      if (item["_id"] === project["_id"]) {
+        let verif: boolean = true;
+        for (let itam of item["vueUsers"]) {
+          if (itam["id"] === this.idUser) {
+            verif = false;
+          }
+        }
+        if (verif) {
+          item["vueNumber"]++;
+          await item["vueUsers"].push({ id: this.idUser });
+          this.projectService
+            .updateVueProject(item["_id"], item["vueNumber"], item["vueUsers"])
+            .subscribe((res) => {
+              console.log(res);
+            });
+        }
+      }
+    }
+  }
   getImage(idimage: any, idpub: any) {
     for (let item of this.Listimage) {
       if (item.idpub === idpub) {
