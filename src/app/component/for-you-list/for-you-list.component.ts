@@ -58,8 +58,6 @@ export class ForYouListComponent implements OnInit {
           let exist: boolean = false;
           for (let item of element["reaction"]) {
             if (item["idUser"] === this.idUser) {
-              console.log("exxist haha ");
-
               exist = true;
             }
           }
@@ -67,15 +65,11 @@ export class ForYouListComponent implements OnInit {
             const index = await element["reaction"].findIndex(
               (itam) => itam["idUser"] === this.idUser
             );
-            console.log("tab reaction origine  : ", element["reaction"]);
             await element["reaction"].splice(index, 1);
-            console.log("tab reaction supprimer  index : ", index);
-            console.log("tab reaction supprimer  : ", element["reaction"]);
 
             this.ref.detectChanges();
           } else {
             await element["reaction"].push({ idUser: this.idUser });
-            console.log("tab reaction ajouter : ", element["reaction"]);
             this.ref.detectChanges();
           }
         }
