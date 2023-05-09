@@ -7,7 +7,8 @@
             class="card-image"
             *ngIf="project['img']"
             [showIndicators]="false"
-            pause>
+            pause
+          >
             <slide *ngFor="let img of project['img']" class="text-center">
               <img [src]="getImage(img['idimg'], project['_id'])" />
             </slide>
@@ -28,9 +29,15 @@
           </div>
         </div>
         <div class="description mt-2 d-flex justify-content-between">
-          <p class="mx-3">{{ project["title"] }}</p>
+          <a
+            class="mx-3 text-light"
+            [routerLink]="['/profile', project['userData']['username']]"
+          >
+            {{ project["userData"]["firstname"] }}
+            {{ project["userData"]["lastname"] }}
+          </a>
           <p>
-            <i class="fas fa-heart"></i> {{ project["vueNumber"] }}
+            <i class="fas fa-eye"></i> {{ project["vueNumber"] }}
             <span class=""
               ><i class="fas fa-comment" style="margin-left: 5px"></i>
               {{ project["coutCommentaire"] }}</span

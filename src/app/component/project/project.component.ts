@@ -5,6 +5,7 @@ import { PublicationService } from "src/app/services/publication.service";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import * as buffer from "buffer";
 import { LoggedInUserService } from "src/app/services/logged-in-user.service";
+import { log } from "console";
 
 @Component({
   selector: "app-project",
@@ -52,6 +53,10 @@ export class ProjectComponent implements OnInit {
               coutCommentaire,
             };
             this.projectsCopy.push(itemCopy);
+            console.log(
+              "test user aman",
+              this.projectsCopy[0]["userData"]["firstname"]
+            );
 
             let imageforpub = [];
             for (let itam of itemCopy.img) {
