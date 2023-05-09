@@ -15,7 +15,7 @@ import * as buffer from "buffer";
   selector: "app-profile",
   templateUrl: "./profile.component.html",
   styleUrls: ["./profile.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ProfileComponent implements OnInit {
   isCollapsed = true;
@@ -32,6 +32,8 @@ export class ProfileComponent implements OnInit {
   ListCopy = [];
   Listimage = [];
   isCollapsedProfile: boolean[] = [];
+  coutReationPublication: number = 0;
+  countVueProject: any = 0;
   constructor(
     private authServ: AuthentificationService,
     private userServ: UserService,
@@ -62,18 +64,25 @@ export class ProfileComponent implements OnInit {
       }
       await this.getPubliction();
     });
+    this.ref.detectChanges();
+  }
+
+  async getcoutReationPublicationReply(message: number) {
+    this.coutReationPublication = await message;
   }
   async getPubliction() {
     this.publicationService.getPost().subscribe(async (data) => {
       this.List = await data;
+      console.log("count reaction", data);
+
       for (let item of data) {
         let shouldAddItem = true;
-
         if (item["Id_user"] !== this.user["_id"]) {
           shouldAddItem = false;
         }
 
         if (shouldAddItem) {
+          this.coutReationPublication += await item["reaction"].length;
           this.isCollapsedProfile[item._id] = true;
           this.authServ.findUserById(item.Id_user).subscribe((userData) => {
             let itemCopy = { ...item, userData };
