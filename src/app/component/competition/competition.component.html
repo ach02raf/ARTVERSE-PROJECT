@@ -27,7 +27,10 @@
               {{ format(challenge["deadline"]) }}
             </p>
 
-            <button class="btn btn-warning mt-4" (click)="openModale(challenge['_id'])">
+            <button
+              class="btn btn-warning mt-4"
+              (click)="openModale(challenge['_id'])"
+            >
               Appliquer maintenant
             </button>
           </div>
@@ -137,61 +140,64 @@
         </button>
       </div>
       <hr style="border-color: rgb(44, 44, 44); width: 100%; opacity: 0.2" />
-      <div>
-        <form (submit)="onSubmit()">
-          <div class="container">
-            <div class="row">
-              <div class="form-group">
-                <label for="inputImage" class="form-label-image" style=" color: rgba(255, 255, 255, 0.6);
-                background: cadetblue;
-                border-radius: 5px;
-                padding: 5px 10px;
-                margin-top: 10px;"
-                  >Choose an image</label
-                >
-                <input
+      <div class="container">
+        <h4 class="text-center">Post your artworks here</h4>
+        <div class="row justify-content-center">
+          <form (submit)="onSubmit()">
+            <div class="form-group">
+              <label
+                for="inputImage"
+                class="form-label-image"
+                style="
+                  color: rgba(0, 0, 0, 0.6);
+                  background-image: url('../../../assets/img/image_placeholder.jpg');
+                  border-radius: 5px;
+                  padding: 5px 10px;
+                  margin: 20px;
+                "
+              >
+                Choose an image</label
+              >
+              <input
                 type="file"
                 multiple
                 class="custom-file-input"
                 id="customFile"
-                (change)="onFileSelected($event)" />
-              </div>
-              <carousel
-                *ngIf="images.length != 0"
-                [showIndicators]="false"
-                pause
-              >
-                <slide
-                  *ngFor="let image of images; let i = index"
-                  class="text-center"
-                >
-                  <button
-                    class="btn btn-primary btn-fab btn-icon btn-round"
-                    (click)="clearSelectedImage(i)"
-                  >
-                    <i class="tim-icons icon-gift-2"></i>
-                  </button>
-                  <img
-                    *ngIf="image"
-                    class="d-block w-100"
-                    [src]="image['url']"
-                    [alt]="image['name']"
-                  />
-                </slide>
-              </carousel>
+                (change)="onFileSelected($event)"
+              />
             </div>
+            <carousel *ngIf="images.length != 0" [showIndicators]="false" pause>
+              <slide
+                *ngFor="let image of images; let i = index"
+                class="text-center"
+              >
+                <button
+                  class="btn btn-primary btn-fab btn-icon btn-round"
+                  (click)="clearSelectedImage(i)"
+                >
+                  <i class="tim-icons icon-gift-2"></i>
+                </button>
+                <img
+                  *ngIf="image"
+                  class="d-block w-100"
+                  [src]="image['url']"
+                  [alt]="image['name']"
+                />
+              </slide>
+            </carousel>
+
             <div class="row">
               <div class="col">
-                <button type="submit" class="btn btn-primary  mt-4">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
               </div>
               <div class="col">
-                <button class="btn btn-success  mt-4 " (click)="myModal.hide()">
+                <button class="btn btn-success" (click)="myModal.hide()">
                   ok
                 </button>
               </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
     <!-- your modal content here -->
