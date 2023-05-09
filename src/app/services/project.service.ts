@@ -21,4 +21,8 @@ export class ProjectService {
   getImage(id: any) {
     return this.http.get(`${this.apiUrlGetOneImg}?id=${id}`);
   }
+
+ 
+
+
 }

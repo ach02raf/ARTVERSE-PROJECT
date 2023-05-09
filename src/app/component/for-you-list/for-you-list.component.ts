@@ -28,7 +28,7 @@ export class ForYouListComponent implements OnInit {
     private ref: ChangeDetectorRef,
     private modalService: NgbModal,
     private singlesService : SinglesService ,
-  ) {
+  ) {  
     this.idUser = this.loggedUserServ.getUserID();
   }
 
@@ -157,5 +157,12 @@ export class ForYouListComponent implements OnInit {
 
   }
 
+
+  deletePost(id:any){
+
+    this.publicationService.deleteMyPubliction({id : id}).subscribe((data)=>{
+      alert( "Post  has been deleted");
+  });
+}
 
 }

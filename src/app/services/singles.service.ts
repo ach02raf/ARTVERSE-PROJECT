@@ -55,5 +55,9 @@ export class SinglesService {
     console.log("data data" , data)
     return this.http.post(this.API_send_challenge , data );
   } 
+
+  deleteChallnge(id ) : Observable<any> {
+    return this.http.post('http://localhost:5000/Challenge/deleteChallenge' , id );
+  }
   
 }

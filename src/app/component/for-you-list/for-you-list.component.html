@@ -26,9 +26,12 @@
           <div
             aria-labelledby="dropdownMenuButton "
             class="dropdown-menu"
-            *dropdownMenu>
+            *dropdownMenu
+          
+            >
              
-            <a class="dropdown-item" (click)="openModal(item['_id'])">Signaler</a>
+            <a class="dropdown-item"   *ngIf="idUser !== item['Id_user']  " (click)="openModal(item['_id'])">Signaler</a>
+            <a class="dropdown-item"   *ngIf="idUser === item['Id_user']  " (click)="deletePost(item['_id'])">Delete</a>
 
           </div>
         </div>

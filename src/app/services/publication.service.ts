@@ -58,4 +58,8 @@ export class PublicationService {
   deletePubliction(id ) : Observable<any> {
     return this.http.post('http://localhost:5000/Posts/deletePost' , id );
   }
+
+  deleteMyPubliction(id ) : Observable<any> {
+    return this.http.post('http://localhost:5000/Posts/deleteMyPost' , id );
+  }
 }

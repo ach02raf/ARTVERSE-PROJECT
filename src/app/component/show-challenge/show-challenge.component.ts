@@ -10,6 +10,7 @@ import { AuthentificationService } from "src/app/services/authentification.servi
 export class ShowChallengeComponent implements OnInit {
 
   challengesData : any ;
+  challengesCopy =[];
   constructor(private singlesService : SinglesService ,     private authserv: AuthentificationService,
     ) { }
 
@@ -24,9 +25,17 @@ export class ShowChallengeComponent implements OnInit {
     this.singlesService.get_chanllenge().subscribe(async (data) => { 
          
         this.challengesData = await data;
-        
+
+      for (let item of this.challengesData) {
+
+        if (item['winner']){
+
+          this.authserv.findUserById(item['winner']).subscribe((data) => {
+            this.challengesCopy.push({ ...item, winnersData: data });
+          });
    
           }
+        }}
     );
   } 
 
@@ -34,5 +43,11 @@ export class ShowChallengeComponent implements OnInit {
     return list.length;
   }
 
+  deteleChallenges(id : any , title : any ){
+this.singlesService.deleteChallnge({id : id}).subscribe((data)=>{
+  alert(title + "  has been deleted");
+
+});
+  }
   
 }
