@@ -162,16 +162,8 @@ export class AddProjectModalComponent implements OnInit {
   get categoryName() {
     return this.registrationForm.get('categoryName');
   }
-  onSubmit(): void {
-    this.myModal.hide();
-    this.myModal3.show();
-    /* console.log(this.registrationForm.value.categoryName);
-    console.log("ttols;" ,this.tabbleauTools);
-    console.log("tag;" ,this.tabbleauHashtag);  
-    console.log("titr :" ,this.titre.nativeElement.value) ;
-    console.log("image : ", this.images);
-
-
+  onSubmit(): void {  
+    
     if(this.titre.nativeElement.value == ""){
       this.Message = "choisissez un titre";
 
@@ -233,7 +225,7 @@ export class AddProjectModalComponent implements OnInit {
     ); 
 
 
-  } */
+  }  
   }
 
 

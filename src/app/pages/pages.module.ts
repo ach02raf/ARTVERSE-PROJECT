@@ -44,6 +44,8 @@ import { AddChallengeComponent } from '../component/add-challenge/add-challenge.
 import { EditChallengeComponent } from '../component/edit-challenge/edit-challenge.component';
 import { ShowChallengeComponent } from '../component/show-challenge/show-challenge.component';
 import { ChallangeDetilesComponent } from './challange-detiles/challange-detiles.component';
+import { RepotedPostComponent } from '../component/repoted-post/repoted-post.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -92,6 +94,7 @@ import { ChallangeDetilesComponent } from './challange-detiles/challange-detiles
     EditChallengeComponent,
 
     ShowChallengeComponent,
+    RepotedPostComponent,
 
     ChallangeDetilesComponent,
 
