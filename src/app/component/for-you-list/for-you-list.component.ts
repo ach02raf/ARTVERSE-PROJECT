@@ -143,8 +143,8 @@ export class ForYouListComponent implements OnInit {
     this.singlesService.send_single_pub({iduser : this.idUser , text : this.text , idpubliction :  this.itemId  }).subscribe(
       (response) => {
         console.log("ok", response);
-        
-        const modalRef = this.modalService.dismissAll ;
+         
+        this.modalService.dismissAll(this.modalContent);
         alert("your alert has been send ");
         return ;
       },

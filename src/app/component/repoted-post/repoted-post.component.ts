@@ -16,7 +16,7 @@ import { PublicationService } from "src/app/services/publication.service";
 export class RepotedPostComponent implements OnInit {
 
   @ViewChild('modalContent', { static: true }) modalContent: any;
-
+  id_Sng : any ;
   Listimage = [];
   publiction : any ;
   publictionDetails : any ;
@@ -36,6 +36,8 @@ export class RepotedPostComponent implements OnInit {
   }
 
   getData(){
+       this.ListCopy.splice(0, this.ListCopy.length);
+
     this.singlesService.get_Single().subscribe(async (data) => {
       console.log("data project ", data);
         for (let element of data) {
@@ -46,7 +48,6 @@ export class RepotedPostComponent implements OnInit {
   }
 
   handleClick(id: any) {
-    this.ListCopy.splice(0, this.ListCopy.length);
     this.singlesService.update_Single({id: id}).subscribe((data) => {
       this.getData();
     }, (err) => {
@@ -56,8 +57,9 @@ export class RepotedPostComponent implements OnInit {
   }
 
 
-  showPub(idpub : any , source: string){ 
+  showPub(idpub : any , idSng: any ){ 
     console.log("id publiction  show "  , idpub);
+    this.id_Sng = idSng ;
   const modalRef = this.modalService.open(this.modalContent);
 
     this.publicationService.getPostByID(idpub).subscribe(async(data) =>{ 
@@ -85,5 +87,18 @@ export class RepotedPostComponent implements OnInit {
       }
     }
   }
+
+  deletePubliction(id : any  ){
+
+    this.publicationService.deletePubliction({id : id  , idSng : this.id_Sng }).subscribe((data) => {
+      this.modalService.dismissAll(this.modalContent);
+      
+      this.getData();
+    }, (err) => {
+      alert("try agin");
+      console.error('An error occurred while updating single', err);
+    });
+  }
+
 
 }

@@ -32,14 +32,18 @@
              </button>
            </td>
            <td *ngIf="!sng['state']">Donne</td>
-           <td>
+           <td  *ngIf="sng['state']">
              <button
                type="button"
                class="btn btn-success btn-sm ml-3"
-               (click)="showPub(sng['publiction_id'])"
+              
+               (click)="showPub(sng['publiction_id'] , sng['_id'])"
              >
                Show
              </button>
+           </td>
+           <td  *ngIf="!sng['state']" >
+            DELETED
            </td>
          </tr>
        </tbody>
@@ -66,22 +70,27 @@
 
   <div  style="padding: 15px ; margin: 10px;">
 
-    <p class="prg" id="modal-basic-title">
+     <p class="prg" id="modal-basic-title">
       user Id :  {{publictionDetails['_id']}}
       </p>
   
       <p class="prg" id="modal-basic-title">
-        {{publictionDetails['userData']['username'] }}
+         User Name : {{publictionDetails['userData']['username'] }}
        </p>
         
        <p class="prg">
-        {{ publictionDetails["text"]}}
+        text :  {{ publictionDetails["text"]}}
        </p>
+
+       
+     <img src="../../../assets/img/fabien-bazanegue.jpg" />  
+     
+     <button  class="btn btn-danger"    (click)="deletePubliction(publictionDetails['_id'])" > Delete</button>
+     <button  class="btn btn-default"   (click)="modal.dismiss()" > Ingore</button>
   
   </div>
       
-  
-     <img src="../../../assets/img/3d.jpeg" />     
+     
       
     
     

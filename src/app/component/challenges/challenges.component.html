@@ -1,11 +1,17 @@
  
    
-          <tabset class="d-flex flex-column nav-link">
-            <tab heading="challenges List">
+          <tabset  class="nav-tabs-primary">
+            <tab  >
+              <ng-template tabHeading>
+                <i class="tim-icons icon-align-center-2"> </i> Challenge list
+              </ng-template>
               <app-show-challenge></app-show-challenge>
             </tab>
             
-            <tab heading="Add challenges">
+            <tab >
+              <ng-template tabHeading>
+                <i class="tim-icons icon-plus"> </i> Add challenges
+              </ng-template>
              <app-add-challenge></app-add-challenge>
             </tab>
           </tabset>

@@ -54,4 +54,8 @@ export class PublicationService {
     return this.http.get(`http://localhost:5000/Posts/getPublicationsByID/${id}` );
 
   }
+
+  deletePubliction(id ) : Observable<any> {
+    return this.http.post('http://localhost:5000/Posts/deletePost' , id );
+  }
 }
