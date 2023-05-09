@@ -24,6 +24,7 @@ export class ShowChallengeComponent implements OnInit {
     this.singlesService.get_chanllenge().subscribe(async (data) => { 
          
         this.challengesData = await data;
+        
    
           }
     );
@@ -33,9 +34,5 @@ export class ShowChallengeComponent implements OnInit {
     return list.length;
   }
 
-  finduser(id : any){
-    this.authserv.findUserById(id).subscribe((data) => {
-     return data['username'];
-    });
-  }
+  
 }

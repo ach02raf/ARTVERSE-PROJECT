@@ -19,12 +19,12 @@
           <th>{{sng['Category']}}</th>
           <th>{{sng['deadline']}}</th>
           <th>{{sng['partenaire']}}</th>
-          <th>{{sng['winner'] ? finduser(sng['winner']) : 'waiting'}}</th>
+          <th>{{sng['winner'] ? sng['winner'] : 'waiting'}}</th>
 
           <th>{{count(sng['participants'])}}</th>
           <th><button class="btn btn-default btn-sm" >Edit</button></th>
           <th ><button class="btn btn-default btn-sm " > Delete</button></th>
-          <th><button class="btn btn-default btn-sm " [routerLink]="['/Challange', sng['_id']]">Show</button>
+          <th><button class="btn btn-default btn-sm" [routerLink]="['/Challange', sng['_id']]">Show</button>
 
           </th>
           
