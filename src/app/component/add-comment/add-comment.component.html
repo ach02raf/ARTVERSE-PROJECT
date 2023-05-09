@@ -6,8 +6,7 @@
         <img
           alt="64x64"
           class="media-object img-raised"
-          src="assets/img/james.jpg"
-        />
+          src="assets/img/james.jpg" />
       </div>
     </a>
     <div class="media-body mb-2">
@@ -17,15 +16,13 @@
             class="form-control mx-1"
             placeholder="Write some nice stuff or nothing..."
             rows="2"
-            #commentInput
-          ></textarea>
+            #commentInput></textarea>
         </div>
         <div class="media-footer col-3">
           <button
             class="btn btn-primary btn-sm btn-wd pull-right"
             href="javascript:void(0)"
-            (click)="postComment(commentInput.value)"
-          >
+            (click)="postComment(commentInput.value)">
             Post Comment
           </button>
         </div>
@@ -33,21 +30,18 @@
     </div>
   </div>
 
-  <div class="media-area ml-3">
+  <div class="media-area ml-3" *ngIf="listCommentaire">
     <div class="media" *ngFor="let comm of listCommentaire; let i = index">
       <a class="pull-left" href="javascript:void(0)">
         <div class="avatar">
           <img
             alt="..."
             class="media-object img-raised"
-            src="assets/img/julie.jpeg"
-          />
+            src="assets/img/julie.jpeg" />
         </div>
       </a>
-      <div class="media-body">
+      <div class="media-body" *ngIf="comm">
         <h5 class="media-heading mx-2">
-          <!-- {{ findUser(comm[0]["idUser"]) }} -->
-          <!-- {{ user["firstname"] }} -->
           {{ comm["userData"]["firstname"] }} {{ comm["userData"]["lastname"] }}
           <small class="text-muted"> · 7 minutes ago </small>
         </h5>
@@ -74,8 +68,7 @@
                 class="form-control"
                 placeholder="Write some nice stuff or nothing..."
                 rows="1"
-                #ReplyInput
-              ></textarea>
+                #ReplyInput></textarea>
             </div>
           </div>
         </div>
@@ -85,15 +78,14 @@
               <img
                 alt="64x64"
                 class="media-object img-raised"
-                src="assets/img/julie.jpeg"
-              />
+                src="assets/img/julie.jpeg" />
             </div>
           </a>
-          <div class="media-body" *ngFor="let com of comm; let i = index">
+          <div class="media-body" *ngFor="let com of comm">
             <h5 class="media-heading">
               Tina Andrew <small class="text-muted"> · 2 Days Ago </small>
             </h5>
-            <p>{{ com.text }}</p>
+            <p *ngIf="com">{{ com.text }}</p>
             <div class="media-footer">
               <a
                 class="btn btn-danger btn-link pull-right"
