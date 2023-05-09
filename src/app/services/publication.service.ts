@@ -49,4 +49,9 @@ export class PublicationService {
   getPostsByUserId(id: any) {
     return this.http.get(`http://localhost:5000/Posts/getPublications/${id}`);
   }
+
+  getPostByID(id: any ) : Observable<any> {
+    return this.http.get(`http://localhost:5000/Posts/getPublicationsByID/${id}` );
+
+  }
 }

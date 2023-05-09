@@ -1,0 +1,19 @@
+.page-header {
+     /* min-height: 100vh; */
+     max-height: none; 
+     padding: 0;
+     color: #ffffff;
+     position: relative;
+      overflow :visible ;
+     /* overflow-x: hidden; */
+     /* overflow-y: hidden; */
+   }
+
+
+   .form-label-image {
+     color: rgba(255, 255, 255, 0.6);
+     background: cadetblue;
+     border-radius: 5px;
+     padding: 5px 10px;
+     margin-top: 10px;
+   }

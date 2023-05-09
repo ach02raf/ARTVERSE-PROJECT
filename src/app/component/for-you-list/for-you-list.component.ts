@@ -3,11 +3,14 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
+  ViewChild ,
   OnInit,
 } from "@angular/core";
 import { PublicationService } from "../../services/publication.service";
 import { LoggedInUserService } from "src/app/services/logged-in-user.service";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+import { SinglesService } from "src/app/services/singles.service";
 @Component({
   selector: "app-for-you-list",
   templateUrl: "./for-you-list.component.html",
@@ -18,17 +21,23 @@ export class ForYouListComponent implements OnInit {
   @Input() ListCopy: any;
   @Input() Listimage: any;
   @Input() isCollapsed: boolean[] = [];
+  @ViewChild('modalContent', { static: true }) modalContent: any;
   constructor(
     private publicationService: PublicationService,
     private loggedUserServ: LoggedInUserService,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
+    private modalService: NgbModal,
+    private singlesService : SinglesService ,
   ) {
     this.idUser = this.loggedUserServ.getUserID();
   }
 
   public commentText: string;
   idUser: any;
-
+  repostReason: string;
+  repostComments: string;
+  text : String ;
+  itemId: string
   ngOnInit(): void {
     this.ref.detectChanges();
   }
@@ -110,4 +119,43 @@ export class ForYouListComponent implements OnInit {
       return this.datePipe.transform(Date.parse(date), 'dd/MM/yyyy');
     } */
   }
+
+   
+  openModal(itemId: string) {
+    this.itemId = itemId;
+    const modalRef = this.modalService.open(this.modalContent);
+     
+  }
+
+
+  
+
+  onSubmit(event) {
+    event.preventDefault();
+    if (this.repostReason !== 'Other') {
+      console.log('Repost reason:', this.repostReason);
+     this.text = this.repostReason ;
+    } else {
+      console.log('Repost reason:', this.repostReason, 'Repost comments:', this.repostComments);
+     this.text = this.repostComments ;
+    }
+
+    this.singlesService.send_single_pub({iduser : this.idUser , text : this.text , idpubliction :  this.itemId  }).subscribe(
+      (response) => {
+        console.log("ok", response);
+        
+        const modalRef = this.modalService.dismissAll ;
+        alert("your alert has been send ");
+        return ;
+      },
+      (error) => {
+        const modalRef = this.modalService.dismissAll;
+        alert("try agine ");
+        return ;
+      }
+    );
+
+  }
+
+
 }

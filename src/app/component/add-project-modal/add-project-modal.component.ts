@@ -163,7 +163,9 @@ export class AddProjectModalComponent implements OnInit {
     return this.registrationForm.get('categoryName');
   }
   onSubmit(): void {
-    console.log(this.registrationForm.value.categoryName);
+    this.myModal.hide();
+    this.myModal3.show();
+    /* console.log(this.registrationForm.value.categoryName);
     console.log("ttols;" ,this.tabbleauTools);
     console.log("tag;" ,this.tabbleauHashtag);  
     console.log("titr :" ,this.titre.nativeElement.value) ;
@@ -231,7 +233,7 @@ export class AddProjectModalComponent implements OnInit {
     ); 
 
 
-  }
+  } */
   }
 
 
