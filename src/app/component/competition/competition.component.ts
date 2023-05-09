@@ -1,4 +1,4 @@
- import { Component, OnInit ,ViewChild , Input} from "@angular/core";
+import { Component, OnInit, ViewChild, Input } from "@angular/core";
 import { AuthentificationService } from "src/app/services/authentification.service";
 import { SinglesService } from "src/app/services/singles.service";
 import { PublicationService } from "src/app/services/publication.service";
@@ -21,21 +21,24 @@ interface Image {
 })
 export class CompetitionComponent implements OnInit {
   idUser: any;
-  id : any ;
-  constructor(private authserv: AuthentificationService ,private singlesService : SinglesService , private publicationService : PublicationService ,
+  id: any;
+  constructor(
+    private authserv: AuthentificationService,
+    private singlesService: SinglesService,
+    private publicationService: PublicationService,
     private sanitizer: DomSanitizer,
-    private loggedUserServ: LoggedInUserService,
-      ) {
-        this.idUser = this.loggedUserServ.getUserID();
-      }
+    private loggedUserServ: LoggedInUserService
+  ) {
+    this.idUser = this.loggedUserServ.getUserID();
+  }
   challenges = [];
-  @Input() Listimage: any;
+  Listimage = [];
   @ViewChild("myModal") myModal: ModalDirective;
   images: Image[] = [];
-  chlCopy :  any ;
-  challengesData : [] = [] ;
+  chlCopy: any;
+  challengesData = [];
   currentChallengeSource = [
-  /*   {
+    /*   {
       title: "  Ink Color ",
       Category: "Illustration",
       deadline: "12-16-2022",
@@ -75,7 +78,7 @@ export class CompetitionComponent implements OnInit {
     }, */
   ];
   finishedChallengeSource = [
-  /*   {
+    /*   {
       title: "  Ink Color ",
       Category: "Illustration",
       deadline: "12-16-2022",
@@ -122,7 +125,6 @@ export class CompetitionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
     this.getchanlleng();
     this.finishedChallengeSource.forEach((challenge) => {
       this.authserv.findUserById(challenge.winner).subscribe((data) => {
@@ -136,7 +138,7 @@ export class CompetitionComponent implements OnInit {
 
   getImage(idimage: any, idpub: any) {
     for (let item of this.Listimage) {
-      if (item.idpub === idpub) {
+      if (item.idChallenge === idpub) {
         for (let itam of item.listimage) {
           if (itam._id === idimage) {
             return itam.safeUrl;
@@ -145,38 +147,36 @@ export class CompetitionComponent implements OnInit {
       }
     }
   }
-  getchanlleng(){
-    
-  
-    this.singlesService.get_chanllenge().subscribe(async (data) => { 
-        console.log("data project ", data);
-        console.log("hello yosra");
-        this.challengesData = await data;
-  
-     /*    for (let item of data) {             
-  
-               
-              for (let itam of item['image']) {
-                this.publicationService.getImage(itam.idimg).subscribe(async (dataimage) => {
+  getchanlleng() {
+    this.singlesService.get_chanllenge().subscribe(async (data) => {
+      this.challengesData = await data;
+      console.log("achraf data images hello ", data);
 
-                    const imageDataUrl = buffer.Buffer.from(dataimage["img"]["data"]["data"]).toString("base64");
-                    const safeUrl: SafeUrl = this.sanitizer.bypassSecurityTrustUrl(`data:data:image/png;base64,${imageDataUrl}` );
-                     imageforpub.push({ _id: data["_id"], safeUrl: safeUrl });  
-                  let itemCopy = {
-                    ...itam,
-                    safeUrl: safeUrl, 
-                  };
+      for (let item of this.challengesData) {
+        let imageforpub = [];
+        for (let itam of item["image"]) {
+          this.publicationService
+            .getImage(itam["idimg"])
+            .subscribe(async (data) => {
+              const imageDataUrl = buffer.Buffer.from(
+                data["img"]["data"]["data"]
+              ).toString("base64");
+              const safeUrl: SafeUrl = this.sanitizer.bypassSecurityTrustUrl(
+                `data:data:image/png;base64,${imageDataUrl}`
+              );
+              imageforpub.push({ _id: data["_id"], safeUrl: safeUrl });
+              console.log("maha maha maha maha ", imageforpub);
+            });
+        }
 
-                  this.chlCopy.push(itemCopy);
-
-                  });
-              }
-              
-            } */
-          }
-    );
-  } 
-
+        this.Listimage.push({
+          idChallenge: item["_id"],
+          listimage: imageforpub,
+        });
+      }
+      console.log("hello achraf images !!! ", this.Listimage);
+    });
+  }
 
   format(date: string): string {
     const now = new Date();
@@ -195,7 +195,6 @@ export class CompetitionComponent implements OnInit {
       return this.datePipe.transform(Date.parse(date), 'dd/MM/yyyy');
     } */
   }
-
 
   reactioncount(list: any) {
     return list.length;
@@ -216,46 +215,36 @@ export class CompetitionComponent implements OnInit {
     }
   }
 
-
   clearSelectedImage(index: any) {
     this.images.splice(index, 1);
   }
 
-  onSubmit(){
- 
+  onSubmit() {
     const formData = new FormData();
 
     formData.append("Id_user", this.idUser);
     formData.append("Id_publiction", this.id);
     this.images.forEach((image) => formData.append("images", image.file));
 
-
-
     this.singlesService.send_chanllenge(formData).subscribe(
-     
       (response) => {
         // handle response from the API
-        
+
         this.images = [];
-      
+
         this.myModal.hide();
-     
       },
       (error) => {
-       
         console.error("err", error);
         // handle error from the API
         alert("you trying to use image ");
         return;
-      }); 
-
+      }
+    );
   }
 
-
-  openModale(id : any ){
-    this.id = id ;
-    this.myModal.show() ;
+  openModale(id: any) {
+    this.id = id;
+    this.myModal.show();
   }
-
-
 }
