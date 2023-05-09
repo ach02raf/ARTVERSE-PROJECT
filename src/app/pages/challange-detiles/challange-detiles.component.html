@@ -6,10 +6,10 @@
 <br/> 
 <br/>
 <div class="container">
-  <h3>
-    {{title}}
+  <h3 *ngIf="challange">
+    Challange title : {{challange['title']}}
   </h3>
-     <div *ngFor="let item of ListCopy">
+      <div *ngFor="let item of challangeCopy" style="width : 50%" class="p-3 d-flex align-items-center" >
           <div class="card card-blog">
             <div class="p-3 d-flex align-items-center">
               <img alt="... " class="avatar img-raised" src="assets/img/james.jpg " />
@@ -19,25 +19,26 @@
                  {{ item["userData"]["firstname"] }} {{ item["userData"]["lastname"] }}
                </span>
               
-             </div><div class="pl-3">
-               <button (click)="winner(item['id_user'])" >winner ?</button>
-               
+                <button class="btn btn-success" style="margin-left: 150px;" (click)="winner(item['id_user'])" >winner ?</button>
+              
              </div>
+            
             
             </div>
         
             <carousel
               class="card-image"
-              *ngIf="item.img"
+              *ngIf="item['img']"
               [showIndicators]="false"
               pause>
               <slide *ngFor="let img of item['img']" class="text-center">
-                <img [src]="getImage(img['idimg'], item['_id'])" />
+                <!-- <img [src]="getImage(img['idimg'], item['_id'])" /> -->
+                <img   src="../../../assets/img/images1680823107821.png" />
               </slide>
             </carousel>
-           
+          
           </div>
-        </div>
+        </div>  
 </div>
  
    
