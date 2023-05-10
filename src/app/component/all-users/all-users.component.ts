@@ -1,94 +1,65 @@
-import { Component, OnInit } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from "@angular/core";
 import { UserService } from "src/app/services/user.service";
 import { Chart } from "chart.js";
 import { PublicationService } from "src/app/services/publication.service";
-import { element } from "protractor";
 import { ProjectService } from "src/app/services/project.service";
 @Component({
   selector: "app-all-users",
   templateUrl: "./all-users.component.html",
   styleUrls: ["./all-users.component.scss"],
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class AllUsersComponent implements OnInit {
   constructor(
     private userServ: UserService,
     private pubService: PublicationService,
+    private ref: ChangeDetectorRef,
     private projService: ProjectService
   ) {}
   users: any = [];
   hoveredUser = "";
-  pub: any = [];
-  followers: any = [];
-  proj: any = [];
-  comments: any = [];
-  nbComment = 0;
-  nbLikes = 0;
-  likes: any = [];
   Allpub: any = [];
+  Allproject: any = [];
 
-  onRowHover(user: any) {
-    this.hoveredUser = user;
-    console.log("hoveredUser", this.hoveredUser);
-    this.getPublications(this.hoveredUser["_id"]).length;
-    this.getProjects(this.hoveredUser["_id"]).length;
-    console.log(this.getProjects(this.hoveredUser["_id"]).length);
+  async onRowHover(user: any) {
+    this.hoveredUser = await user;
+    let nbpub: number = 0;
+    let nbLike: number = 0;
+    let nbComment: number = 0;
+    let nbFollewers: number = this.hoveredUser["followers"].length;
+    for (let item of this.Allpub) {
+      if (this.hoveredUser["_id"] === item["Id_user"]) {
+        nbpub++;
+        nbLike += item["reaction"].length;
+        nbComment += item["commentaires"].length;
+      }
+    }
 
-    // this.getFollowers(this.hoveredUser["_id"]);
-    // console.log("azert", this.getFollowers(this.hoveredUser["_id"]));
-
-    this.chartStat();
-    this.getComments();
-    this.getLikes();
-  }
-
-  getPublications(id) {
-    this.pubService.getPostsByUserId(id).subscribe((data) => {
-      this.pub.push(data);
-      this.pub = data;
-    });
-    return this.pub;
-  }
-
-  // getFollowers(id) {
-  //   this.userServ.findUserById(id).subscribe(async (res) => {
-  //     this.followers.push(res);
-  //   });
-  //   return this.followers;
-  // }
-
-  getProjects(id) {
-    this.projService.getProjectsByUserId(id).subscribe((data) => {
-      this.proj.push(data);
-      this.proj = data;
-    });
-    return this.proj;
-  }
-
-  getComments() {
-    this.nbComment = 0;
-    this.getPublications(this.hoveredUser["_id"]).forEach((element) => {
-      console.log("commen commen commouni", element["commentaires"].length);
-      this.nbComment += element["commentaires"].length;
-    });
-    return this.nbComment;
-  }
-
-  getLikes() {
-    this.nbLikes = 0;
-    this.getPublications(this.hoveredUser["_id"]).forEach((element) => {
-      console.log("commen commen commouni likes", element["reaction"].length);
-      this.nbLikes += element["reaction"].length;
-    });
-    return this.nbLikes;
+    let nbProject: number = 0;
+    let nbView: number = 0;
+    for (let item of this.Allproject) {
+      if (this.hoveredUser["_id"] === item["Id_user"]) {
+        nbProject++;
+        nbView += item["vueNumber"];
+      }
+    }
+    this.chartStat(nbpub, nbProject, nbLike, nbComment, nbFollewers, nbView);
   }
 
   getAllPosts() {
-    this.pubService.getPost().subscribe((data) => {
-      this.Allpub.push(data);
-      this.Allpub = data;
+    this.pubService.getPost().subscribe(async (data) => {
+      this.Allpub = await data;
     });
-
-    return this.pub;
+  }
+  getAllProject() {
+    this.projService.getAllProject().subscribe(async (data) => {
+      this.Allproject = await data;
+    });
   }
 
   displayUsers() {
@@ -97,7 +68,14 @@ export class AllUsersComponent implements OnInit {
     });
   }
 
-  chartStat() {
+  chartStat(
+    nbPub: number,
+    nbProject: number,
+    nbLike: number,
+    nbComment: number,
+    nbFollewers: number,
+    nbView: number
+  ) {
     var canvas: any = document.getElementById("chartBig");
     var ctx = canvas.getContext("2d");
     var gradientFill = ctx.createLinearGradient(0, 350, 0, 50);
@@ -125,15 +103,7 @@ export class AllUsersComponent implements OnInit {
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
             pointRadius: 4,
-            data: [
-              this.getPublications(this.hoveredUser["_id"]).length,
-              this.getProjects(this.hoveredUser["_id"]).length,
-              this.getLikes(),
-              this.getComments(),
-              12,
-              // this.getFollowers(this.hoveredUser["_id"]),
-              44,
-            ],
+            data: [nbPub, nbProject, nbLike, nbComment, nbFollewers, nbView],
           },
         ],
       },
@@ -189,7 +159,7 @@ export class AllUsersComponent implements OnInit {
   }
   ngOnInit() {
     this.displayUsers();
-    this.chartStat();
     this.getAllPosts();
+    this.getAllProject();
   }
 }

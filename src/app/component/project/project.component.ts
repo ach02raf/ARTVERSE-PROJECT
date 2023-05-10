@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -18,6 +19,7 @@ import { log } from "console";
   selector: "app-project",
   templateUrl: "./project.component.html",
   styleUrls: ["./project.component.scss"],
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ProjectComponent implements OnInit {
   projects = [];
