@@ -25,7 +25,8 @@
             <input
               type="text"
               class="form-control"
-              placeholder="Recherche..." />
+              placeholder="Recherche..."
+            />
           </div>
           <div class="row">
             <div class="col align-self-center">
@@ -33,7 +34,8 @@
               <button
                 *ngFor="let hashtag of hashtags"
                 class="btn btn-white btn-sm mr-1 px-4 btn-round"
-                type="button">
+                type="button"
+              >
                 #{{ hashtag }}
               </button>
             </div>
@@ -43,7 +45,7 @@
     </div>
   </div>
 
-  <div class="main">
+  <div *ngIf="connectedUser()" class="main">
     <div class="section section-basic" id="basic-elements">
       <img class="path" src="assets/img/path1.png" />
 
@@ -63,11 +65,13 @@
                     <div class="col-lg-5 col-md-12 mx-md-4 mx-sm-1">
                       <div>
                         <app-add-post
-                          (newItemEvent)="addItem($event)"></app-add-post>
+                          (newItemEvent)="addItem($event)"
+                        ></app-add-post>
                         <app-for-you-list
                           [Listimage]="Listimage"
                           [ListCopy]="ListCopy"
-                          [isCollapsed]="isCollapsed"></app-for-you-list>
+                          [isCollapsed]="isCollapsed"
+                        ></app-for-you-list>
                       </div>
                     </div>
                     <div class="col col-lg-2">

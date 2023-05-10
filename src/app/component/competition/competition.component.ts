@@ -5,7 +5,6 @@ import { PublicationService } from "src/app/services/publication.service";
 import { ModalDirective } from "ngx-bootstrap/modal";
 import { LoggedInUserService } from "src/app/services/logged-in-user.service";
 
-
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import * as buffer from "buffer";
 
@@ -40,13 +39,9 @@ export class CompetitionComponent implements OnInit {
 
   challengeWithWinner = [];
   challengeWithOutWinner = [];
-   
-  
 
- 
   ngOnInit(): void {
     this.getchanlleng();
-
   }
 
   getImage(idimage: any, idpub: any) {
@@ -64,14 +59,12 @@ export class CompetitionComponent implements OnInit {
     this.singlesService.get_chanllenge().subscribe(async (data) => {
       this.challengesData = await data;
       for (let item of this.challengesData) {
-        if (item['winner']){
-          this.authserv.findUserById(item['winner']).subscribe((data) => {
+        if (item["winner"]) {
+          this.authserv.findUserById(item["winner"]).subscribe((data) => {
             this.challenges.push({ ...item, winnersData: data });
           });
-    
-        }else{
+        } else {
           this.challengeWithOutWinner.push(item);
-
         }
       }
       for (let item of this.challengesData) {
@@ -94,7 +87,7 @@ export class CompetitionComponent implements OnInit {
           idChallenge: item["_id"],
           listimage: imageforpub,
         });
-      } 
+      }
     });
   }
 

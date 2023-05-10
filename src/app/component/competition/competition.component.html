@@ -29,7 +29,8 @@
 
             <button
               class="btn btn-warning mt-4"
-              (click)="openModale(challenge['_id'])">
+              (click)="openModale(challenge['_id'])"
+            >
               Appliquer maintenant
             </button>
           </div>
@@ -39,7 +40,8 @@
               class="w-50"
               *ngIf="challenge['image']"
               [showIndicators]="false"
-              pause>
+              pause
+            >
               <slide *ngFor="let img of challenge['image']" class="text-center">
                 <img [src]="getImage(img['idimg'], challenge['_id'])" />
               </slide>
@@ -51,7 +53,7 @@
   </div>
 </div>
 
- <h3><i class="fas fa-medal"></i> Finished Challenges</h3>
+<h3><i class="fas fa-medal"></i> Finished Challenges</h3>
 <div class="row">
   <div *ngFor="let challenge of challenges" class="col-md-6">
     <div class="card">
@@ -62,15 +64,15 @@
               {{ challenge["title"] }}
             </h1>
             <p class="text-white" style="padding-left: 20px">
-              Category : {{ challenge["Category"]  }}
+              Category : {{ challenge["Category"] }}
             </p>
 
             <p class="text-white" style="padding-left: 20px">
-              Partenaire : {{ challenge['partenaire'] }}
+              Partenaire : {{ challenge["partenaire"] }}
             </p>
 
             <p class="text-muted mt-4" style="padding-left: 20px">
-              {{ challenge['description'] }}
+              {{ challenge["description"] }}
             </p>
 
             <p
@@ -109,7 +111,7 @@
       </div>
     </div>
   </div>
-</div> 
+</div>
 
 <div
   aria-hidden="true"
@@ -118,7 +120,8 @@
   class="modal fade modal-black"
   #myModal="bs-modal"
   id="myModal"
-  role="dialog">
+  role="dialog"
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header justify-content-center">
@@ -127,7 +130,8 @@
           class="close"
           data-dismiss="modal"
           type="button"
-          (click)="myModal.hide()">
+          (click)="myModal.hide()"
+        >
           <i class="tim-icons icon-simple-remove"> </i>
         </button>
       </div>
@@ -154,39 +158,46 @@
                   multiple
                   class="custom-file-input"
                   id="customFile"
-                  (change)="onFileSelected($event)" />
+                  (change)="onFileSelected($event)"
+                />
               </div>
               <carousel *ngIf="images" [showIndicators]="false" pause>
                 <slide
                   *ngFor="let image of images; let i = index"
-                  class="text-center">
+                  class="text-center"
+                >
                   <button
                     class="btn btn-primary btn-fab btn-icon btn-round"
-                    (click)="clearSelectedImage(i)">
+                    (click)="clearSelectedImage(i)"
+                  >
                     <i class="tim-icons icon-gift-2"></i>
                   </button>
                   <img
                     *ngIf="image"
                     class="d-block w-100"
                     [src]="image['url']"
-                    [alt]="image['name']" />
+                    [alt]="image['name']"
+                  />
                 </slide>
               </carousel>
             </div>
             <carousel *ngIf="images.length != 0" [showIndicators]="false" pause>
               <slide
                 *ngFor="let image of images; let i = index"
-                class="text-center">
+                class="text-center"
+              >
                 <button
                   class="btn btn-primary btn-fab btn-icon btn-round"
-                  (click)="clearSelectedImage(i)">
+                  (click)="clearSelectedImage(i)"
+                >
                   <i class="tim-icons icon-gift-2"></i>
                 </button>
                 <img
                   *ngIf="image"
                   class="d-block w-100"
                   [src]="image['url']"
-                  [alt]="image['name']" />
+                  [alt]="image['name']"
+                />
               </slide>
             </carousel>
 
