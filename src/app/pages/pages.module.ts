@@ -41,7 +41,7 @@ import { AllUsersComponent } from "../component/all-users/all-users.component";
 import { ChallengesComponent } from '../component/challenges/challenges.component';
 
 import { AddChallengeComponent } from '../component/add-challenge/add-challenge.component';
-import { EditChallengeComponent } from '../component/edit-challenge/edit-challenge.component';
+import { EditChallengeComponent } from './edit-challenge/edit-challenge.component';
 import { ShowChallengeComponent } from '../component/show-challenge/show-challenge.component';
 import { ChallangeDetilesComponent } from './challange-detiles/challange-detiles.component';
 import { RepotedPostComponent } from '../component/repoted-post/repoted-post.component';

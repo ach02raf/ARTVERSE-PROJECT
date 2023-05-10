@@ -14,6 +14,7 @@ import { LandingpageComponent } from "./pages/examples/landingpage/landingpage.c
 import { ForYouListComponent } from "./component/for-you-list/for-you-list.component";
 import { ChallengesComponent } from "./component/challenges/challenges.component";
 import { CompetitionComponent } from "./component/competition/competition.component";
+import { EditChallengeComponent } from "./pages/edit-challenge/edit-challenge.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
