@@ -1,0 +1,98 @@
+<div class="row justify-content-center">
+     <table class="table table-hover col-lg-9 mr-4">
+       <thead>
+         <tr>
+           <th></th>
+           <th>username</th>
+           <th>email</th>
+           <th>text</th>
+           <th></th>
+           <th></th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr *ngFor="let sng of ListCopy">
+           <td>
+             <img
+               alt="... "
+               class="avatar img-raised"
+               src="assets/img/james.jpg "
+             />
+           </td>
+           <td>{{ sng["userData"]["username"] }}</td>
+           <td>{{ sng["userData"]["email"] }}</td>
+           <td>{{ sng["text"] }}</td>
+           <td *ngIf="sng['state']">
+             <button
+               type="button"
+               class="btn btn-success btn-sm ml-3"
+               (click)="handleClick(sng['_id'])"
+             >
+               Donne
+             </button>
+           </td>
+           <td *ngIf="!sng['state']">Donne</td>
+           <td  *ngIf="sng['state']">
+             <button
+               type="button"
+               class="btn btn-success btn-sm ml-3"
+              
+               (click)="showPub(sng['publiction_id'] , sng['_id'])"
+             >
+               Show
+             </button>
+           </td>
+           <td  *ngIf="!sng['state']" >
+            DELETED
+           </td>
+         </tr>
+       </tbody>
+     </table>
+   </div>
+
+
+
+   
+<ng-template #modalContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+    See the ditels of the reposted post 
+    </h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div  style="padding: 15px ; margin: 10px;">
+
+     <p class="prg" id="modal-basic-title">
+      user Id :  {{publictionDetails['_id']}}
+      </p>
+  
+      <p class="prg" id="modal-basic-title">
+         User Name : {{publictionDetails['userData']['username'] }}
+       </p>
+        
+       <p class="prg">
+        text :  {{ publictionDetails["text"]}}
+       </p>
+
+       
+     <img src="../../../assets/img/fabien-bazanegue.jpg" />  
+     
+     <button  class="btn btn-danger"    (click)="deletePubliction(publictionDetails['_id'])" > Delete</button>
+     <button  class="btn btn-default"   (click)="modal.dismiss()" > Ingore</button>
+  
+  </div>
+      
+     
+      
+    
+    
+    </ng-template>
+

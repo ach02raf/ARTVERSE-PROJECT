@@ -50,8 +50,17 @@ export class PublicationService {
     return this.http.get(`http://localhost:5000/Posts/getPublications/${id}`);
   }
 
-  getPostByID(id: any ) : Observable<any> {
-    return this.http.get(`http://localhost:5000/Posts/getPublicationsByID/${id}` );
+  getPostByID(id: any): Observable<any> {
+    return this.http.get(
+      `http://localhost:5000/Posts/getPublicationsByID/${id}`
+    );
+  }
 
+  deletePubliction(id: any): Observable<any> {
+    return this.http.post("http://localhost:5000/Posts/deletePost", id);
+  }
+
+  deleteMyPubliction(id: any): Observable<any> {
+    return this.http.post("http://localhost:5000/Posts/deleteMyPost", id);
   }
 }

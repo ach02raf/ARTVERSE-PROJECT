@@ -23,10 +23,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ChallangeDetilesComponent implements OnInit {
  
-
-
-  @Input() ListCopy: any;
-  @Input() Listimage: any; 
+  
    id : string ;
   constructor(
     private publicationService: PublicationService,
@@ -43,8 +40,13 @@ export class ChallangeDetilesComponent implements OnInit {
   }
 
   public commentText: string;
+  title : any ;
   idUser: any; 
   List :any ;
+  itemCopy : any ;
+  challangeCopy = [] ;
+  challange : any ;
+
   ngOnInit(): void {
     this.ref.detectChanges(); 
     this.id = this.route.snapshot.paramMap.get('id');
@@ -57,56 +59,32 @@ export class ChallangeDetilesComponent implements OnInit {
 
   this.singlesService.winner({id : this.id , id_user : id }).subscribe((next)=>{alert("ok")} );
   }
+/* 
+data { id : gh , patic : [{}]}
+
+*/
 
   async getchallenge() {
     this.singlesService.get_chanllengeByID({id : this.id }).subscribe(async (data) => {
-     this.List = await data['participants'];
-           console.log('====================================');
-           console.log(data['participants']);
-           console.log('====================================');
 
+      this.challange = await data ;  
 
-          /*  for (let item of this.List) { 
-            this.authserv.findUserById(item.id_user).subscribe((userData) => {
-              let itemCopy = { ...item, userData };
-              this.ListCopy.push(itemCopy);
-    
-              let imageforpub = [];
-              for (let itam of itemCopy.img) {
-                this.publicationService
-                  .getImage(itam.idimg)
-                  .subscribe(async (data) => {
-                    const imageDataUrl = buffer.Buffer.from(
-                      data["img"]["data"]["data"]
-                    ).toString("base64");
-                    const safeUrl: SafeUrl = this.sanitizer.bypassSecurityTrustUrl(
-                      `data:data:image/png;base64,${imageDataUrl}`
-                    );
-                    imageforpub.push({ _id: data["_id"], safeUrl: safeUrl });
-                  });
-              }
-              this.Listimage.push({
-                idpub: itemCopy._id,
-                listimage: imageforpub,
-              });
+            for (let item of this.challange['participants'] ) { 
+
+              this.authserv.findUserById(item['id_user']).subscribe( async (userData) => { 
+           
+                this.challangeCopy.push(  { ...item, userData });
             });
-          } */
+            console.log(this.challangeCopy);
+          
+          }
+       
 
     });   
   }
 
 
-  getImage(idimage: any, idpub: any) {
-    for (let item of this.Listimage) {
-      if (item.idpub === idpub) {
-        for (let itam of item.listimage) {
-          if (itam._id === idimage) {
-            return itam.safeUrl;
-          }
-        }
-      }
-    }
-  }
+  
 
  
  

@@ -161,12 +161,6 @@ export class AddProjectModalComponent implements OnInit {
     return this.registrationForm.get("categoryName");
   }
   onSubmit(): void {
-    console.log(this.registrationForm.value.categoryName);
-    console.log("ttols;", this.tabbleauTools);
-    console.log("tag;", this.tabbleauHashtag);
-    console.log("titr :", this.titre.nativeElement.value);
-    console.log("image : ", this.images);
-
     if (this.titre.nativeElement.value == "") {
       this.Message = "choisissez un titre";
     } else if (this.registrationForm.value.categoryName === "") {

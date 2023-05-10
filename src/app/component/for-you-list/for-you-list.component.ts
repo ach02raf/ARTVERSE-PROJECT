@@ -156,7 +156,7 @@ export class ForYouListComponent implements OnInit {
         (response) => {
           console.log("ok", response);
 
-          const modalRef = this.modalService.dismissAll;
+          this.modalService.dismissAll(this.modalContent);
           alert("your alert has been send ");
           return;
         },
@@ -166,5 +166,18 @@ export class ForYouListComponent implements OnInit {
           return;
         }
       );
+  }
+
+  deletePost(id: any) {
+    this.publicationService
+      .deleteMyPubliction({ id: id })
+      .subscribe(async (data) => {
+        const index = await this.ListCopy.findIndex(
+          (itam) => itam["_id"] === id
+        );
+        await this.ListCopy.splice(index, 1);
+        this.ref.detectChanges();
+        alert("Post  has been deleted");
+      });
   }
 }

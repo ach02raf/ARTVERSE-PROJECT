@@ -26,9 +26,12 @@
           <div
             aria-labelledby="dropdownMenuButton "
             class="dropdown-menu"
-            *dropdownMenu>
+            *dropdownMenu
+          
+            >
              
-            <a class="dropdown-item" (click)="openModal(item['_id'])">Signaler</a>
+            <a class="dropdown-item"   *ngIf="idUser !== item['Id_user']  " (click)="openModal(item['_id'])">Signaler</a>
+            <a class="dropdown-item"   *ngIf="idUser === item['Id_user']  " (click)="deletePost(item['_id'])">Delete</a>
 
           </div>
         </div>
@@ -132,7 +135,7 @@
         </label>
         </div>
         <div>
-        <textarea  class="form-control mx-2" name="repostComments" [(ngModel)]="repostComments" *ngIf="repostReason === 'Other'"></textarea>
+        <textarea  class="form-control mx-2" name="repostComments" style="color: black;" [(ngModel)]="repostComments" *ngIf="repostReason === 'Other'"></textarea>
       </div>
       <div>
         <button type="submit" class="btn btn-secondary">Submit</button>
