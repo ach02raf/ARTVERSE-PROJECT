@@ -44,7 +44,6 @@ export class ProjectComponent implements OnInit {
   ngOnInit(): void {
     this.projectService.getAllProject().subscribe(async (data) => {
       this.projects = await data;
-
       for (let item of data) {
         let shouldAddItem = true;
         if (this.source === "profile" && item["Id_user"] !== this.idprofile) {

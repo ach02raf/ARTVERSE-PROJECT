@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SinglesService } from "src/app/services/singles.service";
+import { AuthentificationService } from "src/app/services/authentification.service";
 
 @Component({
   selector: 'app-show-challenge',
@@ -9,7 +10,9 @@ import { SinglesService } from "src/app/services/singles.service";
 export class ShowChallengeComponent implements OnInit {
 
   challengesData : any ;
-  constructor(private singlesService : SinglesService ) { }
+  challengesCopy =[];
+  constructor(private singlesService : SinglesService ,     private authserv: AuthentificationService,
+    ) { }
 
   ngOnInit(): void {
     this.getchanlleng();
@@ -20,15 +23,31 @@ export class ShowChallengeComponent implements OnInit {
     
   
     this.singlesService.get_chanllenge().subscribe(async (data) => { 
-        console.log("data project ", data);
-        
+         
         this.challengesData = await data;
+
+      for (let item of this.challengesData) {
+
+        if (item['winner']){
+
+          this.authserv.findUserById(item['winner']).subscribe((data) => {
+            this.challengesCopy.push({ ...item, winnersData: data });
+          });
    
           }
+        }}
     );
   } 
 
   count(list: any) {
     return list.length;
   }
+
+  deteleChallenges(id : any , title : any ){
+this.singlesService.deleteChallnge({id : id}).subscribe((data)=>{
+  alert(title + "  has been deleted");
+
+});
+  }
+  
 }

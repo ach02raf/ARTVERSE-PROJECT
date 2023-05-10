@@ -13,18 +13,18 @@
        </tr>
      </thead>
      <tbody>
-       <tr  *ngFor="let sng of challengesData"  >
+       <tr  *ngFor="let sng of challengesCopy"  >
      
           <th>{{sng['title']}}</th>
           <th>{{sng['Category']}}</th>
           <th>{{sng['deadline']}}</th>
           <th>{{sng['partenaire']}}</th>
-          <th>{{sng['winner'] ? sng['winner'] : 'waiting'}}</th>
+          <th>{{sng['winner'] ? sng['winnersData']['firstname']+' ' +sng['winnersData']['lastname'] : 'waiting'}}</th>
 
           <th>{{count(sng['participants'])}}</th>
-          <th>edit</th>
-          <th>delete</th>
-          <th><button [routerLink]="['/Challange', sng['_id']]">Show</button>
+          <th><button class="btn btn-default btn-sm" >Edit</button></th>
+          <th ><button class="btn btn-default btn-sm " (click)="deteleChallenges(sng['_id'] , sng['title'])" > Delete</button></th>
+          <th><button class="btn btn-default btn-sm" [routerLink]="['/Challange', sng['_id']]">Show</button>
 
           </th>
           
