@@ -3,6 +3,7 @@ import { UserService } from "src/app/services/user.service";
 import { Chart } from "chart.js";
 import { PublicationService } from "src/app/services/publication.service";
 import { element } from "protractor";
+import { ProjectService } from "src/app/services/project.service";
 @Component({
   selector: "app-all-users",
   templateUrl: "./all-users.component.html",
@@ -11,11 +12,14 @@ import { element } from "protractor";
 export class AllUsersComponent implements OnInit {
   constructor(
     private userServ: UserService,
-    private pubService: PublicationService
+    private pubService: PublicationService,
+    private projService: ProjectService
   ) {}
   users: any = [];
   hoveredUser = "";
   pub: any = [];
+  followers: any = [];
+  proj: any = [];
   comments: any = [];
   nbComment = 0;
   nbLikes = 0;
@@ -26,6 +30,12 @@ export class AllUsersComponent implements OnInit {
     this.hoveredUser = user;
     console.log("hoveredUser", this.hoveredUser);
     this.getPublications(this.hoveredUser["_id"]).length;
+    this.getProjects(this.hoveredUser["_id"]).length;
+    console.log(this.getProjects(this.hoveredUser["_id"]).length);
+
+    // this.getFollowers(this.hoveredUser["_id"]);
+    // console.log("azert", this.getFollowers(this.hoveredUser["_id"]));
+
     this.chartStat();
     this.getComments();
     this.getLikes();
@@ -37,6 +47,21 @@ export class AllUsersComponent implements OnInit {
       this.pub = data;
     });
     return this.pub;
+  }
+
+  // getFollowers(id) {
+  //   this.userServ.findUserById(id).subscribe(async (res) => {
+  //     this.followers.push(res);
+  //   });
+  //   return this.followers;
+  // }
+
+  getProjects(id) {
+    this.projService.getProjectsByUserId(id).subscribe((data) => {
+      this.proj.push(data);
+      this.proj = data;
+    });
+    return this.proj;
   }
 
   getComments() {
@@ -71,6 +96,7 @@ export class AllUsersComponent implements OnInit {
       this.users = data;
     });
   }
+
   chartStat() {
     var canvas: any = document.getElementById("chartBig");
     var ctx = canvas.getContext("2d");
@@ -101,10 +127,11 @@ export class AllUsersComponent implements OnInit {
             pointRadius: 4,
             data: [
               this.getPublications(this.hoveredUser["_id"]).length,
-              10,
+              this.getProjects(this.hoveredUser["_id"]).length,
               this.getLikes(),
               this.getComments(),
-              15,
+              12,
+              // this.getFollowers(this.hoveredUser["_id"]),
               44,
             ],
           },
@@ -120,13 +147,13 @@ export class AllUsersComponent implements OnInit {
           backgroundColor: "#fff",
           titleFontColor: "#ccc",
           bodyFontColor: "#666",
-          bodySpacing: 4,
-          xPadding: 12,
-          mode: "nearest",
-          intersect: 0,
-          position: "nearest",
+          // bodySpacing: 4,
+          // xPadding: 12,
+          // mode: "nearest",
+          // intersect: 0,
+          // position: "nearest",
         },
-        responsive: true,
+        // responsive: true,
         scales: {
           yAxes: [
             {
