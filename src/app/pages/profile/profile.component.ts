@@ -69,9 +69,11 @@ export class ProfileComponent implements OnInit {
 
   getcoutReationPublicationReply(message: number) {
     this.coutReationPublication = message;
+    this.ref.detectChanges();
   }
   getcoutVueProjectReply(message: number) {
     this.countVueProject = message;
+    this.ref.detectChanges();
   }
 
   async getPubliction() {

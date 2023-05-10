@@ -76,13 +76,13 @@ export class ForYouListComponent implements OnInit {
               (itam) => itam["idUser"] === this.idUser
             );
             let value = this.coutReationPublication;
-            console.log("sup", value--);
+            value--;
             this.coutReationPublicationReply.emit(value);
             await element["reaction"].splice(index, 1);
             this.ref.detectChanges();
           } else {
             let value = this.coutReationPublication;
-            console.log("ajout", value++);
+            value++;
             this.coutReationPublicationReply.emit(value);
             await element["reaction"].push({ idUser: this.idUser });
             this.ref.detectChanges();

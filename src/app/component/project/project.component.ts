@@ -61,11 +61,6 @@ export class ProjectComponent implements OnInit {
               coutCommentaire,
             };
             this.projectsCopy.push(itemCopy);
-            console.log(
-              "test user aman",
-              this.projectsCopy[0]["userData"]["firstname"]
-            );
-
             let imageforpub = [];
             for (let itam of itemCopy.img) {
               this.publicationService

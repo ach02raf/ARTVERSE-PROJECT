@@ -29,8 +29,7 @@
 
             <button
               class="btn btn-warning mt-4"
-              (click)="openModale(challenge['_id'])"
-            >
+              (click)="openModale(challenge['_id'])">
               Appliquer maintenant
             </button>
           </div>
@@ -40,8 +39,7 @@
               class="w-50"
               *ngIf="challenge['image']"
               [showIndicators]="false"
-              pause
-            >
+              pause>
               <slide *ngFor="let img of challenge['image']" class="text-center">
                 <img [src]="getImage(img['idimg'], challenge['_id'])" />
               </slide>
@@ -77,21 +75,18 @@
 
             <p
               class="text-white p-3 d-flex align-items-center"
-              style="padding-left: 20px"
-            >
+              style="padding-left: 20px">
               <span class=""><i class="fas fa-trophy mr-1"></i>Winner :</span>
               <a
                 class="text-danger font-weight-bold"
                 [routerLink]="[
                   '/profile',
                   challenge['winnersData']['username']
-                ]"
-              >
+                ]">
                 <img
                   alt="... "
                   class="avatar img-raised ml-4 mr-2 mt-2"
-                  src="assets/img/james.jpg "
-                />
+                  src="assets/img/james.jpg " />
                 {{ challenge["winnersData"]["firstname"] }}
                 {{ challenge["winnersData"]["lastname"] }}
               </a>
@@ -120,8 +115,7 @@
   class="modal fade modal-black"
   #myModal="bs-modal"
   id="myModal"
-  role="dialog"
->
+  role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header justify-content-center">
@@ -130,8 +124,7 @@
           class="close"
           data-dismiss="modal"
           type="button"
-          (click)="myModal.hide()"
-        >
+          (click)="myModal.hide()">
           <i class="tim-icons icon-simple-remove"> </i>
         </button>
       </div>
@@ -158,49 +151,25 @@
                   multiple
                   class="custom-file-input"
                   id="customFile"
-                  (change)="onFileSelected($event)"
-                />
+                  (change)="onFileSelected($event)" />
               </div>
               <carousel *ngIf="images" [showIndicators]="false" pause>
                 <slide
                   *ngFor="let image of images; let i = index"
-                  class="text-center"
-                >
+                  class="text-center">
                   <button
                     class="btn btn-primary btn-fab btn-icon btn-round"
-                    (click)="clearSelectedImage(i)"
-                  >
+                    (click)="clearSelectedImage(i)">
                     <i class="tim-icons icon-gift-2"></i>
                   </button>
                   <img
                     *ngIf="image"
                     class="d-block w-100"
                     [src]="image['url']"
-                    [alt]="image['name']"
-                  />
+                    [alt]="image['name']" />
                 </slide>
               </carousel>
             </div>
-            <carousel *ngIf="images.length != 0" [showIndicators]="false" pause>
-              <slide
-                *ngFor="let image of images; let i = index"
-                class="text-center"
-              >
-                <button
-                  class="btn btn-primary btn-fab btn-icon btn-round"
-                  (click)="clearSelectedImage(i)"
-                >
-                  <i class="tim-icons icon-gift-2"></i>
-                </button>
-                <img
-                  *ngIf="image"
-                  class="d-block w-100"
-                  [src]="image['url']"
-                  [alt]="image['name']"
-                />
-              </slide>
-            </carousel>
-
             <div class="row">
               <div class="col">
                 <button type="submit" class="btn btn-primary mt-4">
