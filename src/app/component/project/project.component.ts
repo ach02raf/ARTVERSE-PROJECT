@@ -1,4 +1,11 @@
-import { Component, Input, OnInit } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from "@angular/core";
 import { AuthentificationService } from "src/app/services/authentification.service";
 import { ProjectService } from "src/app/services/project.service";
 import { PublicationService } from "src/app/services/publication.service";
@@ -17,13 +24,16 @@ export class ProjectComponent implements OnInit {
   Listimage = [];
   ListCopy = [];
   idUser: any;
+  nombreVueProject: number = 0;
   @Input() source: string;
   @Input() idprofile: string;
+  @Output() coutVueProjectReply = new EventEmitter<number>();
 
   constructor(
     private projectService: ProjectService,
     private authserv: AuthentificationService,
     private sanitizer: DomSanitizer,
+    private ref: ChangeDetectorRef,
     private publicationService: PublicationService,
     private loggedUserServ: LoggedInUserService
   ) {
@@ -36,12 +46,11 @@ export class ProjectComponent implements OnInit {
 
       for (let item of data) {
         let shouldAddItem = true;
-
         if (this.source === "profile" && item["Id_user"] !== this.idprofile) {
           shouldAddItem = false;
         }
-
         if (shouldAddItem) {
+          this.nombreVueProject += await item["vueNumber"];
           this.authserv.findUserById(item.Id_user).subscribe((userData) => {
             let countReaction = item["reaction"].length;
             let coutCommentaire = item["commentaires"].length;
@@ -75,6 +84,8 @@ export class ProjectComponent implements OnInit {
           });
         }
       }
+      this.coutVueProjectReply.emit(this.nombreVueProject);
+      this.ref.detectChanges();
     });
   }
   async vueCompt(project: any) {
@@ -88,12 +99,15 @@ export class ProjectComponent implements OnInit {
         }
         if (verif) {
           item["vueNumber"]++;
+          this.nombreVueProject++;
+          this.coutVueProjectReply.emit(this.nombreVueProject);
           await item["vueUsers"].push({ id: this.idUser });
           this.projectService
             .updateVueProject(item["_id"], item["vueNumber"], item["vueUsers"])
             .subscribe((res) => {
               console.log(res);
             });
+          this.ref.detectChanges();
         }
       }
     }

@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
   Listimage = [];
   isCollapsedProfile: boolean[] = [];
   coutReationPublication: number = 0;
-  countVueProject: any = 0;
+  countVueProject: number = 0;
   constructor(
     private authServ: AuthentificationService,
     private userServ: UserService,
@@ -67,13 +67,16 @@ export class ProfileComponent implements OnInit {
     this.ref.detectChanges();
   }
 
-  async getcoutReationPublicationReply(message: number) {
-    this.coutReationPublication = await message;
+  getcoutReationPublicationReply(message: number) {
+    this.coutReationPublication = message;
   }
+  getcoutVueProjectReply(message: number) {
+    this.countVueProject = message;
+  }
+
   async getPubliction() {
     this.publicationService.getPost().subscribe(async (data) => {
       this.List = await data;
-      console.log("count reaction", data);
 
       for (let item of data) {
         let shouldAddItem = true;

@@ -178,7 +178,10 @@
               </ng-template>
               <app-project
                 [source]="source"
-                [idprofile]="this.user['_id']"></app-project>
+                [idprofile]="this.user['_id']"
+                (coutVueProjectReply)="
+                  getcoutVueProjectReply($event)
+                "></app-project>
             </tab>
             <tab>
               <ng-template tabHeading>
@@ -190,8 +193,9 @@
                 [ListCopy]="ListCopy"
                 [isCollapsed]="isCollapsedProfile"
                 [coutReationPublication]="coutReationPublication"
-                (coutReationPublicationReply)="getcoutReationPublicationReply($event)"
-                ></app-for-you-list>
+                (coutReationPublicationReply)="
+                  getcoutReationPublicationReply($event)
+                "></app-for-you-list>
             </tab>
           </tabset>
         </div>
