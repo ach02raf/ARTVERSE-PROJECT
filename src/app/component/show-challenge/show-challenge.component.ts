@@ -34,6 +34,8 @@ export class ShowChallengeComponent implements OnInit {
             this.challengesCopy.push({ ...item, winnersData: data });
           });
    
+          }else{
+            this.challengesCopy.push({ ...item });
           }
         }}
     );
