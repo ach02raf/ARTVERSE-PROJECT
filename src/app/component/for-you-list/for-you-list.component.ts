@@ -5,11 +5,12 @@ import {
   Input,
   ViewChild,
   OnInit,
+  Output,
+  EventEmitter,
 } from "@angular/core";
 import { PublicationService } from "../../services/publication.service";
 import { LoggedInUserService } from "src/app/services/logged-in-user.service";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-
 import { SinglesService } from "src/app/services/singles.service";
 @Component({
   selector: "app-for-you-list",
@@ -21,6 +22,8 @@ export class ForYouListComponent implements OnInit {
   @Input() ListCopy: any;
   @Input() Listimage: any;
   @Input() isCollapsed: boolean[] = [];
+  @Input() coutReationPublication: number;
+  @Output() coutReationPublicationReply = new EventEmitter<number>();
   @ViewChild("modalContent", { static: true }) modalContent: any;
   constructor(
     private publicationService: PublicationService,
@@ -38,9 +41,7 @@ export class ForYouListComponent implements OnInit {
   repostComments: string;
   text: String;
   itemId: string;
-  ngOnInit(): void {
-    this.ref.detectChanges();
-  }
+  ngOnInit(): void {}
   getImage(idimage: any, idpub: any) {
     for (let item of this.Listimage) {
       if (item.idpub === idpub) {
@@ -74,10 +75,15 @@ export class ForYouListComponent implements OnInit {
             const index = await element["reaction"].findIndex(
               (itam) => itam["idUser"] === this.idUser
             );
+            let value = this.coutReationPublication;
+            console.log("sup", value--);
+            this.coutReationPublicationReply.emit(value);
             await element["reaction"].splice(index, 1);
-
             this.ref.detectChanges();
           } else {
+            let value = this.coutReationPublication;
+            console.log("ajout", value++);
+            this.coutReationPublicationReply.emit(value);
             await element["reaction"].push({ idUser: this.idUser });
             this.ref.detectChanges();
           }
@@ -128,8 +134,15 @@ export class ForYouListComponent implements OnInit {
   onSubmit(event) {
     event.preventDefault();
     if (this.repostReason !== "Other") {
+      console.log("Repost reason:", this.repostReason);
       this.text = this.repostReason;
     } else {
+      console.log(
+        "Repost reason:",
+        this.repostReason,
+        "Repost comments:",
+        this.repostComments
+      );
       this.text = this.repostComments;
     }
 
@@ -141,7 +154,9 @@ export class ForYouListComponent implements OnInit {
       })
       .subscribe(
         (response) => {
-          this.modalService.dismissAll(this.modalContent);
+          console.log("ok", response);
+
+          const modalRef = this.modalService.dismissAll;
           alert("your alert has been send ");
           return;
         },

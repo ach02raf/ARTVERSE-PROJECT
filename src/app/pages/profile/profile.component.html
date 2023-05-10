@@ -44,12 +44,16 @@
                   <li
                     class="list-group-item d-flex justify-content-between align-items-center">
                     Nombre de vues des projets
-                    <span class="badge badge-info badge-pill">14</span>
+                    <span class="badge badge-info badge-pill">{{
+                      countVueProject
+                    }}</span>
                   </li>
                   <li
                     class="list-group-item d-flex justify-content-between align-items-center">
                     Appréciations
-                    <span class="badge badge-info badge-pill">2</span>
+                    <span class="badge badge-info badge-pill">{{
+                      coutReationPublication
+                    }}</span>
                   </li>
                   <li
                     class="list-group-item d-flex justify-content-between align-items-center">
@@ -174,7 +178,10 @@
               </ng-template>
               <app-project
                 [source]="source"
-                [idprofile]="this.user['_id']"></app-project>
+                [idprofile]="this.user['_id']"
+                (coutVueProjectReply)="
+                  getcoutVueProjectReply($event)
+                "></app-project>
             </tab>
             <tab>
               <ng-template tabHeading>
@@ -184,7 +191,11 @@
               <app-for-you-list
                 [Listimage]="Listimage"
                 [ListCopy]="ListCopy"
-                [isCollapsed]="isCollapsedProfile"></app-for-you-list>
+                [isCollapsed]="isCollapsedProfile"
+                [coutReationPublication]="coutReationPublication"
+                (coutReationPublicationReply)="
+                  getcoutReationPublicationReply($event)
+                "></app-for-you-list>
             </tab>
           </tabset>
         </div>
