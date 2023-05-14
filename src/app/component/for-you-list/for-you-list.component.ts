@@ -79,14 +79,13 @@ export class ForYouListComponent implements OnInit {
             value--;
             this.coutReationPublicationReply.emit(value);
             await element["reaction"].splice(index, 1);
-            this.ref.detectChanges();
           } else {
             let value = this.coutReationPublication;
             value++;
             this.coutReationPublicationReply.emit(value);
             await element["reaction"].push({ idUser: this.idUser });
-            this.ref.detectChanges();
           }
+          this.ref.detectChanges();
         }
       }
     }
