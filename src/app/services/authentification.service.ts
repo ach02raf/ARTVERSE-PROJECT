@@ -21,7 +21,10 @@ export class AuthentificationService {
   constructor(private http: HttpClient) {}
 
   inscriptionPost(user: any): Observable<any> {
-    return this.http.post("http://localhost:5000/user/inscription", user);
+    return this.http.post(
+      "https://artverse-project-api-nodejs.onrender.com/user/inscription",
+      user
+    );
   }
 
   getUserID() {
@@ -53,7 +56,10 @@ export class AuthentificationService {
     console.log("email service" + email);
 
     return this.http
-      .post("http://localhost:5000/user/forgotPassword", { email: email })
+      .post(
+        "https://artverse-project-api-nodejs.onrender.com/user/forgotPassword",
+        { email: email }
+      )
       .pipe(
         tap((response) => {
           console.log("sucess", response);
@@ -65,19 +71,25 @@ export class AuthentificationService {
       );
   }
   login(credentials: { password: string; email: string }): Observable<any> {
-    return this.http.post("http://localhost:5000/user/login", credentials);
+    return this.http.post(
+      "https://artverse-project-api-nodejs.onrender.com/user/login",
+      credentials
+    );
   }
 
   resetPassword(token, password) {
     return this.http
-      .patch(`http://localhost:5000/user/resetPassword/${token}`, {
-        password: `${password}`,
-      })
+      .patch(
+        `https://artverse-project-api-nodejs.onrender.com/user/resetPassword/${token}`,
+        {
+          password: `${password}`,
+        }
+      )
       .pipe(
         map((response) => {
           // Extract token from response and save to localStorage
           const token = response["token"];
-          console.log("toooken", token); 
+          console.log("toooken", token);
 
           localStorage.setItem("token", token);
           console.log("reeeesss", response["token"]);
@@ -88,7 +100,9 @@ export class AuthentificationService {
   }
 
   findUserById(id: any) {
-    return this.http.get(`http://localhost:5000/user/getUserById/${id}`);
+    return this.http.get(
+      `https://artverse-project-api-nodejs.onrender.com/user/getUserById/${id}`
+    );
   }
   handleError(error: HttpErrorResponse) {
     let msg = "";
@@ -99,6 +113,6 @@ export class AuthentificationService {
       // server-side error
       msg = `Error Code : ${error.status}\nMessage: ${error.message}`;
     }
-   return throwError(msg);
+    return throwError(msg);
   }
 }

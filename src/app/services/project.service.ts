@@ -5,10 +5,14 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class ProjectService {
-  API_Creat_project = "http://localhost:5000/Project/PostPrpject";
-  API_Get_project = "http://localhost:5000/Project/GetProjects";
-  apiUrlGetOneImg = "http://localhost:5000/Posts/getImage";
-  apiUrlUpdateProject = "http://localhost:5000/Project/updateProject";
+  API_Creat_project =
+    "https://artverse-project-api-nodejs.onrender.com/Project/PostPrpject";
+  API_Get_project =
+    "https://artverse-project-api-nodejs.onrender.com/Project/GetProjects";
+  apiUrlGetOneImg =
+    "https://artverse-project-api-nodejs.onrender.com/Posts/getImage";
+  apiUrlUpdateProject =
+    "https://artverse-project-api-nodejs.onrender.com/Project/updateProject";
 
   constructor(private http: HttpClient) {}
 
@@ -17,7 +21,9 @@ export class ProjectService {
   }
 
   getProjectsByUserId(id: any) {
-    return this.http.get(`http://localhost:5000/Project/getProjects/${id}`);
+    return this.http.get(
+      `https://artverse-project-api-nodejs.onrender.com/Project/getProjects/${id}`
+    );
   }
 
   getAllProject(): Observable<any> {

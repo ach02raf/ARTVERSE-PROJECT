@@ -5,14 +5,22 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class PublicationService {
-  apiUrlGetHashtag = "http://localhost:5000/Posts/GetTag";
-  apiUrlCreatPost = "http://localhost:5000/Posts/PostPublication";
-  apiUrlGetPost = "http://localhost:5000/Posts/getPublications";
-  apiUrlGetOneImg = "http://localhost:5000/Posts/getImage";
-  apiUrReactionPost = "http://localhost:5000/Posts/reaction";
-  apiUrcomm = "http://localhost:5000/Posts/addcomment";
-  apiUrcommreaction = "http://localhost:5000/Posts/commreaction";
-  apiaddcommentReply = "http://localhost:5000/Posts/addcommentReply";
+  apiUrlGetHashtag =
+    "https://artverse-project-api-nodejs.onrender.com/Posts/GetTag";
+  apiUrlCreatPost =
+    "https://artverse-project-api-nodejs.onrender.com/Posts/PostPublication";
+  apiUrlGetPost =
+    "https://artverse-project-api-nodejs.onrender.com/Posts/getPublications";
+  apiUrlGetOneImg =
+    "https://artverse-project-api-nodejs.onrender.com/Posts/getImage";
+  apiUrReactionPost =
+    "https://artverse-project-api-nodejs.onrender.com/Posts/reaction";
+  apiUrcomm =
+    "https://artverse-project-api-nodejs.onrender.com/Posts/addcomment";
+  apiUrcommreaction =
+    "https://artverse-project-api-nodejs.onrender.com/Posts/commreaction";
+  apiaddcommentReply =
+    "https://artverse-project-api-nodejs.onrender.com/Posts/addcommentReply";
   constructor(private http: HttpClient) {}
 
   getMyHashtag(): Observable<any> {
@@ -47,20 +55,28 @@ export class PublicationService {
   }
 
   getPostsByUserId(id: any) {
-    return this.http.get(`http://localhost:5000/Posts/getPublications/${id}`);
+    return this.http.get(
+      `https://artverse-project-api-nodejs.onrender.com/Posts/getPublications/${id}`
+    );
   }
 
   getPostByID(id: any): Observable<any> {
     return this.http.get(
-      `http://localhost:5000/Posts/getPublicationsByID/${id}`
+      `https://artverse-project-api-nodejs.onrender.com/Posts/getPublicationsByID/${id}`
     );
   }
 
   deletePubliction(id: any): Observable<any> {
-    return this.http.post("http://localhost:5000/Posts/deletePost", id);
+    return this.http.post(
+      "https://artverse-project-api-nodejs.onrender.com/Posts/deletePost",
+      id
+    );
   }
 
   deleteMyPubliction(id: any): Observable<any> {
-    return this.http.post("http://localhost:5000/Posts/deleteMyPost", id);
+    return this.http.post(
+      "https://artverse-project-api-nodejs.onrender.com/Posts/deleteMyPost",
+      id
+    );
   }
 }

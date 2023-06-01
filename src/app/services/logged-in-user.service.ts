@@ -22,6 +22,8 @@ export class LoggedInUserService {
   }
 
   findUserById(id: any) {
-    return this.http.get(`http://localhost:5000/user/getUserById/${id}`);
+    return this.http.get(
+      `https://artverse-project-api-nodejs.onrender.com/user/getUserById/${id}`
+    );
   }
 }

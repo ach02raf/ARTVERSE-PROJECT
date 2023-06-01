@@ -8,24 +8,34 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   findUserById(id: any) {
-    return this.http.get(`http://localhost:5000/user/getUserById/${id}`);
+    return this.http.get(
+      `https://artverse-project-api-nodejs.onrender.com/user/getUserById/${id}`
+    );
   }
 
   findUserByUsername(username: any) {
     return this.http.get(
-      `http://localhost:5000/user/getUserByUsername/${username}`
+      `https://artverse-project-api-nodejs.onrender.com/user/getUserByUsername/${username}`
     );
   }
 
   getAllUsers() {
-    return this.http.get(`http://localhost:5000/user/UserList`);
+    return this.http.get(
+      `https://artverse-project-api-nodejs.onrender.com/user/UserList`
+    );
   }
 
   updatefollow(body: any) {
-    return this.http.post(`http://localhost:5000/user/ajouterAbonnes`, body);
+    return this.http.post(
+      `https://artverse-project-api-nodejs.onrender.com/user/ajouterAbonnes`,
+      body
+    );
   }
 
   removefollow(body: any) {
-    return this.http.post(`http://localhost:5000/user/supprimerAbonnes`, body);
+    return this.http.post(
+      `https://artverse-project-api-nodejs.onrender.com/user/supprimerAbonnes`,
+      body
+    );
   }
 }
